@@ -1,0 +1,171 @@
+
+# big.js #
+
+A small, fast Javascript library for arbitrary-precision arithmetic with decimal numbers.  
+The little sister to [bignumber.js](https://github.com/MikeMcl/bignumber.js/).
+     
+## Features
+
+  - Faster, smaller, and easier-to-use than Javascript versions of Java's BigDecimal
+  - Only 2.5 KB minified and gzipped
+  - Simple API
+  - Replicates the `toExponential`, `toFixed` and `toPrecision` methods of Javascript's Number type
+  - Includes a `sqrt` method
+  - Stores values in an accessible decimal floating point format
+  - No dependencies
+  - Comprehensive documentation and test set 
+
+## Load
+
+The library is the single Javascript file *big.js*   
+(or *big.min.js*, which is *big.js* minified using uglify-js).   
+
+It can be loaded via a script tag in an HTML document for the browser
+
+    <script src='./relative/path/to/big.js'></script>
+   
+or as a CommonJS, [Node.js](http://nodejs.org) or AMD module using `require`. 
+
+For Node, put the *big.js* file into the same directory as the file that is requiring it and use
+
+    var Big = require('./big'); 
+
+or put it in a *node_modules* directory within the directory and use
+
+    var Big = require('big'); 
+ 
+To load with AMD loader libraries such as [requireJS](http://requirejs.org/):
+
+    require(['big'], function(Big) {  
+        // Use Big here in local scope. No global Big. 
+    });
+
+## Use
+
+*In all examples below, `var`, semicolons and `toString` calls are not shown.    
+If a commented-out value is in quotes it means `toString` has been called on the preceding expression.*
+
+The library exports a single function: Big, the constructor of Big number instances.    
+It accepts a value of type Number, String or Big number Object.  
+
+    x = new Big(123.4567)
+    y = Big('123456.7e-3')        // 'new' is optional
+    z = new Big(x)
+    x.cmp(y) === y.cmp(z)         // true
+
+A Big number is immutable in the sense that it is not changed by its methods.  
+
+    0.3 - 0.1                     // 0.19999999999999998  
+    x = new Big(0.3)            
+    x.minus(0.1)                  // "0.2"
+    x                             // "0.3"
+
+The methods that return a Big number can be chained.
+
+    x.div(y).plus(z).times(9).minus('1.234567801234567e+8').plus(976.54321).div('2598.11772')   
+    x.sqrt().div(y).pow(3).cmp(y.mod(z)) == 1      // true
+
+Like Javascript's Number type, there are `toExponential`, `toFixed` and `toPrecision` methods.
+
+    x = new Big(255.5)        
+    x.toExponential(5)             // "2.55500e+2"
+    x.toFixed(5)                   // "255.50000"
+    x.toPrecision(5)               // "255.50"
+
+The maximum number of decimal places and the rounding mode used to round the results of the `div`, `sqrt` and `pow` 
+(with negative exponent) methods is determined by the value of the `DP` and `RM` properties of the `Big` number constructor.       
+The other methods always give the exact result.
+
+    Big.DP = 10
+    Big.RM = 1
+
+    x = new Big(2);
+    y = new Big(3);        
+    z = x.div(y)                 // "0.6666666667"
+    z.sqrt()                     // "0.8164965809"
+    z.pow(-3)                    // "3.3749999995"
+    x.times(y)                   // "1.15470053845773502692"
+    x.times(y).round(10)         // "1.1547005385"
+
+The value of a Big number is stored in a decimal floating point format in terms of a coefficient, exponent and sign.
+
+    x = new Big(-123.456); 
+    x.c                          // "1,2,3,4,5,6"    coefficient (i.e. significand)
+    x.e                          // 2                exponent 
+    x.s                          // -1               sign
+
+For futher information see the API reference in the *doc* folder.
+
+## Test
+
+The *test* directory contains the test scripts for each Big number method. 
+
+The tests can be run with Node or a browser.   
+
+To test a single method, from a command-line shell at the *test/* directory, use e.g.
+
+    $ node toFixed
+
+To test all the methods
+
+    $ node every-test
+
+For the browser, see *single-test.html* and *every-test.html* in the *test/browser/* directory.    
+*big-vs-number.html* enables some of the methods of big.js to be compared with those of Javascript's Number type.      
+
+## Performance
+
+The *perf* directory contains two applications and a *lib* directory containing the BigDecimal libraries used by both.   
+ 
+*big-vs-bigdecimal.html* tests the performance of big.js against the Javascript translations of two versions of BigDecimal, its use should be more or less self-explanatory.
+(The GWT version doesn't work in IE 6.) 
+
+* GWT: java.math.BigDecimal   
+<https://github.com/iriscouch/bigdecimal.js>
+* ICU4J: com.ibm.icu.math.BigDecimal    
+<https://github.com/dtrebbien/BigDecimal.js>     
+
+The BigDecimal in Node's npm registry is the GWT version; unfortunately, it has serious bugs, see the Node script 
+*perf/lib/bigdecimal_GWT/bugs.js* for examples of flaws in its *remainder*, *divide* and *compareTo* methods.
+
+*bigtime.js* is a Node command-line application which tests the performance of big.js against the GWT version of 
+BigDecimal from the npm registry.  
+
+For example, to compare the time taken by the big.js `plus` method and the BigDecimal `add` method:  
+    
+    $ node bigtime plus 10000 40      
+    
+This will time 10000 calls to each, using operands of up to 40 random digits and will check that the results match.   
+   
+For help:
+
+    $ node bigtime -h
+
+## Build
+
+I.e. minify.
+
+For Node, if uglify-js is installed globally ( `npm install uglify-js -g` ) then 
+
+    uglifyjs -o ./big.min.js ./big.js
+
+will create *big.min.js*.   
+
+## Feedback
+
+Bugs/issues/comments to:
+
+Michael Mclaughlin  
+<a href="mailto:M8ch88l@gmail.com">M8ch88l@gmail.com</a>
+
+## Licence
+
+See LICENCE.
+
+## Change Log
+
+####1.0.0 
+
+
+* 7/11/2012
+* Initial release
