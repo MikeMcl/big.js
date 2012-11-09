@@ -2,11 +2,12 @@
 # big.js #
 
 A small, fast Javascript library for arbitrary-precision arithmetic with decimal numbers.  
+
 The little sister to [bignumber.js](https://github.com/MikeMcl/bignumber.js/).
      
 ## Features
 
-  - Faster, smaller, and easier-to-use than Javascript versions of Java's BigDecimal
+  - Faster, smaller and easier-to-use than Javascript versions of Java's BigDecimal
   - Only 2.5 KB minified and gzipped
   - Simple API
   - Replicates the `toExponential`, `toFixed` and `toPrecision` methods of Javascript's Number type
@@ -125,8 +126,7 @@ The *perf* directory contains two applications and a *lib* directory containing 
 * ICU4J: com.ibm.icu.math.BigDecimal    
 <https://github.com/dtrebbien/BigDecimal.js>     
 
-The BigDecimal in Node's npm registry is the GWT version; unfortunately, it has serious bugs, see the Node script 
-*perf/lib/bigdecimal_GWT/bugs.js* for examples of flaws in its *remainder*, *divide* and *compareTo* methods.
+The BigDecimal in Node's npm registry is the GWT version. Despite its seeming popularity I have found it to have some serious bugs, see the Node script *perf/lib/bigdecimal_GWT/bugs.js* for examples of flaws in its *remainder*, *divide* and *compareTo* methods.   
 
 *bigtime.js* is a Node command-line application which tests the performance of big.js against the GWT version of 
 BigDecimal from the npm registry.  
@@ -166,6 +166,4 @@ See LICENCE.
 
 ####1.0.0 
 
-
-* 7/11/2012
-* Initial release
+* 7/11/2012 Initial release
