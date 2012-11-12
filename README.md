@@ -85,8 +85,8 @@ The other methods always give the exact result.
     z = x.div(y)                 // "0.6666666667"
     z.sqrt()                     // "0.8164965809"
     z.pow(-3)                    // "3.3749999995"
-    x.times(y)                   // "1.15470053845773502692"
-    x.times(y).round(10)         // "1.1547005385"
+    z.times(z)                   // "0.44444444448888888889"
+    z.times(z).round(10)         // "0.4444444445"
 
 The value of a Big number is stored in a decimal floating point format in terms of a coefficient, exponent and sign.
 
