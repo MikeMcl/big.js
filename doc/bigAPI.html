@@ -142,8 +142,9 @@ code,pre{font-family:Monaco,Consolas,"Lucida Console",monospace;
         notation.
       </dd>
       <dd>
-        There is no limit to the number of digits of a value of type
-        <em>string</em> (other than that of Javascript's maximum array size).
+        There is no limit to the number of digits of a <em>string</em> value 
+        (other than that of Javascript's maximum array size), but the largest
+        recommended exponent magnitude is 1e+6.
       </dd>
       <dd>
         <code>Infinity</code>, <code>NaN</code> and hexadecimal literal
@@ -155,10 +156,6 @@ code,pre{font-family:Monaco,Consolas,"Lucida Console",monospace;
     <p>Returns a new instance of a Big number object.</p>
     <p>
       Throws <code>NaN</code> on an invalid <code>value</code>.
-    </p>
-    <p>
-      The largest possible magnitude of a Big number is 9.999...e+1000000000<br />
-      The smallest possible magnitude of a non-zero Big number is 1e-1000000000
     </p>
     <pre>
 x = new Big(9)                       // '9'
@@ -174,7 +171,7 @@ new Big('-735.0918e-430')            // '-7.350918e-428'</pre>
     
     <h5 id="dp">DP</h5>
     <p>
-      <i>number</i> : integer, 0 to 1e+9 inclusive<br />
+      <i>number</i> : integer, 0 to 1e+6 inclusive<br />
       Default value: <code>20</code>
     </p>
     <p>
@@ -409,7 +406,7 @@ new Big(2).pow(1e+6)       // Time taken (Node.js): 9 minutes 34 secs.</pre>
       &rArr; <i>Big</i></code>
     </h5>
     <p>
-      <code>dp</code> : <i>number</i> : integer, 0 to 1e+9 inclusive
+      <code>dp</code> : <i>number</i> : integer, 0 to 1e+6 inclusive
       <br />
       <code>rm</code> : <i>number</i> : 0, 1 or 2
     </p>
@@ -483,7 +480,7 @@ Big('7e+500').times(y)     // '1.26e+501'</pre>
       toExponential<code class='inset'>.toExponential( [dp] ) &rArr;
       <i>string</i></code>
     </h5>
-    <p><code>dp</code> : <i>number</i> : integer, 0 to 1e+9 inclusive</p>
+    <p><code>dp</code> : <i>number</i> : integer, 0 to 1e+6 inclusive</p>
     <p>
       Returns a string representing the value of this Big number in exponential
       notation to a fixed number of decimal places <code>dp</code>.
@@ -524,7 +521,7 @@ y.toExponential(3)         // '4.560e+1'</pre>
       <i>string</i></code>
     </h5>
     <p>
-      <code>dp</code> : <i>number</i> : integer, 0 to 1e+9 inclusive
+      <code>dp</code> : <i>number</i> : integer, 0 to 1e+6 inclusive
     </p>
     <p>
       Returns a string representing the value of this Big number in normal
@@ -568,7 +565,7 @@ y.toFixed(3)               // '45.600'</pre>
       toPrecision<code class='inset'>.toPrecision( [sd] ) &rArr; 
       <i>string</i></code>
     </h5>
-    <p><code>sd</code> : <i>number</i> : integer, 1 to 1e+9 inclusive</p>
+    <p><code>sd</code> : <i>number</i> : integer, 1 to 1e+6 inclusive</p>
     <p>
       Returns a string representing the value of this Big number to the
       specified number of significant digits <code>sd</code>.
@@ -664,7 +661,7 @@ x.valueOf()                // '1.777e+459'</pre>
       	<td class='centre' id='exponent'><b>e</b></td>
       	<td>exponent</td>
       	<td><i>number</i></td>
-      	<td>Integer, -1e+9 to 1e+9 inclusive</td>
+      	<td>Integer, -1e+6 to 1e+6 inclusive</td>
       </tr>
       <tr>
       	<td class='centre' id='sign'><b>s</b></td>
