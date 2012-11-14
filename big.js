@@ -46,7 +46,8 @@
         /*
          * The exponent value at and above which 'toString' returns exponential notation.
          * Javascript's Number type: 21
-         * 1e+6 is the maximum recommended exponent value of a 'Big'.
+         * 1e+6 is the maximum recommended exponent value of a 'Big', though there is no
+         * enforcing or checking of a limit.
          */
         TO_EXP_POS = 21,                             // 0 to 1e+6
 
