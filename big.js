@@ -1,9 +1,9 @@
-/* big.js v1.0.0 https://github.com/MikeMcl/big.js/LICENCE */
+/* big.js v1.0.1 https://github.com/MikeMcl/big.js/LICENCE */
 ;(function ( global ) {
     'use strict';
 
     /*
-      big.js v1.0.0
+      big.js v1.0.1
       A small, fast Javascript library for arbitrary-precision arithmetic with decimal numbers. 
       https://github.com/MikeMcl/big.js/
       Copyright (c) 2012 Michael Mclaughlin <M8ch88l@gmail.com>
@@ -31,7 +31,7 @@
     Big['RM'] = 1;                                   // 0, 1 or 2
 
         // The maximum value of 'Big.DP'.
-    var MAX_DP = 1E9,                                // 0 to 1e+9
+    var MAX_DP = 1E6,                                // 0 to 1e+6
 
         // The maximum magnitude of the exponent argument to the 'pow' method.
         MAX_POWER = 1E6,                             // 1 to 1e+6
@@ -39,15 +39,16 @@
         /*
          * The exponent value at and beneath which 'toString' returns exponential notation.
          * Javascript's Number type: -7
+         * -1e+6 is the minimum recommended exponent value of a 'Big'.
          */
-        TO_EXP_NEG = -7,                             // 0 to -9007199254740992
+        TO_EXP_NEG = -7,                             // 0 to -1e+6
 
         /*
          * The exponent value at and above which 'toString' returns exponential notation.
          * Javascript's Number type: 21
-         * 9007199254740992 is Math.pow(2, 53), the maximum exponent value of a 'Big'.
+         * 1e+6 is the maximum recommended exponent value of a 'Big'.
          */
-        TO_EXP_POS = 21,                             // 0 to 9007199254740992
+        TO_EXP_POS = 21,                             // 0 to 1e+6
 
 
     /***********************************************************************************/
