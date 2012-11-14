@@ -15,8 +15,8 @@ div.container{width:600px;margin:30px 0 50px 190px}
 p{margin:0 0 1em;width:600px}
 pre,ul{margin:1em 0}
 h1,h2,h3,h4,h5{margin:0;padding:1.5em 0 0}
-h1,h2{padding:.75em 0}
-h1{font-size:3em;color:#fa6900}
+h1,h2{padding:.75em 0 1em}
+h1{font-size:2.75em;color:#fa6900}
 h2{font-size:2.25em;color:#fa6900}
 h3{font-size:1.75em;color:#69d2e7}
 h4{font-size:1.75em;color:#fa6900;padding-bottom:.75em}
@@ -28,7 +28,7 @@ dd{padding-top:.35em}
 b{font-weight:700}
 a,a:visited{color:#444;text-decoration:none}
 a:active,a:hover{outline:0;color:#000}
-.nav a:hover{text-decoration:underline}
+a:hover{text-decoration:underline}
 .nav a,.nav b,.nav a:visited{display:block;color:#fa6900;font-weight:700;
   margin-top:15px}
 .nav b{color:#69d2e7;margin-top:20px;cursor:default;width:auto}
@@ -107,7 +107,10 @@ code,pre{font-family:Monaco,Consolas,"Lucida Console",monospace;
 
     <h1>big.js</h1>
 
-    <p>A Javascript library for arbitrary-precision arithmetic.</p>
+    <p>
+      A small, fast, easy-to-use Javascript library for arbitrary-precision
+      decimal arithmetic.
+    </p>
 
     <p>
       <a href="https://github.com/MikeMcl/big.js">Hosted on GitHub</a>.
@@ -545,7 +548,7 @@ y.toExponential(3)         // '4.560e+1'</pre>
     </p>
     <p>
       If <code>dp</code> is omitted, or is <code>null</code> or
-      undefined, then the return value is the same as <code>.toString()</code>.
+      undefined, then the return value is simply the value in normal notation.
       This is  also unlike <code>Number.prototype.toFixed</code>, which returns
       the value to zero decimal places.
     </p>
@@ -714,8 +717,11 @@ x                          // '0.00001234'</pre>
       careful to avoid leading or trailing zeros (unless zero itself is being
       represented).
     </p>
-    <pre>// Minus zero is a valid Big number value
-
+    <p>
+      Minus zero is a valid Big number value, but like Javascript numbers the
+      minus sign is not shown.
+    </p>
+    <pre>
 x = new Number(-0)         // 0
 1 / x == -Infinity         // true
                            
@@ -869,7 +875,7 @@ z = x.multiply(y)                 // 4.1400000
       In the second example, the true range is 4.122744 to 4.157256 yet the
       BigDecimal answer of 4.1400000 indicates a range of 4.13999995 to
       4.14000005. Again, the precision implied by the trailing zeros is
-      misleading.
+      misleading and frankly it is a mystery to me why they are there.
     </p>
     <p>
       This library, like Javascript and most calculators, does not
