@@ -164,6 +164,10 @@ See LICENCE.
 
 ## Change Log
 
-####1.0.0 
-
+1.0.0  
+ 
 * 7/11/2012 Initial release
+
+1.0.1 
+
+* Changed default value of MAX_DP to 1E6  
