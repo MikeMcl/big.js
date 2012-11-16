@@ -1,7 +1,7 @@
 
 # big.js #
 
-A small, fast Javascript library for arbitrary-precision arithmetic with decimal numbers.  
+A small, fast Javascript library for arbitrary-precision decimal arithmetic.  
 
 The little sister to [bignumber.js](https://github.com/MikeMcl/bignumber.js/).
      
@@ -52,7 +52,7 @@ It accepts a value of type Number, String or Big number Object.
     x = new Big(123.4567)
     y = Big('123456.7e-3')        // 'new' is optional
     z = new Big(x)
-    x.cmp(y) === y.cmp(z)         // true
+    y.cmp(z) == 0                 // true
 
 A Big number is immutable in the sense that it is not changed by its methods.  
 
