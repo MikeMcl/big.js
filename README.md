@@ -171,3 +171,5 @@ See LICENCE.
 1.0.1 
 
 * Changed default value of MAX_DP to 1E6  
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/cc8d37bdc8c4ef250f2b83fd5b7a101a "githalytics.com")](http://githalytics.com/MikeMcl/big.js)
