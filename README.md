@@ -31,9 +31,7 @@ For Node, put the *big.js* file into the same directory as the file that is requ
 
     var Big = require('./big'); 
 
-or put it in a *node_modules* directory within the directory and use
-
-    var Big = require('big'); 
+or put it in a *node_modules* directory within the directory and use `require('big')`. 
  
 To load with AMD loader libraries such as [requireJS](http://requirejs.org/):
 
@@ -157,6 +155,13 @@ Bugs/issues/comments to:
 
 Michael Mclaughlin  
 <a href="mailto:M8ch88l@gmail.com">M8ch88l@gmail.com</a>
+
+Bitcoin donations to:  
+**1NV9EmmWfB5d9MkDsyevgBH6jpzhRxgyDK**  
+Thank you!
+
+
+
 
 ## Licence
 
