@@ -156,12 +156,9 @@ Bugs/issues/comments to:
 Michael Mclaughlin  
 <a href="mailto:M8ch88l@gmail.com">M8ch88l@gmail.com</a>
 
-Bitcoin donations to:  
-**1NV9EmmWfB5d9MkDsyevgBH6jpzhRxgyDK**  
-Thank you!
-
-
-
+Bitcoin donation to:  
+**1LS9yszMtSB6GkhHmB9yQoivTnry2m8QFJ**  
+Thank you
 
 ## Licence
 
