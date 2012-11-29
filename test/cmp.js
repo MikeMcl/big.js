@@ -4055,10 +4055,7 @@ var count = (function cmp(Big) {
     assertException(function () {new Big('12.345').cmp('- 99')}, ".cmp('- 99')");
     assertException(function () {new Big('12.345').cmp('9.9.9')}, ".cmp('9.9.9')");
     assertException(function () {new Big('12.345').cmp('10.1.0')}, ".cmp('10.1.0')");
-    assertException(function () {new Big('12.345').cmp('234.')}, ".cmp('234.')");
-    assertException(function () {new Big('12.345').cmp('.5')}, ".cmp('.5')");
     assertException(function () {new Big('12.345').cmp('0x16')}, ".cmp('0x16')");
-    assertException(function () {new Big('12.345').cmp('1e')}, ".cmp('1e')");
     assertException(function () {new Big('12.345').cmp('8 e')}, ".cmp('8 e')");
     assertException(function () {new Big('12.345').cmp('77-e')}, ".cmp('77-e')");
     assertException(function () {new Big('12.345').cmp('123e.0')}, ".cmp('123e.0')");

@@ -1025,6 +1025,18 @@ var count = (function toString(Big) {
     T('-0.00126806436344', '-0.001268064363440000000000000');
     T('162145242000', '00162145242000.0');
 
+    T('234', '234.');
+    T('0.5', '.5');
+    T('-0.1', '-.1');
+    T('-2', '-2.');
+    T('5', '5e');
+    T('10', '1.e1');
+    T('-5', '-5e');
+    T('1', '1e-');
+    T('0.1', '.1e');
+    T('-0.1', '-.1e');
+    T('40', '4.E1');
+
     assertException(function () {new Big(undefined)}, "new Big(undefined)");
     assertException(function () {new Big(null)}, "new Big(null)");
     assertException(function () {new Big(NaN)}, "new Big(NaN)");
@@ -1046,15 +1058,11 @@ var count = (function toString(Big) {
     assertException(function () {new Big('- 99')}, "new Big('- 99')");
     assertException(function () {new Big('9.9.9')}, "new Big('9.9.9')");
     assertException(function () {new Big('10.1.0')}, "new Big('10.1.0')");
-    assertException(function () {new Big('234.')}, "new Big('234.')");
-    assertException(function () {new Big('.5')}, "new Big('.5')");
     assertException(function () {new Big('0x16')}, "new Big('0x16')");
-    assertException(function () {new Big('1e')}, "new Big('1e')");
     assertException(function () {new Big('8 e')}, "new Big('8 e')");
     assertException(function () {new Big('77-e')}, "new Big('77-e')");
     assertException(function () {new Big('123e.0')}, "new Big('123e.0')");
     assertException(function () {new Big('4e1.')}, "new Big('4e1.')");
-    assertException(function () {new Big('4.E1')}, "new Big('4.E1')");
     assertException(function () {new Big('41a')}, "new Big('41a')");
     assertException(function () {new Big('99ee')}, "new Big('99ee')");
     assertException(function () {new Big('e0')}, "new Big('e0')");

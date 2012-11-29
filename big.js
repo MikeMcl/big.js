@@ -55,7 +55,7 @@
     /***********************************************************************************/
 
         P = Big.prototype,
-        isValid = /^-?\d+(?:\.\d+)?(?:e[+-]?\d+)?$/i,
+        isValid = /^-?\d*(?:\.\d*)?(?:e[+-]?\d*)?$/i,
         ONE = new Big(1);
 
 
@@ -89,7 +89,7 @@
         if ( n === 0 && 1 / n < 0 ) {
             n = '-0'
         // Ensure 'n' is string and check validity.
-        } else if ( !isValid.test(n += '') ) {
+        } else if ( !isValid.test(n += '') || n === '' || n[0] === 'e') {
             throw NaN
         }
 

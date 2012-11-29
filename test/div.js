@@ -9928,10 +9928,7 @@ var count = (function div(Big) {
     assertException(function () {new Big('12.345').div('- 99')}, ".div('- 99')");
     assertException(function () {new Big('12.345').div('9.9.9')}, ".div('9.9.9')");
     assertException(function () {new Big('12.345').div('10.1.0')}, ".div('10.1.0')");
-    assertException(function () {new Big('12.345').div('234.')}, ".div('234.')");
-    assertException(function () {new Big('12.345').div('.5')}, ".div('.5')");
     assertException(function () {new Big('12.345').div('0x16')}, ".div('0x16')");
-    assertException(function () {new Big('12.345').div('1e')}, ".div('1e')");
     assertException(function () {new Big('12.345').div('8 e')}, ".div('8 e')");
     assertException(function () {new Big('12.345').div('77-e')}, ".div('77-e')");
     assertException(function () {new Big('12.345').div('123e.0')}, ".div('123e.0')");
