@@ -1,0 +1,11 @@
+{
+    "name": "big.js",
+    "version": "1.0.1",
+    "main": "big.js",
+    "ignore": [
+        "doc/",
+        "perf/",
+        "test/",
+        "package.json"
+    ]
+}
