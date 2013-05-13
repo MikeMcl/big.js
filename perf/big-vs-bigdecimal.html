@@ -15,15 +15,13 @@
     .form {text-align: left; margin-top: 1.4em;}
     .random input {margin-left: 1em;}
     .small {font-size: 0.9em;}
-    .methods {margin: 1em auto; width: 18em;}
     .iterations input, .left {margin-left: 1.6em;}
     .info span {margin-left: 1.6em; font-size: 0.9em;}
     .info {margin-top: 1.6em;}
     .random input, .iterations input {margin-right: 0.3em;}
     .random label, .iterations label, .bigd label {font-size: 0.9em;
         margin-left: 0.1em;}
-    .methods label {width: 5em; margin-left: 0.2em; display: inline-block;}
-    .methods label.right {width: 2em;}
+    .methods label {width: 3.25em; margin-left: 0.2em; display: inline-block;}
     .red {color: red; font-size: 1.1em; font-weight: bold;}
     button {width: 10em; height: 2em;}
     #dp, #r, #digits, #reps {margin-left: 0.8em;}
@@ -45,13 +43,10 @@
     <div class='methods'>
       <input type='radio' id=0 name=1/><label for=0>plus</label>
       <input type='radio' id=1 name=1/><label for=1>minus</label>
-      <br>
       <input type='radio' id=2 name=1/><label for=2>times</label>
       <input type='radio' id=3 name=1/><label for=3>div</label>
-      <br>
       <input type='radio' id=4 name=1/><label for=4>mod</label>
-      <input type='radio' id=5 name=1/><label for=5>cmp</label>
-      <input type='radio' id=6 name=1/><label for=6 class='right'>pow</label>
+      <input type='radio' id=5 name=1/><label for=5>pow</label>
     </div>
 
     <div class='bigd'>
@@ -107,8 +102,9 @@ var i, completedReps, targetReps, cycleReps, cycleTime, prevCycleReps, cycleLimi
     maxDigits, isFixed, isIntOnly, decimalPlaces, rounding, calcTimeout,
     counterTimeout, script, isGWT, BigDecimal_GWT, BigDecimal_ICU4J,
     bdM, bdTotal, bnM, bnTotal,
-    bdMs = ['add', 'subtract', 'multiply', 'divide', 'remainder', 'compareTo', 'pow'],
-    bnMs = ['plus', 'minus', 'times', 'div', 'mod', 'cmp', 'pow'],
+    bdMs = ['add', 'subtract', 'multiply', 'divide', 'remainder', 'pow'],
+    bnMs = ['plus', 'minus', 'times', 'div', 'mod', 'pow'],
+    numberOfMethods = bdMs.length,
     rnd = [1, 4, 6],
     lastRounding = 1,
     pause = false,
@@ -239,7 +235,7 @@ var i, completedReps, targetReps, cycleReps, cycleTime, prevCycleReps, cycleLimi
         i = +$DIGITS.value;
         $DIGITS.value = maxDigits = i && isFinite(i) ? i : DEFAULT_DIGITS;
 
-        for (i = 0; i < 7; i++) {
+        for (i = 0; i < numberOfMethods; i++) {
             if ($INPUTS[i].checked) {
                 bnM = bnMs[$INPUTS[i].id];
                 bdM = bdMs[$INPUTS[i].id];
@@ -450,7 +446,7 @@ var i, completedReps, targetReps, cycleReps, cycleTime, prevCycleReps, cycleLimi
 
             // Remove any trailing zeros from BigDecimal result
             if (isGWT) {
-                bdR = bdM == 'compareTo' || isIntOnly
+                bdR = isIntOnly
                     ? bdRs[i].toString()
                     : bdRs[i].stripTrailingZeros().toPlainString();
             } else {
@@ -505,7 +501,7 @@ document.onkeydown = function (evt) {
 };
 
 // Big methods' radio buttons' event handlers
-for (i = 0; i < 7; i++) {
+for (i = 0; i < numberOfMethods; i++) {
     $INPUTS[i].checked = false;
     $INPUTS[i].disabled = false;
     $INPUTS[i].onclick = function () {

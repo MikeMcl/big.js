@@ -46,14 +46,144 @@ var count = (function cmp(Big) {
     }
 
     function T(a, b, expected) {
-        assert(String(expected), String(new Big(a).cmp(b)));
+    
+        if ( expected === 1 ) {
+            assert(true, new Big(a).gt(b));
+            assert(true, new Big(a).gte(b));
+            assert(false, new Big(a).eq(b));
+            assert(false, new Big(a).lt(b));
+            assert(false, new Big(a).lte(b));
+        } else if ( expected === -1 ) {
+            assert(true, new Big(a).lt(b));
+            assert(true, new Big(a).lte(b));
+            assert(false, new Big(a).eq(b));
+            assert(false, new Big(a).gt(b));
+            assert(false, new Big(a).gte(b));
+        } else if ( expected === 0 ) {
+            assert(true, new Big(a).eq(b));
+            assert(true, new Big(a).gte(b));
+            assert(true, new Big(a).lte(b));
+            assert(false, new Big(a).lt(b));
+            assert(false, new Big(a).gt(b));
+        }    
     }
 
-    function isMinusZeroJS(n) {
-        return n === 0 ? 1 / n === -Infinity : null
-    }
+    log('\n Testing eq, gt, gte, lt, lte...');
 
-    log('\n Testing cmp...');
+    /*
+     *  Comparison methods
+     *
+     *  eq      equals
+     *  gt      greater than
+     *  gte     greater than or equal to
+     *  lt      less than
+     *  lte     less than or equal to
+     */
+
+    Big.DP = 20;
+    Big.RM = 1;
+
+    n = new Big(1);
+    assert(true, n.eq(n));
+    assert(true, n.eq(1));
+    assert(true, n.eq('1.0'));
+    assert(true, n.eq('1.000000'));
+    assert(true, n.eq(new Big(1)));
+    assert(true, n.gt(0.99999));
+    assert(false, n.gte(1.1));
+    assert(true, n.lt(1.001));
+    assert(true, n.lte(2));
+
+    n = new Big('-0.1');
+    assert(false, n.eq(0.1));
+    assert(false, n.gt(-0.1));
+    assert(true, n.gte(-1));
+    assert(true, n.lt(-0.01));
+    assert(false, n.lte(-1));
+
+    n = new Big('0.0000000');
+    assert(true, n.eq(-0));
+    assert(true, n.gt(-0.000001));
+    assert(false, n.gte(0.1));
+    assert(true, n.lt(0.0001));
+    assert(true, n.lte(-0));
+
+    n = new Big(-0);
+    assert(true, n.eq('0.000'));
+    assert(true, n.gt(-1));
+    assert(false, n.gte(0.1));
+    assert(false, n.lt(0));
+    assert(true, n.lt(0.1));
+    assert(true, n.lte(0));
+
+    n = new Big('-1.234e+2');
+    assert(true, n.eq(-123.4));
+    assert(true, n.gte('-1.234e+3'));
+    assert(true, n.lt(-123.39999));
+    assert(true, n.lte('-123.4e+0'));
+
+    n = new Big('5e-200');
+    assert(true, n.eq(5e-200));
+    assert(true, n.gt(5e-201));
+    assert(false, n.gte(1));
+    assert(true, n.lt(6e-200));
+    assert(true, n.lte(5.1e-200));
+
+    n = new Big('1');
+    assert(true, n.eq(n));
+    assert(true, n.eq(n.toString()));
+    assert(true, n.eq(n.valueOf()));
+    assert(true, n.eq(n.toFixed()));
+    assert(true, n.eq(1));
+    assert(true, n.eq('1e+0'));
+    assert(false, n.eq(-1));
+    assert(false, n.eq(0.1));
+
+    assert(false, new Big(0.1).eq(0));
+    assert(false, new Big(1e9 + 1).eq(1e9));
+    assert(false, new Big(1e9 - 1).eq(1e9));
+    assert(true, new Big(1e9 + 1).eq(1e9 + 1));
+    assert(true, new Big(1).eq(1));
+    assert(false, new Big(1).eq(-1));
+
+    assert(false, new Big(1.23001e-2).lt(1.23e-2));
+    assert(true, new Big(1.23e-2).lt(1.23001e-2));
+    assert(false, new Big(1e-2).lt(9.999999e-3));
+    assert(true, new Big(9.999999e-3).lt(1e-2));
+    assert(false, new Big(1.23001e+2).lt(1.23e+2));
+    assert(true, new Big(1.23e+2).lt(1.23001e+2));
+    assert(true, new Big(9.999999e+2).lt(1e+3));
+    assert(false, new Big(1e+3).lt(9.9999999e+2));
+
+    assert(false, new Big(1.23001e-2).lte(1.23e-2));
+    assert(true, new Big(1.23e-2).lte(1.23001e-2));
+    assert(false, new Big(1e-2).lte(9.999999e-3));
+    assert(true, new Big(9.999999e-3).lte(1e-2));
+
+    assert(false, new Big(1.23001e+2).lte(1.23e+2));
+    assert(true, new Big(1.23e+2).lte(1.23001e+2));
+    assert(true, new Big(9.999999e+2).lte(1e+3));
+    assert(false, new Big(1e+3).lte(9.9999999e+2));
+
+    assert(true, new Big(1.23001e-2).gt(1.23e-2));
+    assert(false, new Big(1.23e-2).gt(1.23001e-2));
+    assert(true, new Big(1e-2).gt(9.999999e-3));
+    assert(false, new Big(9.999999e-3).gt(1e-2));
+
+    assert(true, new Big(1.23001e+2).gt(1.23e+2));
+    assert(false, new Big(1.23e+2).gt(1.23001e+2));
+    assert(false, new Big(9.999999e+2).gt(1e+3));
+    assert(true, new Big(1e+3).gt(9.9999999e+2));
+
+    assert(true, new Big(1.23001e-2).gte(1.23e-2));
+    assert(false, new Big(1.23e-2).gte(1.23001e-2));
+    assert(true, new Big(1e-2).gte(9.999999e-3));
+    assert(false, new Big(9.999999e-3).gte(1e-2));
+
+    assert(true, new Big(1.23001e+2).gte(1.23e+2));
+    assert(false, new Big(1.23e+2).gte(1.23001e+2));
+    assert(false, new Big(9.999999e+2).gte(1e+3));
+    assert(true, new Big(1e+3).gte(9.9999999e+2));
 
     T(1, 0, 1);
     T(1, -0, 1);
@@ -63,11 +193,6 @@ var count = (function cmp(Big) {
     T(0, -1, 1);
     T(-0, 1, -1);
     T(-0, -1, 1);
-    assert(false, isMinusZeroJS(new Big(0).cmp(0)));
-    assert(false, isMinusZeroJS(new Big(0).cmp(-0)));
-    assert(false, isMinusZeroJS(new Big(-0).cmp(0)));
-    assert(false, isMinusZeroJS(new Big(-0).cmp(-0)));
-
     T(0, '0.1', -1);
     T(0, '-0.1', 1);
     T(-0, '0.1', -1);
@@ -3969,18 +4094,6 @@ var count = (function cmp(Big) {
     T('-0.00000000000000000227', '-0.0000000000000000022', -1);
     T('1826995888603.5824430107', '1826995888603.582443010', 1);
     T('10390673669.135717884263351', '10390673669.13571788426335', 1);
-    T('10', '-735770.95921507778597', 1);
-    T('104.5944497667', '104.594449766', 1);
-    T('75938579086.43324', '75938579086.4332', 1);
-    T('133431773944', '13343177394', 1);
-    T('-0.029773', '-0.02977', -1);
-    T('-2.3', '0.000000000000004812124955862392552', -1);
-    T('-0.000000000000000440816280', '-0.00000000000000044081628', 0);
-    T('18420.11634', '18420.1163', 1);
-    T('-9284054922651501226860235.867', '-9284054922651501226860235.86', -1);
-    T('12396946801121416014189.43309695', '12396946801121416014189.4330969', 1);
-    T('0.007718643213656733483266', '0.00771864321365673348326', 1);
-    T('-0.000000037595591491984459', '-0.00000003759559149198445', -1);
     T('-715072321926440135536.7648', '-715072321926440135536.764', -1);
     T('103992420.52458', '103992420.5245', 1);
     T('0.000000991070083580408202601308047', '0.00000099107008358040820260130804', 1);
@@ -4034,37 +4147,165 @@ var count = (function cmp(Big) {
     T('-0.10021507', '-2049541544645617700923988306', 1);
     T('6609143733354158875894', '-6609143733354158875894', 1);
 
-    assertException(function () {new Big('12.345').cmp(undefined)}, ".cmp(undefined)");
-    assertException(function () {new Big('12.345').cmp(null)}, ".cmp(null)");
-    assertException(function () {new Big('12.345').cmp(NaN)}, ".cmp(NaN)");
-    assertException(function () {new Big('12.345').cmp('NaN')}, ".cmp('NaN')");
-    assertException(function () {new Big('12.345').cmp([])}, ".cmp([])");
-    assertException(function () {new Big('12.345').cmp({})}, ".cmp({})");
-    assertException(function () {new Big('12.345').cmp('')}, ".cmp('')");
-    assertException(function () {Big('12.345').cmp(' ')}, ".cmp(' ')");
-    assertException(function () {new Big('12.345').cmp('hello')}, ".cmp('hello')");
-    assertException(function () {new Big('12.345').cmp('\t')}, ".cmp('\t')");
-    assertException(function () {new Big('12.345').cmp(new Date)}, ".cmp(new Date)");
-    assertException(function () {new Big('12.345').cmp(new RegExp)}, ".cmp(new RegExp)");
-    assertException(function () {new Big('12.345').cmp(function () {})}, ".cmp(function () {})");
-    assertException(function () {new Big('12.345').cmp(' 0.1')}, ".cmp(' 0.1')");
-    assertException(function () {new Big('12.345').cmp('7.5 ')}, ".cmp('7.5 ')");
-    assertException(function () {Big('12.345').cmp(' 0 ')}, ".cmp(' 0 ')");
-    assertException(function () {new Big('12.345').cmp('+1')}, ".cmp('+1')");
-    assertException(function () {new Big('12.345').cmp(' +1.2')}, ".cmp(' +1.2')");
-    assertException(function () {new Big('12.345').cmp('- 99')}, ".cmp('- 99')");
-    assertException(function () {new Big('12.345').cmp('9.9.9')}, ".cmp('9.9.9')");
-    assertException(function () {new Big('12.345').cmp('10.1.0')}, ".cmp('10.1.0')");
-    assertException(function () {new Big('12.345').cmp('234.')}, ".cmp('234.')");
-    assertException(function () {new Big('12.345').cmp('.5')}, ".cmp('.5')");
-    assertException(function () {new Big('12.345').cmp('0x16')}, ".cmp('0x16')");
-    assertException(function () {new Big('12.345').cmp('1e')}, ".cmp('1e')");
-    assertException(function () {new Big('12.345').cmp('8 e')}, ".cmp('8 e')");
-    assertException(function () {new Big('12.345').cmp('77-e')}, ".cmp('77-e')");
-    assertException(function () {new Big('12.345').cmp('123e.0')}, ".cmp('123e.0')");
-    assertException(function () {new Big('12.345').cmp('4e1.')}, ".cmp('4e1.')");
-    assertException(function () {Big('12.345').cmp(Infinity)}, ".cmp(Infinity)");
-    assertException(function () {new Big('12.345').cmp('-Infinity')}, ".cmp('-Infinity')");
+    assertException(function () {new Big('12.345').eq(undefined)}, ".eq(undefined)");
+    assertException(function () {new Big('12.345').eq(null)}, ".eq(null)");
+    assertException(function () {new Big('12.345').eq(NaN)}, ".eq(NaN)");
+    assertException(function () {new Big('12.345').eq('NaN')}, ".eq('NaN')");
+    assertException(function () {new Big('12.345').eq([])}, ".eq([])");
+    assertException(function () {new Big('12.345').eq({})}, ".eq({})");
+    assertException(function () {new Big('12.345').eq('')}, ".eq('')");
+    assertException(function () {Big('12.345').eq(' ')}, ".eq(' ')");
+    assertException(function () {new Big('12.345').eq('hello')}, ".eq('hello')");
+    assertException(function () {new Big('12.345').eq('\t')}, ".eq('\t')");
+    assertException(function () {new Big('12.345').eq(new Date)}, ".eq(new Date)");
+    assertException(function () {new Big('12.345').eq(new RegExp)}, ".eq(new RegExp)");
+    assertException(function () {new Big('12.345').eq(function () {})}, ".eq(function () {})");
+    assertException(function () {new Big('12.345').eq(' 0.1')}, ".eq(' 0.1')");
+    assertException(function () {new Big('12.345').eq('7.5 ')}, ".eq('7.5 ')");
+    assertException(function () {Big('12.345').eq(' 0 ')}, ".eq(' 0 ')");
+    assertException(function () {new Big('12.345').eq('+1')}, ".eq('+1')");
+    assertException(function () {new Big('12.345').eq(' +1.2')}, ".eq(' +1.2')");
+    assertException(function () {new Big('12.345').eq('- 99')}, ".eq('- 99')");
+    assertException(function () {new Big('12.345').eq('9.9.9')}, ".eq('9.9.9')");
+    assertException(function () {new Big('12.345').eq('10.1.0')}, ".eq('10.1.0')");
+    assertException(function () {new Big('12.345').eq('234.')}, ".eq('234.')");
+    assertException(function () {new Big('12.345').eq('.5')}, ".eq('.5')");
+    assertException(function () {new Big('12.345').eq('0x16')}, ".eq('0x16')");
+    assertException(function () {new Big('12.345').eq('1e')}, ".eq('1e')");
+    assertException(function () {new Big('12.345').eq('8 e')}, ".eq('8 e')");
+    assertException(function () {new Big('12.345').eq('77-e')}, ".eq('77-e')");
+    assertException(function () {new Big('12.345').eq('123e.0')}, ".eq('123e.0')");
+    assertException(function () {new Big('12.345').eq('4e1.')}, ".eq('4e1.')");
+    assertException(function () {Big('12.345').eq(Infinity)}, ".eq(Infinity)");
+    assertException(function () {new Big('12.345').eq('-Infinity')}, ".eq('-Infinity')");
+
+    assertException(function () {new Big('0').gt(undefined)}, ".gt(undefined)");
+    assertException(function () {new Big('0').gt(null)}, ".gt(null)");
+    assertException(function () {new Big('0').gt(NaN)}, ".gt(NaN)");
+    assertException(function () {new Big('0').gt('NaN')}, ".gt('NaN')");
+    assertException(function () {new Big('0').gt([])}, ".gt([])");
+    assertException(function () {new Big('0').gt({})}, ".gt({})");
+    assertException(function () {new Big('0').gt('')}, ".gt('')");
+    assertException(function () {Big('0').gt(' ')}, ".gt(' ')");
+    assertException(function () {new Big('0').gt('hello')}, ".gt('hello')");
+    assertException(function () {new Big('0').gt('\t')}, ".gt('\t')");
+    assertException(function () {new Big('0').gt(new Date)}, ".gt(new Date)");
+    assertException(function () {new Big('0').gt(new RegExp)}, ".gt(new RegExp)");
+    assertException(function () {new Big('0').gt(function () {})}, ".gt(function () {})");
+    assertException(function () {new Big('0').gt(' 0.1')}, ".gt(' 0.1')");
+    assertException(function () {new Big('0').gt('7.5 ')}, ".gt('7.5 ')");
+    assertException(function () {Big('0').gt(' 0 ')}, ".gt(' 0 ')");
+    assertException(function () {new Big('0').gt('+1')}, ".gt('+1')");
+    assertException(function () {new Big('0').gt(' +1.2')}, ".gt(' +1.2')");
+    assertException(function () {new Big('0').gt('- 99')}, ".gt('- 99')");
+    assertException(function () {new Big('0').gt('9.9.9')}, ".gt('9.9.9')");
+    assertException(function () {new Big('0').gt('10.1.0')}, ".gt('10.1.0')");
+    assertException(function () {new Big('0').gt('234.')}, ".gt('234.')");
+    assertException(function () {new Big('0').gt('.5')}, ".gt('.5')");
+    assertException(function () {new Big('0').gt('0x16')}, ".gt('0x16')");
+    assertException(function () {new Big('0').gt('1e')}, ".gt('1e')");
+    assertException(function () {new Big('0').gt('8 e')}, ".gt('8 e')");
+    assertException(function () {new Big('0').gt('77-e')}, ".gt('77-e')");
+    assertException(function () {new Big('0').gt('123e.0')}, ".gt('123e.0')");
+    assertException(function () {new Big('0').gt('4e1.')}, ".gt('4e1.')");
+    assertException(function () {Big('0').gt(Infinity)}, ".gt(Infinity)");
+    assertException(function () {new Big('0').gt('-Infinity')}, ".gt('-Infinity')");
+
+    assertException(function () {new Big('9.9900E2').gte(undefined)}, ".gte(undefined)");
+    assertException(function () {new Big('9.9900E2').gte(null)}, ".gte(null)");
+    assertException(function () {new Big('9.9900E2').gte(NaN)}, ".gte(NaN)");
+    assertException(function () {new Big('9.9900E2').gte('NaN')}, ".gte('NaN')");
+    assertException(function () {new Big('9.9900E2').gte([])}, ".gte([])");
+    assertException(function () {new Big('9.9900E2').gte({})}, ".gte({})");
+    assertException(function () {new Big('9.9900E2').gte('')}, ".gte('')");
+    assertException(function () {Big('9.9900E2').gte(' ')}, ".gte(' ')");
+    assertException(function () {new Big('9.9900E2').gte('hello')}, ".gte('hello')");
+    assertException(function () {new Big('9.9900E2').gte('\t')}, ".gte('\t')");
+    assertException(function () {new Big('9.9900E2').gte(new Date)}, ".gte(new Date)");
+    assertException(function () {new Big('9.9900E2').gte(new RegExp)}, ".gte(new RegExp)");
+    assertException(function () {new Big('9.9900E2').gte(function () {})}, ".gte(function () {})");
+    assertException(function () {new Big('9.9900E2').gte(' 0.1')}, ".gte(' 0.1')");
+    assertException(function () {new Big('9.9900E2').gte('7.5 ')}, ".gte('7.5 ')");
+    assertException(function () {Big('9.9900E2').gte(' 0 ')}, ".gte(' 0 ')");
+    assertException(function () {new Big('9.9900E2').gte('+1')}, ".gte('+1')");
+    assertException(function () {new Big('9.9900E2').gte(' +1.2')}, ".gte(' +1.2')");
+    assertException(function () {new Big('9.9900E2').gte('- 99')}, ".gte('- 99')");
+    assertException(function () {new Big('9.9900E2').gte('9.9.9')}, ".gte('9.9.9')");
+    assertException(function () {new Big('9.9900E2').gte('10.1.0')}, ".gte('10.1.0')");
+    assertException(function () {new Big('9.9900E2').gte('234.')}, ".gte('234.')");
+    assertException(function () {new Big('9.9900E2').gte('.5')}, ".gte('.5')");
+    assertException(function () {new Big('9.9900E2').gte('0x16')}, ".gte('0x16')");
+    assertException(function () {new Big('9.9900E2').gte('1e')}, ".gte('1e')");
+    assertException(function () {new Big('9.9900E2').gte('8 e')}, ".gte('8 e')");
+    assertException(function () {new Big('9.9900E2').gte('77-e')}, ".gte('77-e')");
+    assertException(function () {new Big('9.9900E2').gte('123e.0')}, ".gte('123e.0')");
+    assertException(function () {new Big('9.9900E2').gte('4e1.')}, ".gte('4e1.')");
+    assertException(function () {Big('9.9900E2').gte(Infinity)}, ".gte(Infinity)");
+    assertException(function () {new Big('9.9900E2').gte('-Infinity')}, ".gte('-Infinity')");
+
+    assertException(function () {new Big('12.345').lt(undefined)}, ".lt(undefined)");
+    assertException(function () {new Big('12.345').lt(null)}, ".lt(null)");
+    assertException(function () {new Big('12.345').lt(NaN)}, ".lt(NaN)");
+    assertException(function () {new Big('12.345').lt('NaN')}, ".lt('NaN')");
+    assertException(function () {new Big('12.345').lt([])}, ".lt([])");
+    assertException(function () {new Big('12.345').lt({})}, ".lt({})");
+    assertException(function () {new Big('12.345').lt('')}, ".lt('')");
+    assertException(function () {Big('12.345').lt(' ')}, ".lt(' ')");
+    assertException(function () {new Big('12.345').lt('hello')}, ".lt('hello')");
+    assertException(function () {new Big('12.345').lt('\t')}, ".lt('\t')");
+    assertException(function () {new Big('12.345').lt(new Date)}, ".lt(new Date)");
+    assertException(function () {new Big('12.345').lt(new RegExp)}, ".lt(new RegExp)");
+    assertException(function () {new Big('12.345').lt(function () {})}, ".lt(function () {})");
+    assertException(function () {new Big('12.345').lt(' 0.1')}, ".lt(' 0.1')");
+    assertException(function () {new Big('12.345').lt('7.5 ')}, ".lt('7.5 ')");
+    assertException(function () {Big('12.345').lt(' 0 ')}, ".lt(' 0 ')");
+    assertException(function () {new Big('12.345').lt('+1')}, ".lt('+1')");
+    assertException(function () {new Big('12.345').lt(' +1.2')}, ".lt(' +1.2')");
+    assertException(function () {new Big('12.345').lt('- 99')}, ".lt('- 99')");
+    assertException(function () {new Big('12.345').lt('9.9.9')}, ".lt('9.9.9')");
+    assertException(function () {new Big('12.345').lt('10.1.0')}, ".lt('10.1.0')");
+    assertException(function () {new Big('12.345').lt('234.')}, ".lt('234.')");
+    assertException(function () {new Big('12.345').lt('.5')}, ".lt('.5')");
+    assertException(function () {new Big('12.345').lt('0x16')}, ".lt('0x16')");
+    assertException(function () {new Big('12.345').lt('1e')}, ".lt('1e')");
+    assertException(function () {new Big('12.345').lt('8 e')}, ".lt('8 e')");
+    assertException(function () {new Big('12.345').lt('77-e')}, ".lt('77-e')");
+    assertException(function () {new Big('12.345').lt('123e.0')}, ".lt('123e.0')");
+    assertException(function () {new Big('12.345').lt('4e1.')}, ".lt('4e1.')");
+    assertException(function () {Big('12.345').lt(Infinity)}, ".lt(Infinity)");
+    assertException(function () {new Big('12.345').lt('-Infinity')}, ".lt('-Infinity')");
+
+    assertException(function () {new Big('12.345').lte(undefined)}, ".lte(undefined)");
+    assertException(function () {new Big('12.345').lte(null)}, ".lte(null)");
+    assertException(function () {new Big('12.345').lte(NaN)}, ".lte(NaN)");
+    assertException(function () {new Big('12.345').lte('NaN')}, ".lte('NaN')");
+    assertException(function () {new Big('12.345').lte([])}, ".lte([])");
+    assertException(function () {new Big('12.345').lte({})}, ".lte({})");
+    assertException(function () {new Big('12.345').lte('')}, ".lte('')");
+    assertException(function () {Big('12.345').lte(' ')}, ".lte(' ')");
+    assertException(function () {new Big('12.345').lte('hello')}, ".lte('hello')");
+    assertException(function () {new Big('12.345').lte('\t')}, ".lte('\t')");
+    assertException(function () {new Big('12.345').lte(new Date)}, ".lte(new Date)");
+    assertException(function () {new Big('12.345').lte(new RegExp)}, ".lte(new RegExp)");
+    assertException(function () {new Big('12.345').lte(function () {})}, ".lte(function () {})");
+    assertException(function () {new Big('12.345').lte(' 0.1')}, ".lte(' 0.1')");
+    assertException(function () {new Big('12.345').lte('7.5 ')}, ".lte('7.5 ')");
+    assertException(function () {Big('12.345').lte(' 0 ')}, ".lte(' 0 ')");
+    assertException(function () {new Big('12.345').lte('+1')}, ".lte('+1')");
+    assertException(function () {new Big('12.345').lte(' +1.2')}, ".lte(' +1.2')");
+    assertException(function () {new Big('12.345').lte('- 99')}, ".lte('- 99')");
+    assertException(function () {new Big('12.345').lte('9.9.9')}, ".lte('9.9.9')");
+    assertException(function () {new Big('12.345').lte('10.1.0')}, ".lte('10.1.0')");
+    assertException(function () {new Big('12.345').lte('234.')}, ".lte('234.')");
+    assertException(function () {new Big('12.345').lte('.5')}, ".lte('.5')");
+    assertException(function () {new Big('12.345').lte('0x16')}, ".lte('0x16')");
+    assertException(function () {new Big('12.345').lte('1e')}, ".lte('1e')");
+    assertException(function () {new Big('12.345').lte('8 e')}, ".lte('8 e')");
+    assertException(function () {new Big('12.345').lte('77-e')}, ".lte('77-e')");
+    assertException(function () {new Big('12.345').lte('123e.0')}, ".lte('123e.0')");
+    assertException(function () {new Big('12.345').lte('4e1.')}, ".lte('4e1.')");
+    assertException(function () {Big('12.345').lte(Infinity)}, ".lte(Infinity)");
+    assertException(function () {new Big('12.345').lte('-Infinity')}, ".lte('-Infinity')");
 
     log('\n ' + passed + ' of ' + total + ' tests passed in ' + (+new Date() - start) + ' ms \n');
     return [passed, total];;

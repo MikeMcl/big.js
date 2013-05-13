@@ -1,10 +1,10 @@
-/* big.js v1.0.1 https://github.com/MikeMcl/big.js/LICENCE */
+/* big.js v2.0.0 https://github.com/MikeMcl/big.js/LICENCE */
 ;(function ( global ) {
     'use strict';
 
     /*
-      big.js v1.0.1
-      A small, fast Javascript library for arbitrary-precision arithmetic with decimal numbers. 
+      big.js v2.0.0
+      A small, fast, easy-to-use library for arbitrary-precision decimal arithmetic.
       https://github.com/MikeMcl/big.js/
       Copyright (c) 2012 Michael Mclaughlin <M8ch88l@gmail.com>
       MIT Expat Licence
@@ -39,14 +39,14 @@
         /*
          * The exponent value at and beneath which 'toString' returns exponential notation.
          * Javascript's Number type: -7
-         * -1e+6 is the minimum recommended exponent value of a 'Big'.
+         * -1e+6 is the minimum recommended exponent value of a Big.
          */
         TO_EXP_NEG = -7,                             // 0 to -1e+6
 
         /*
          * The exponent value at and above which 'toString' returns exponential notation.
          * Javascript's Number type: 21
-         * 1e+6 is the maximum recommended exponent value of a 'Big', though there is no
+         * 1e+6 is the maximum recommended exponent value of a Big, though there is no
          * enforcing or checking of a limit.
          */
         TO_EXP_POS = 21,                             // 0 to 1e+6
@@ -64,7 +64,7 @@
 
     /*
      * The exported function.
-     * Create and return a new instance of a 'Big' object.
+     * Create and return a new instance of a Big object.
      *
      * n {number|string|Big} A numeric value.
      */
@@ -145,10 +145,10 @@
 
 
     /*
-     * Round 'Big' 'x' to a maximum of 'dp' decimal places using rounding mode
+     * Round Big 'x' to a maximum of 'dp' decimal places using rounding mode
      * 'rm'. (Called by 'div', 'sqrt' and 'round'.)
      *
-     * x {Big} The 'Big' to round.
+     * x {Big} The Big to round.
      * dp {number} Integer, 0 to MAX_DP inclusive.
      * rm {number} 0, 1 or 2 ( ROUND_DOWN, ROUND_HALF_UP or ROUND_HALF_EVEN )
      * [more] {boolean} Whether the result of division was truncated.
@@ -199,18 +199,14 @@
     }
 
 
-    // PROTOTYPE/INSTANCE METHODS
-
-
     /*
      * Return
-     * 1 if the value of this 'Big' is greater than the value of 'Big' 'y',
-     * -1 if the value of this 'Big' is less than the value of 'Big' 'y', or
+     * 1 if the value of Big 'x' is greater than the value of Big 'y',
+     * -1 if the value of Big 'x' is less than the value of Big 'y', or
      * 0 if they have the same value,
      */
-    P['cmp'] = function ( y ) {
+    function cmp( x, y ) {
         var xNeg,
-            x = this,
             xc = x['c'],
             yc = ( y = new Big( y ) )['c'],
             i = x['s'],
@@ -249,9 +245,23 @@
     };
 
 
+    // PROTOTYPE/INSTANCE METHODS
+
+
     /*
-     * Return a new 'Big' whose value is the value of this 'Big' divided by the
-     * value of 'Big' 'y', rounded, if necessary, to a maximum of 'Big.DP'
+     * Return a new Big whose value is the absolute value of this Big.
+     */
+    P['abs'] = function () {
+        var x = new Big(this);
+        x['s'] = 1;
+
+        return x
+    };
+
+
+    /*
+     * Return a new Big whose value is the value of this Big divided by the
+     * value of Big 'y', rounded, if necessary, to a maximum of 'Big.DP'
      * decimal places using rounding mode 'Big.RM'.
      */
     P['div'] = function ( y ) {
@@ -376,8 +386,53 @@
 
 
     /*
-     * Return a new 'Big' whose value is the value of this 'Big' minus the value
-     * of 'Big' 'y'.
+     * Return true if the value of this Big is equal to the value of Big 'y',
+     * otherwise returns false.
+     */
+    P['eq'] = function ( y ) {
+        return !cmp( this, y )
+    };
+
+
+    /*
+     * Return true if the value of this Big is greater than the value of Big 'y',
+     * otherwise returns false.
+     */
+    P['gt'] = function ( y ) {
+        return cmp( this, y ) > 0
+    };
+
+
+    /*
+     * Return true if the value of this Big is greater than or equal to the
+     * value of Big 'y', otherwise returns false.
+     */
+    P['gte'] = function ( y ) {
+        return cmp( this, y ) > -1
+    };
+
+
+    /*
+     * Return true if the value of this Big is less than the value of Big 'y',
+     * otherwise returns false.
+     */
+    P['lt'] = function ( y ) {
+        return cmp( this, y ) < 0
+    };
+
+
+    /*
+     * Return true if the value of this Big is less than or equal to the value
+     * of Big 'y', otherwise returns false.
+     */
+    P['lte'] = function ( y ) {
+         return cmp( this, y ) < 1
+    };
+
+
+    /*
+     * Return a new Big whose value is the value of this Big minus the value
+     * of Big 'y'.
      */
     P['minus'] = function ( y ) {
         var d, i, j, xLTy,
@@ -478,8 +533,8 @@
 
 
     /*
-     * Return a new 'Big' whose value is the value of this 'Big' modulo the
-     * value of 'Big' 'y'.
+     * Return a new Big whose value is the value of this Big modulo the
+     * value of Big 'y'.
      */
     P['mod'] = function ( y ) {
         y = new Big( y );
@@ -493,7 +548,7 @@
         }
 
         x['s'] = y['s'] = 1;
-        c = y['cmp'](x) == 1;
+        c = cmp( y, x ) == 1;
         x['s'] = i, y['s'] = j;
 
         return c
@@ -507,8 +562,8 @@
 
 
     /*
-     * Return a new 'Big' whose value is the value of this 'Big' plus the value
-     * of 'Big' 'y'.
+     * Return a new Big whose value is the value of this Big plus the value
+     * of Big 'y'.
      */
     P['plus'] = function ( y ) {
         var d,
@@ -580,7 +635,7 @@
 
 
     /*
-     * Return a 'Big' whose value is the value of this 'Big' raised to the power
+     * Return a Big whose value is the value of this Big raised to the power
      * 'e'. If 'e' is negative, round, if necessary, to a maximum of 'Big.DP'
      * decimal places using rounding mode 'Big.RM'.
      *
@@ -613,7 +668,7 @@
 
 
     /*
-     * Return a new 'Big' whose value is the value of this 'Big' rounded, if
+     * Return a new Big whose value is the value of this Big rounded, if
      * necessary, to a maximum of 'dp' decimal places using rounding mode 'rm'.
      * If 'dp' is not specified, round to 0 decimal places.
      * If 'rm' is not specified, use 'Big.RM'.
@@ -636,8 +691,8 @@
 
 
     /*
-     * Return a new 'Big' whose value is the square root of the value of this
-     * 'Big', rounded, if necessary, to a maximum of 'Big.DP' decimal places
+     * Return a new Big whose value is the square root of the value of this
+     * Big, rounded, if necessary, to a maximum of 'Big.DP' decimal places
      * using rounding mode 'Big.RM'.
      */
     P['sqrt'] = function () {
@@ -692,8 +747,8 @@
 
 
     /*
-     * Return a new 'Big' whose value is the value of this 'Big' times the value
-     * of 'Big' 'y'.
+     * Return a new Big whose value is the value of this Big times the value
+     * of Big 'y'.
      */
     P['times'] = function ( y ) {
         var c,
@@ -751,8 +806,8 @@
 
 
     /*
-     * Return a string representing the value of this 'Big'.
-     * Return exponential notation if this 'Big' has a positive exponent equal
+     * Return a string representing the value of this Big.
+     * Return exponential notation if this Big has a positive exponent equal
      * to or greater than 'TO_EXP_POS', or a negative exponent equal to or less
      * than 'TO_EXP_NEG'.
      */
@@ -799,25 +854,23 @@
 
     /*
      ***************************************************************************
-     *
      * If 'toExponential', 'toFixed', 'toPrecision' and 'format' are not
      * required they can safely be commented-out or deleted. No redundant code
      * will be left. 'format' is used only by 'toExponential', 'toFixed' and
      * 'toPrecision'.
-     *
      ***************************************************************************
      */
-     
+
 
     /*
      * PRIVATE FUNCTION
      *
-     * Return a string representing the value of 'Big' 'x' in normal or
+     * Return a string representing the value of Big 'x' in normal or
      * exponential notation to a fixed number of decimal places or significant
      * digits 'dp'.
      * (Called by toString, toExponential, toFixed and toPrecision.)
      *
-     * x {Big} The 'Big' to format.
+     * x {Big} The Big to format.
      * dp {number} Integer, 0 to MAX_DP inclusive.
      * toE {number} undefined (toFixed), 1 (toExponential) or 2 (toPrecision).
      */
@@ -858,7 +911,7 @@
 
 
     /*
-     * Return a string representing the value of this 'Big' in exponential
+     * Return a string representing the value of this Big in exponential
      * notation to 'dp' fixed decimal places and rounded, if necessary, using
      * 'Big.RM'.
      *
@@ -877,7 +930,7 @@
 
 
     /*
-     * Return a string representing the value of this 'Big' in normal notation
+     * Return a string representing the value of this Big in normal notation
      * to 'dp' fixed decimal places and rounded, if necessary, using 'Big.RM'.
      *
      * [dp] {number} Integer, 0 to MAX_DP inclusive.
@@ -913,7 +966,7 @@
 
 
     /*
-     * Return a string representing the value of this 'Big' to 'sd' significant
+     * Return a string representing the value of this Big to 'sd' significant
      * digits and rounded, if necessary, using 'Big.RM'. If 'sd' is less than
      * the number of digits necessary to represent the integer part of the value
      * in normal notation, then use exponential notation.
