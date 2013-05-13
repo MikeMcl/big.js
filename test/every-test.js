@@ -6,8 +6,9 @@ var arr,
 console.log( '\n STARTING TESTS...\n' );
 
 [
-  'cmp',
+  'abs',
   'div',
+  'cmp',
   'minus',
   'mod',
   'plus',

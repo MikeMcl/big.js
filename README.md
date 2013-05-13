@@ -18,8 +18,7 @@ The little sister to [bignumber.js](https://github.com/MikeMcl/bignumber.js/).
 
 ## Load
 
-The library is the single Javascript file *big.js*   
-(or *big.min.js*, which is *big.js* minified using uglify-js).   
+The library is the single Javascript file *big.js* (or *big.min.js*, which is *big.js* minified).   
 
 It can be loaded via a script tag in an HTML document for the browser
 
@@ -48,28 +47,28 @@ The library exports a single function: Big, the constructor of Big number instan
 It accepts a value of type Number, String or Big number Object.  
 
     x = new Big(123.4567)
-    y = Big('123456.7e-3')        // 'new' is optional
+    y = Big('123456.7e-3')             // 'new' is optional
     z = new Big(x)
-    y.cmp(z) == 0                 // true
+    x.eq(y) && x.eq(z) && y.eq(z)      // true
 
 A Big number is immutable in the sense that it is not changed by its methods.  
 
-    0.3 - 0.1                     // 0.19999999999999998  
-    x = new Big(0.3)            
-    x.minus(0.1)                  // "0.2"
-    x                             // "0.3"
+    0.3 - 0.1                          // 0.19999999999999998  
+    x = new Big(0.3)                   
+    x.minus(0.1)                       // "0.2"
+    x                                  // "0.3"
 
 The methods that return a Big number can be chained.
 
     x.div(y).plus(z).times(9).minus('1.234567801234567e+8').plus(976.54321).div('2598.11772')   
-    x.sqrt().div(y).pow(3).cmp(y.mod(z)) == 1      // true
+    x.sqrt().div(y).pow(3).gt(y.mod(z))    // true
 
 Like Javascript's Number type, there are `toExponential`, `toFixed` and `toPrecision` methods.
 
     x = new Big(255.5)        
-    x.toExponential(5)             // "2.55500e+2"
-    x.toFixed(5)                   // "255.50000"
-    x.toPrecision(5)               // "255.50"
+    x.toExponential(5)                 // "2.55500e+2"
+    x.toFixed(5)                       // "255.50000"
+    x.toPrecision(5)                   // "255.50"
 
 The maximum number of decimal places and the rounding mode used to round the results of the `div`, `sqrt` and `pow` 
 (with negative exponent) methods is determined by the value of the `DP` and `RM` properties of the `Big` number constructor.       
@@ -80,18 +79,18 @@ The other methods always give the exact result.
 
     x = new Big(2);
     y = new Big(3);        
-    z = x.div(y)                 // "0.6666666667"
-    z.sqrt()                     // "0.8164965809"
-    z.pow(-3)                    // "3.3749999995"
-    z.times(z)                   // "0.44444444448888888889"
-    z.times(z).round(10)         // "0.4444444445"
+    z = x.div(y)                       // "0.6666666667"
+    z.sqrt()                           // "0.8164965809"
+    z.pow(-3)                          // "3.3749999995"
+    z.times(z)                         // "0.44444444448888888889"
+    z.times(z).round(10)               // "0.4444444445"
 
 The value of a Big number is stored in a decimal floating point format in terms of a coefficient, exponent and sign.
 
     x = new Big(-123.456); 
-    x.c                          // "1,2,3,4,5,6"    coefficient (i.e. significand)
-    x.e                          // 2                exponent 
-    x.s                          // -1               sign
+    x.c                                // "1,2,3,4,5,6"    coefficient (i.e. significand)
+    x.e                                // 2                exponent 
+    x.s                                // -1               sign
 
 For futher information see the API reference in the *doc* folder.
 
@@ -110,6 +109,7 @@ To test all the methods
     $ node every-test
 
 For the browser, see *single-test.html* and *every-test.html* in the *test/browser/* directory.    
+
 *big-vs-number.html* enables some of the methods of big.js to be compared with those of Javascript's Number type.      
 
 ## Performance
@@ -149,15 +149,20 @@ For Node, if uglify-js is installed globally ( `npm install uglify-js -g` ) then
 
 will create *big.min.js*.   
 
+The *big.min.js* already present was created with *Microsoft Ajax Minifier 4.91*, as it produced a smaller file size.
+
 ## Feedback
 
-Bugs/issues/comments to:
+Feedback is welcome.   
+
+Bugs/comments/questions?   
+Open an issue, or email
 
 Michael Mclaughlin  
 <a href="mailto:M8ch88l@gmail.com">M8ch88l@gmail.com</a>
 
 Bitcoin donation to:  
-**1LS9yszMtSB6GkhHmB9yQoivTnry2m8QFJ**  
+**1DppGRQSjVSMgGxuygDEHQuWEdTiVEzJYG**  
 Thank you
 
 ## Licence
@@ -166,12 +171,17 @@ See LICENCE.
 
 ## Change Log
 
-1.0.0  
+####2.0.0  
  
-* 7/11/2012 Initial release
+* 12 May 2013 Added `abs` method and replaced `cmp` with `eq`, `gt`, `gte`, `lt`, and `lte` methods.
 
-1.0.1 
+####1.0.1 
 
 * Changed default value of MAX_DP to 1E6  
+
+####1.0.0  
+ 
+* 7/11/2012 Initial release   
+
 
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/cc8d37bdc8c4ef250f2b83fd5b7a101a "githalytics.com")](http://githalytics.com/MikeMcl/big.js)

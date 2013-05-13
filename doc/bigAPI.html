@@ -11,8 +11,8 @@ body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;
   line-height:1.65em;background:#fefff5;color:#000;min-height:100%;margin:0}
 .nav{background:#fff;position:fixed;top:0;bottom:0;left:0;width:130px;
   overflow-y:auto;padding:15px 0 30px 20px; border-right: 1px solid #69d2e7}
-div.container{width:600px;margin:30px 0 50px 190px}
-p{margin:0 0 1em;width:600px}
+div.container{width:700px;margin:30px 0 50px 190px}
+p{margin:0 0 1em;width:700px}
 pre,ul{margin:1em 0}
 h1,h2,h3,h4,h5{margin:0;padding:1.5em 0 0}
 h1,h2{padding:.75em 0 1em}
@@ -74,8 +74,13 @@ code,pre{font-family:Monaco,Consolas,"Lucida Console",monospace;
 
     <a href="#prototype-methods">Methods</a>
     <ul>
-      <li><a href="#cmp"    >cmp</a></li>
+      <li><a href="#abs"    >abs</a></li>
       <li><a href="#div"    >div</a></li>
+      <li><a href="#eq"     >eq</a></li>
+      <li><a href="#gt"     >gt</a></li>
+      <li><a href="#gte"    >gte</a></li>
+      <li><a href="#lt"     >lt</a></li>
+      <li><a href="#lte"    >lte</a></li>
       <li><a href="#minus"  >minus</a></li>
       <li><a href="#mod"    >mod</a></li>
       <li><a href="#plus"   >plus</a></li>
@@ -98,7 +103,7 @@ code,pre{font-family:Monaco,Consolas,"Lucida Console",monospace;
     </ul>
 
     <a href="#Errors">Errors</a>
-    
+
     <a class='end' href="#faq">FAQ</a>
 
   </div>
@@ -108,12 +113,12 @@ code,pre{font-family:Monaco,Consolas,"Lucida Console",monospace;
     <h1>big.js</h1>
 
     <p>
-      A small, fast, easy-to-use Javascript library for arbitrary-precision
-      decimal arithmetic.
+      A small, fast, easy-to-use library for arbitrary-precision decimal
+      arithmetic.
     </p>
 
     <p>
-      <a href="https://github.com/MikeMcl/big.js">Hosted on GitHub</a>.
+      <a href="https://github.com/MikeMcl/big.js/">Hosted on GitHub</a>.
     </p>
 
 
@@ -145,7 +150,7 @@ code,pre{font-family:Monaco,Consolas,"Lucida Console",monospace;
         notation.
       </dd>
       <dd>
-        There is no limit to the number of digits of a <em>string</em> value 
+        There is no limit to the number of digits of a <em>string</em> value
         (other than that of Javascript's maximum array size), but the largest
         recommended exponent magnitude is 1e+6.
       </dd>
@@ -171,7 +176,7 @@ new Big('-735.0918e-430')            // '-7.350918e-428'</pre>
 
 
     <h4 id="constructor-properties">Properties</h4>
-    
+
     <h5 id="dp">DP</h5>
     <p>
       <i>number</i> : integer, 0 to 1e+6 inclusive<br />
@@ -189,9 +194,9 @@ new Big('-735.0918e-430')            // '-7.350918e-428'</pre>
       !Big.DP! will be thrown if the value is found to be invalid.
     </p>
     <pre>Big.DP = 40</pre>
-    
-    
-    
+
+
+
     <h5 id="rm">RM</h5>
     <p>
       <i>number</i> : 0, 1 or 2<br />
@@ -206,33 +211,33 @@ new Big('-735.0918e-430')            // '-7.350918e-428'</pre>
     </p>
     <table>
       <tr>
-      	<th>Value</th>
-      	<th>Description</th>
-      	<th>BigDecimal equivalent</th>
+        <th>Value</th>
+        <th>Description</th>
+        <th>BigDecimal equivalent</th>
       </tr>
       <tr>
-      	<td class='centre'>0</td>
-      	<td>
+        <td class='centre'>0</td>
+        <td>
           Rounds towards zero.<br />
           I.e. truncate, no rounding.
         </td>
-      	<td id="round-down">ROUND_DOWN</td>
+        <td id="round-down">ROUND_DOWN</td>
       </tr>
       <tr>
-      	<td class='centre'>1</td>
-      	<td>
+        <td class='centre'>1</td>
+        <td>
           Rounds towards nearest neighbour.<br />
           If equidistant, rounds away from zero.
         </td>
-      	<td id="round-half-up">ROUND_HALF_UP</td>
+        <td id="round-half-up">ROUND_HALF_UP</td>
       </tr>
       <tr>
-      	<td class='centre'>2</td>
-      	<td>
+        <td class='centre'>2</td>
+        <td>
           Rounds towards nearest neighbour.<br />
           If equidistant, rounds towards even neighbour.
         </td>
-      	<td id="round-half-even">ROUND_HALF_EVEN</td>
+        <td id="round-half-even">ROUND_HALF_EVEN</td>
       </tr>
     </table>
     <p>
@@ -241,8 +246,8 @@ new Big('-735.0918e-430')            // '-7.350918e-428'</pre>
       !Big.RM! will be thrown if the value is found to be invalid.
     </p>
     <pre>Big.RM = 0</pre>
-    
-    
+
+
 
     <h3>INSTANCE</h3>
 
@@ -258,42 +263,18 @@ new Big('-735.0918e-430')            // '-7.350918e-428'</pre>
 
 
 
-    <h5 id="cmp">
-      cmp<code class='inset'>.cmp( n ) &rArr; <i>number</i></code>
-    </h5>
-    <p><code>n</code> : <i>number|string|Big</i><br /></p>
-    <table>
-      <tr>
-      	<th>Returns</th>
-      	<th colspan=2>&nbsp;</th>
-      </tr>
-      <tr>
-      	<td class='centre'>1</td>
-      	<td>
-          If the value of this Big number is greater than the value of <code>n</code>
-        </td>
-      </tr>
-      <tr>
-      	<td class='centre'>-1</td>
-      	<td>
-          If the value of this Big number is less than the value of <code>n</code>
-        </td>
-      </tr>
-      <tr>
-      	<td class='centre'>0</td>
-      	<td>If this Big number and <code>n</code> have the same value</td>
-      </tr>
-    </table>
-    <p>Throws NaN if <code>n</code> is invalid.</p>
+    <h5 id="abs">abs<code class='inset'>.abs() &rArr; <i>Big</i></code></h5>
+    <p>
+      Returns a Big number whose value is the absolute value, i.e. the
+      magnitude, of this Big number.
+    </p>
     <pre>
-x = new Big(6)
-y = new Big(5)
-x.cmp(y)                   // 1
-y.cmp(x.minus(1))          // 0</pre>
+x = new Big(-0.8)
+x.abs()                     // '0.8'</pre>
 
 
 
-    <h5 id="div">div<code class='inset'>.div( n ) &rArr; <i>Big</i></code></h5>
+    <h5 id="div">div<code class='inset'>.div(n) &rArr; <i>Big</i></code></h5>
     <p><code>n</code> : <i>number|string|Big</i><br /></p>
     <p>
       Returns a Big number whose value is the value of this Big number divided
@@ -301,7 +282,7 @@ y.cmp(x.minus(1))          // 0</pre>
     </p>
     <p>
       If the result has more fraction digits than is specified by
-      <a href='#dp'><code>Big.DP</code></a>, it will be rounded to 
+      <a href='#dp'><code>Big.DP</code></a>, it will be rounded to
       <a href='#dp'><code>Big.DP</code></a> decimal places using rounding mode
       <a href='#rm'><code>Big.RM</code></a>.
     </p>
@@ -320,8 +301,93 @@ x.div(5)                   // '71'</pre>
 
 
 
+    <h5 id="eq">eq<code class='inset'>.eq(n) &rArr; <i>boolean</i></code></h5>
+    <p><code>n</code> : <i>number|string|Big</i></p>
+    <p>
+      Returns <code>true</code> if the value of this Big equals the value
+      of <code>n</code>, otherwise returns <code>false</code>.
+    </p>
+    <p>Throws NaN if <code>n</code> is invalid.</p>
+    <pre>
+0 === 1e-324               // true
+x = new Big(0)
+x.eq('1e-324')             // false
+Big(-0).eq(x)              // true  ( -0 === 0 )</pre>
+
+
+
+    <h5 id="gt">
+      gt<code class='inset'>.gt(n) &rArr; <i>boolean</i></code>
+    </h5>
+    <p><code>n</code> : <i>number|string|Big</i></p>
+    <p>
+      Returns <code>true</code> if the value of this Big is greater than
+      the value of <code>n</code>, otherwise returns <code>false</code>.
+    </p>
+    <p>Throws NaN if <code>n</code> is invalid.</p>
+    <pre>
+0.1 &gt; 0.3 - 0.2              // true
+x = new Big(0.1)
+x.gt(Big(0.3).minus(0.2))    // false
+Big(0).gt(x)                 // false</pre>
+
+
+
+    <h5 id="gte">
+      gte<code class='inset'>.gte(n) &rArr; <i>boolean</i></code>
+    </h5>
+    <p><code>n</code> : <i>number|string|Big</i></p>
+    <p>
+      Returns <code>true</code> if the value of this Big is greater than
+      or equal to the value of <code>n</code>, otherwise returns
+      <code>false</code>.
+    </p>
+    <p>Throws NaN if <code>n</code> is invalid.</p>
+    <pre>
+0.3 - 0.2 &gt;= 0.1               // false
+x = new Big(0.3).minus(0.2)
+x.gte(0.1)                     // true
+Big(1).gte(x)                  // true</pre>
+
+
+
+    <h5 id="lt">
+      lt<code class='inset'>.lt(n) &rArr; <i>boolean</i></code>
+    </h5>
+    <p><code>n</code> : <i>number|string|Big</i></p>
+    <p>
+      Returns <code>true</code> if the value of this Big is less than the
+      value of <code>n</code>, otherwise returns <code>false</code>.
+    </p>
+    <p>Throws NaN if <code>n</code> is invalid.</p>
+    <pre>
+0.3 - 0.2 &lt; 0.1                // true
+x = new Big(0.3).minus(0.2)
+x.lt(0.1)                      // false
+Big(0).lt(x)                   // true</pre>
+
+
+
+    <h5 id="lte">
+      lte<code class='inset'>.lte(n) &rArr; <i>boolean</i></code>
+    </h5>
+    <p><code>n</code> : <i>number|string|Big</i></p>
+    <p>
+      Returns <code>true</code> if the value of this Big is less than or
+      equal to the value of <code>n</code>, otherwise returns
+      <code>false</code>.
+    </p>
+    <p>Throws NaN if <code>n</code> is invalid.</p>
+    <pre>
+0.1 &lt;= 0.3 - 0.2               // false
+x = new Big(0.1)
+x.lte(Big(0.3).minus(0.2))     // true
+Big(-1).lte(x)                 // true</pre>
+
+
+
     <h5 id="minus">
-      minus<code class='inset'>.minus( n ) &rArr; <i>Big</i></code>
+      minus<code class='inset'>.minus(n) &rArr; <i>Big</i></code>
     </h5>
     <p><code>n</code> : <i>number|string|Big</i></p>
     <p>
@@ -336,7 +402,7 @@ x.minus(0.1)               // '0.2'</pre>
 
 
 
-    <h5 id="mod">mod<code class='inset'>.mod( n ) &rArr; <i>Big</i></code></h5>
+    <h5 id="mod">mod<code class='inset'>.mod(n) &rArr; <i>Big</i></code></h5>
     <p><code>n</code> : <i>number|string|Big</i></p>
     <p>
       Returns a Big number whose value is the value of this Big number modulo
@@ -357,7 +423,7 @@ x.mod(0.9)                 // '0.1'</pre>
 
 
     <h5 id="plus">
-      plus<code class='inset'>.plus( n ) &rArr; <i>Big</i></code>
+      plus<code class='inset'>.plus(n) &rArr; <i>Big</i></code>
     </h5>
     <p><code>n</code> : <i>number|string|Big</i></p>
     <p>
@@ -370,9 +436,9 @@ x.mod(0.9)                 // '0.1'</pre>
 x = new Big(0.1)
 y = x.plus(0.2)            // '0.3'
 Big(0.7).plus(x).plus(y)   // '1'</pre>
-    
 
-    
+
+
      <h5 id="pow">pow<code class='inset'>.pow( exp ) &rArr; <i>Big</i></code>
     </h5>
     <p>
@@ -403,7 +469,7 @@ new Big(123.456).pow(1000).toString().length     // 5099
 new Big(2).pow(1e+6)       // Time taken (Node.js): 9 minutes 34 secs.</pre>
 
 
-    
+
     <h5 id="round">
       round<code class='inset'>.round( [dp [, rm]] )
       &rArr; <i>Big</i></code>
@@ -440,7 +506,7 @@ y.round(1, 0)              // '123.4'
 y.round(1, 1)              // '123.5'
 y.round(1, 2)              // '123.4'
 y                          // '123.45'</pre>
-    
+
 
 
     <h5 id="sqrt">sqrt<code class='inset'>.sqrt() &rArr; <i>Big</i></code></h5>
@@ -449,7 +515,7 @@ y                          // '123.45'</pre>
     </p>
     <p>
       If the result has more fraction digits than is specified by
-      <a href='#dp'><code>Big.DP</code></a>, it will be rounded to 
+      <a href='#dp'><code>Big.DP</code></a>, it will be rounded to
       <a href='#dp'><code>Big.DP</code></a> decimal places using rounding mode
       <a href='#rm'><code>Big.RM</code></a>.
     </p>
@@ -463,7 +529,7 @@ y.sqrt()                   // '1.73205080756887729353'</pre>
 
 
     <h5 id="times">
-      times<code class='inset'>.times( n ) &rArr; <i>Big</i></code>
+      times<code class='inset'>.times(n) &rArr; <i>Big</i></code>
     </h5>
     <p><code>n</code> : <i>number|string|Big</i><br /></p>
     <p>
@@ -565,7 +631,7 @@ y.toFixed(3)               // '45.600'</pre>
 
 
     <h5 id="toP">
-      toPrecision<code class='inset'>.toPrecision( [sd] ) &rArr; 
+      toPrecision<code class='inset'>.toPrecision( [sd] ) &rArr;
       <i>string</i></code>
     </h5>
     <p><code>sd</code> : <i>number</i> : integer, 1 to 1e+6 inclusive</p>
@@ -575,7 +641,7 @@ y.toFixed(3)               // '45.600'</pre>
     </p>
     <p>
       If the value of this Big number has more digits than is specified by
-      <code>sd</code>, the return value will be rounded to <code>sd</code> 
+      <code>sd</code>, the return value will be rounded to <code>sd</code>
       significant digits using rounding mode
       <a href='#rm'><code>Big.RM</code></a>.
     </p>
@@ -617,16 +683,16 @@ y.toPrecision(5)           // '45.600'</pre>
       notation is returned.
     </p>
     <p>
-      The point at which <code>toString</code> returns exponential rather than 
-      normal notation can be adjusted by changing the value of 
+      The point at which <code>toString</code> returns exponential rather than
+      normal notation can be adjusted by changing the value of
       <code>TO_EXP_POS</code> and <code>TO_EXP_NEG</code> in the
       EDITABLE DEFAULTS section at the top of the source code file. By default,
       Big numbers correspond to Javascript's number type in this regard.
     </p>
     <pre>
-x = new Big('9.99e+20')    
+x = new Big('9.99e+20')
 x.toString()               // '999000000000000000000'
-y = new Big('1E21')    
+y = new Big('1E21')
 x.toString()               // '1e+21'</pre>
 
 
@@ -649,28 +715,28 @@ x.valueOf()                // '1.777e+459'</pre>
     </p>
     <table>
       <tr>
-      	<th>Property</th>
-      	<th>Description</th>
-      	<th>Type</th>
-      	<th>Value</th>
+        <th>Property</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Value</th>
       </tr>
       <tr>
-      	<td class='centre' id='coefficient'><b>c</b></td>
-      	<td>coefficient<sup>*</sup></td>
-      	<td><i>number</i><code>[]</code></td>
-      	<td> Array of single digits</td>
+        <td class='centre' id='coefficient'><b>c</b></td>
+        <td>coefficient<sup>*</sup></td>
+        <td><i>number</i><code>[]</code></td>
+        <td> Array of single digits</td>
       </tr>
       <tr>
-      	<td class='centre' id='exponent'><b>e</b></td>
-      	<td>exponent</td>
-      	<td><i>number</i></td>
-      	<td>Integer, -1e+6 to 1e+6 inclusive</td>
+        <td class='centre' id='exponent'><b>e</b></td>
+        <td>exponent</td>
+        <td><i>number</i></td>
+        <td>Integer, -1e+6 to 1e+6 inclusive</td>
       </tr>
       <tr>
-      	<td class='centre' id='sign'><b>s</b></td>
-      	<td>sign</td>
-      	<td><i>number</i></td>
-      	<td>-1 or 1</td>
+        <td class='centre' id='sign'><b>s</b></td>
+        <td>sign</td>
+        <td><i>number</i></td>
+        <td>-1 or 1</td>
       </tr>
     </table>
     <p><sup>*</sup>significand</p>
@@ -689,7 +755,7 @@ x.toExponential()                  // '1.23e-1'
 x.c                                // '1,2,3'
 x.e                                // -1
 x.s                                // 1
-                                   
+
 y = new Number(-123.4567000e+2)    // '-12345.67'
 y.toExponential()                  // '-1.234567e+4'
 z = new Big('-123.4567000e+2')     // '-12345.67'
@@ -724,9 +790,9 @@ x                          // '0.00001234'</pre>
     <pre>
 x = new Number(-0)         // 0
 1 / x == -Infinity         // true
-                           
+
 y = new Big(-0)            // '0'
-y.c                        // '0'    [0].toString() 
+y.c                        // '0'    [0].toString()
 y.e                        // 0
 y.s                        // -1</pre>
 
@@ -738,44 +804,28 @@ y.s                        // -1</pre>
     </p>
     <table>
       <tr>
-      	<th>Method(s)</th>
-      	<th>Throws</th>
-      	<th>On</th>
+        <th>Method(s)</th>
+        <th>Throws</th>
+        <th>On</th>
       </tr>
       <tr>
-      	<td>
-          <code>Big<br />cmp<br />div<br />minus<br />mod<br />plus<br />
-          times</code>
+        <td>
+          <code>
+            Big<br />div<br />eq gt gte lt lte<br />minus<br />mod<br />plus
+            <br />times
+          </code>
         </td>
-      	<td><code>NaN</code></td>
-      	<td>Invalid number</td>
+        <td><code>NaN</code></td>
+        <td>Invalid number</td>
       </tr>
       <tr>
-      	<td rowspan=4><code>div</code></td>
-      	<td><code>&plusmn;Infinity</code></td>
-      	<td>Division by zero</td>
+        <td rowspan=4><code>div</code></td>
+        <td><code>&plusmn;Infinity</code></td>
+        <td>Division by zero</td>
       </tr>
       <tr>
-      	<td><code>NaN</code></td>
-      	<td>Division of zero by zero</td>
-      </tr>
-      <tr>
-        <td>!Big.DP!</td>
-        <td>Invalid Big.DP</td>
-      </tr>
-      <tr>
-        <td>!Big.RM!</td>
-        <td>Invalid Big.RM</td>
-      </tr>
-      <tr>
-      	<td><code>mod</code></td>
-      	<td><code>NaN</code></td>
-      	<td>Modulo zero</td>
-      </tr>
-      <tr>
-      	<td rowspan=3><code>pow</code></td>
-      	<td>!pow!</td>
-      	<td>Invalid exponent</td>
+        <td><code>NaN</code></td>
+        <td>Division of zero by zero</td>
       </tr>
       <tr>
         <td>!Big.DP!</td>
@@ -786,18 +836,36 @@ y.s                        // -1</pre>
         <td>Invalid Big.RM</td>
       </tr>
       <tr>
-      	<td rowspan=2><code>round</code></td>
-      	<td>!round!</td>
-      	<td>Invalid dp</td>
+        <td><code>mod</code></td>
+        <td><code>NaN</code></td>
+        <td>Modulo zero</td>
+      </tr>
+      <tr>
+        <td rowspan=3><code>pow</code></td>
+        <td>!pow!</td>
+        <td>Invalid exponent</td>
+      </tr>
+      <tr>
+        <td>!Big.DP!</td>
+        <td>Invalid Big.DP</td>
+      </tr>
+      <tr>
+        <td>!Big.RM!</td>
+        <td>Invalid Big.RM</td>
+      </tr>
+      <tr>
+        <td rowspan=2><code>round</code></td>
+        <td>!round!</td>
+        <td>Invalid dp</td>
       </tr>
       <tr>
         <td>!Big.RM!</td>
         <td>Invalid rm/Big.RM</td>
       </tr>
       <tr>
-      	<td rowspan=3><code>sqrt</code></td>
-      	<td><code>NaN</code></td>
-      	<td>Negative number</td>
+        <td rowspan=3><code>sqrt</code></td>
+        <td><code>NaN</code></td>
+        <td>Negative number</td>
       </tr>
       <tr>
         <td>!Big.DP!</td>
@@ -808,27 +876,27 @@ y.s                        // -1</pre>
         <td>Invalid Big.RM</td>
       </tr>
       <tr>
-      	<td rowspan=2><code>toExponential</code></td>
-      	<td>!toExp!</td>
-      	<td>Invalid dp</td>
+        <td rowspan=2><code>toExponential</code></td>
+        <td>!toExp!</td>
+        <td>Invalid dp</td>
       </tr>
       <tr>
         <td>!Big.RM!</td>
         <td>Invalid Big.RM</td>
       </tr>
       <tr>
-      	<td rowspan=2><code>toFixed</code></td>
-      	<td>!toFix!</td>
-      	<td>Invalid dp</td>
+        <td rowspan=2><code>toFixed</code></td>
+        <td>!toFix!</td>
+        <td>Invalid dp</td>
       </tr>
       <tr>
         <td>!Big.RM!</td>
         <td>Invalid Big.RM</td>
       </tr>
       <tr>
-      	<td rowspan=2><code>toPrecision</code></td>
-      	<td>!toPre!</td>
-      	<td>Invalid sd</td>
+        <td rowspan=2><code>toPrecision</code></td>
+        <td>!toPre!</td>
+        <td>Invalid sd</td>
       </tr>
       <tr>
         <td>!Big.RM!</td>
@@ -836,8 +904,8 @@ y.s                        // -1</pre>
       </tr>
     </table>
 
-    
-    
+
+
     <h4 id='faq'>FAQ</h4>
     <h6>Why are trailing fractional zeros removed from Big numbers?</h6>
     <p>
@@ -848,8 +916,8 @@ y.s                        // -1</pre>
     <pre>
 x = new BigDecimal("1.0")
 y = new BigDecimal("1.1000")
-z = x.add(y)                      // 2.1000   
-    
+z = x.add(y)                      // 2.1000
+
 x = new BigDecimal("1.20")
 y = new BigDecimal("3.45000")
 z = x.multiply(y)                 // 4.1400000
@@ -875,16 +943,17 @@ z = x.multiply(y)                 // 4.1400000
       In the second example, the true range is 4.122744 to 4.157256 yet the
       BigDecimal answer of 4.1400000 indicates a range of 4.13999995 to
       4.14000005. Again, the precision implied by the trailing zeros is
-      misleading and frankly it is a mystery to me why they are there.
+      misleading.
     </p>
     <p>
-      This library, like Javascript and most calculators, does not
-      retain trailing fractional zeros. Instead, the <code>toExponential</code>,
-      <code>toFixed</code> and <code>toPrecision</code> methods enable trailing
-      zeros to be added if and when required. 
+      This library, like binary floating-point and most calculators, does not
+      retain trailing fractional zeros.<br />
+      Instead, the <code>toExponential</code>, <code>toFixed</code> and
+      <code>toPrecision</code> methods enable trailing zeros to be added if and
+      when required.
     </p>
     <br />
-    
+
   </div>
 
 </body>
