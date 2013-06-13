@@ -65,16 +65,19 @@
     /*
      * The exported function.
      * Create and return a new instance of a Big object.
+     * If context is undefined Big will be used as context.
+     * If context is null and n is a Big object the context will be copied.
      *
      * n {number|string|Big} A numeric value.
+     * context {Big|Object} An object with DP and RM. If null, context of n is copied.
      */
-    function Big( n ) {
+    function Big( n, context ) {
         var i, j, nL,
             x = this;
 
         // Enable constructor usage without new.
         if ( !(x instanceof Big) ) {
-            return new Big( n )
+            return new Big( n, context )
         }
 
         // Duplicate.
@@ -82,7 +85,32 @@
             x['s'] = n['s'];
             x['e'] = n['e'];
             x['c'] = n['c'].slice();
+
+            // if no context is passed
+            // [!!] the following checks have a big impact on the performance of pow
+            if (context != null) { // rejects null && undefined
+                // use new context
+                x['context'] = context;
+            }
+            else if (context === null) {
+                // copy context
+                x['context'] = n['context'];
+            }
+            else { // inferred as undefined
+                // use globals as context
+                x['context'] = Big;
+            }
+
             return
+        }
+
+        // [!!] intentionally avoiding typeof context === 'undefined'
+        if (context != null) {
+            x['context'] = context;
+        }
+        else { // is null or undefined
+            // we consider passing non-Big object with null as a user error
+            x['context'] = Big; // ie. use global context
         }
 
         // Minus zero?
@@ -139,6 +167,38 @@
             }
         }
     }
+
+    Big['Context'] = function ( options ) {
+        var x = this, DP, RM;
+
+        // Enable constructor usage without new.
+        if ( !(x instanceof Big.Context) ) {
+            return new Big.Context( options )
+        }
+
+        if (options.DP != null) {
+            this.DP = options.DP;
+        }
+        else { // DP undefined or null, inherit global
+            this.DP = Big.DP;
+        }
+
+        if (options.RM != null) {
+            this.RM = options.RM;
+        }
+        else { // RM undefined or null, inherit global
+            this.RM = Big.RM;
+        }
+    }
+
+    Big.Context.prototype['Big'] = function ( n, context ) {
+        if (context != null && context === null) {
+            throw "Logical error. You may not create a Big object inside a context and overwrite the context. Please use Big instead.";
+        }
+        else { // inferred as undefined
+            return new Big( n, this );
+        }
+    };
 
 
     // PRIVATE FUNCTIONS
@@ -208,7 +268,7 @@
     function cmp( x, y ) {
         var xNeg,
             xc = x['c'],
-            yc = ( y = new Big( y ) )['c'],
+            yc = ( y = new Big( y, x.context ) )['c'],
             i = x['s'],
             j = y['s'],
             k = x['e'],
@@ -252,7 +312,7 @@
      * Return a new Big whose value is the absolute value of this Big.
      */
     P['abs'] = function () {
-        var x = new Big(this);
+        var x = new Big(this, this.context);
         x['s'] = 1;
 
         return x
@@ -267,9 +327,9 @@
     P['div'] = function ( y ) {
         var x = this,
             dvd = x['c'],
-            dvs = ( y = new Big(y) )['c'],
+            dvs = ( y = new Big( y, x.context ) )['c'],
             s = x['s'] == y['s'] ? 1 : -1,
-            dp = Big['DP'];
+            dp = x.context['DP'];
 
         if ( dp !== ~~dp || dp < 0 || dp > MAX_DP ) {
             throw '!Big.DP!'
@@ -290,7 +350,7 @@
             }
 
             // 'dvd' is 0. Return +-0.
-            return new Big( s * 0 )
+            return new Big( s * 0, x.context )
         }
 
 
@@ -300,7 +360,7 @@
             dvdL = dvd.length,
             rem = dvd.slice( 0, dvsL ),
             remL = rem.length,
-            quo = new Big(ONE),
+            quo = new Big(ONE, x.context),
             qc = quo['c'] = [],
             qi = 0,
             digits = dp + ( quo['e'] = x['e'] - y['e'] ) + 1;
@@ -378,7 +438,7 @@
 
         // Round?
         if ( qi > digits ) {
-            rnd( quo, dp, Big['RM'], rem[0] != null )
+            rnd( quo, dp, x.context['RM'], rem[0] != null )
         }
 
         return quo
@@ -438,7 +498,7 @@
         var d, i, j, xLTy,
             x = this,
             a = x['s'],
-            b = ( y = new Big( y ) )['s'];
+            b = ( y = new Big( y, x.context ) )['s'];
 
         // Signs differ?
         if ( a != b ) {
@@ -460,7 +520,8 @@
               : new Big( xc[0]
                 ? x
                 // Both are zero.
-                : 0 )
+                : 0,
+                x.context )
         }
 
         // Determine which is the bigger number.
@@ -537,10 +598,12 @@
      * value of Big 'y'.
      */
     P['mod'] = function ( y ) {
-        y = new Big( y );
         var c,
-            x = this,
-            i = x['s'],
+            x = this;
+
+        y = new Big( y, x.context );
+
+        var i = x['s'],
             j = y['s'];
 
         if ( !y['c'][0] ) {
@@ -552,11 +615,11 @@
         x['s'] = i, y['s'] = j;
 
         return c
-          ? new Big(x)
-          : ( i = Big['DP'], j = Big['RM'],
-            Big['DP'] = Big['RM'] = 0,
+          ? new Big( x, x.context )
+          : ( i = x.context['DP'], j = x.context['RM'],
+            x.context['DP'] = x.context['RM'] = 0,
               x = x['div'](y),
-                Big['DP'] = i, Big['RM'] = j,
+                x.context['DP'] = i, x.context['RM'] = j,
                   this['minus']( x['times'](y) ) )
     };
 
@@ -569,7 +632,7 @@
         var d,
             x = this,
             a = x['s'],
-            b = ( y = new Big( y ) )['s'];
+            b = ( y = new Big( y, x.context ) )['s'];
 
         // Signs differ?
         if ( a != b ) {
@@ -593,7 +656,9 @@
                 ? x
 
                 // Both are zero. Return zero.
-                : a * 0 )
+                : a * 0,
+
+                x.context )
         }
 
         // Prepend zeros to equalise exponents.
@@ -643,7 +708,7 @@
      */
     P['pow'] = function ( e ) {
         var isNeg = e < 0,
-            x = new Big(this),
+            x = new Big( this ),
             y = ONE;
 
         if ( e !== ~~e || e < -MAX_POWER || e > MAX_POWER ) {
@@ -653,7 +718,7 @@
         for ( e = isNeg ? -e : e; ; ) {
 
             if ( e & 1 ) {
-                y = y['times'](x)
+                y = x['times'](y)
             }
             e >>= 1;
 
@@ -663,7 +728,7 @@
             x = x['times'](x)
         }
 
-        return isNeg ? ONE['div'](y) : y
+        return isNeg ? (new Big( ONE, this.context ))['div'](y) : y
     };
 
 
@@ -677,14 +742,14 @@
      * [rm] 0, 1 or 2 ( i.e. ROUND_DOWN, ROUND_HALF_UP or ROUND_HALF_EVEN )
      */
     P['round'] = function ( dp, rm ) {
-        var x = new Big(this);
+        var x = new Big( this, this.context );
 
         if ( dp == null ) {
             dp = 0
         } else if ( dp !== ~~dp || dp < 0 || dp > MAX_DP ) {
             throw '!round!'
         }
-        rnd( x, dp, rm == null ? Big['RM'] : rm );
+        rnd( x, dp, rm == null ? x.context['RM'] : rm );
 
         return x
     };
@@ -701,11 +766,11 @@
             xc = x['c'],
             i = x['s'],
             e = x['e'],
-            half = new Big('0.5');
+            half = new Big('0.5', x.context);
 
         // Zero?
         if ( !xc[0] ) {
-            return new Big(x)
+            return new Big(x, x.context)
         }
 
         // Negative?
@@ -725,13 +790,13 @@
                 estimate += '0'
             }
 
-            r = new Big( Math.sqrt(estimate).toString() );
+            r = new Big( Math.sqrt(estimate).toString(), x.context );
             r['e'] = ( ( ( e + 1 ) / 2 ) | 0 ) - ( e < 0 || e & 1 )
         } else {
-            r = new Big( i.toString() )
+            r = new Big( i.toString(), x.context )
         }
 
-        i = r['e'] + ( Big['DP'] += 4 );
+        i = r['e'] + ( x.context['DP'] += 4 );
 
         // Newton-Raphson loop.
         do {
@@ -740,7 +805,7 @@
         } while ( approx['c'].slice( 0, i ).join('') !==
                        r['c'].slice( 0, i ).join('') );
 
-        rnd( r, Big['DP'] -= 4, Big['RM'] );
+        rnd( r, x.context['DP'] -= 4, x.context['RM'] );
 
         return r
     };
@@ -754,7 +819,7 @@
         var c,
             x = this,
             xc = x['c'],
-            yc = ( y = new Big( y ) )['c'],
+            yc = ( y = new Big( y, x.context ) )['c'],
             a = xc.length,
             b = yc.length,
             i = x['e'],
@@ -765,7 +830,7 @@
         // Either 0?
         if ( !xc[0] || !yc[0] ) {
 
-            return new Big( y['s'] * 0 )
+            return new Big( y['s'] * 0, x.context )
         }
 
         y['e'] = i + j;
@@ -876,12 +941,12 @@
      */
     function format( x, dp, toE ) {
         // The index (in normal notation) of the digit that may be rounded up.
-        var i = dp - ( x = new Big(x) )['e'],
+        var i = dp - ( x = new Big(x, x.context) )['e'],
             c = x['c'];
 
         // Round?
         if ( c.length > ++dp ) {
-            rnd( x, i, Big['RM'] )
+            rnd( x, i, x.context['RM'] )
         }
 
         // Recalculate 'i' if toFixed as 'x.e' may have changed if value rounded up.
