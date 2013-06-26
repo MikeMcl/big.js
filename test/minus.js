@@ -1775,8 +1775,6 @@ var count = (function minus(Big) {
     assertException(function () {new Big('12.345').minus('- 99')}, ".minus('- 99')");
     assertException(function () {new Big('12.345').minus('9.9.9')}, ".minus('9.9.9')");
     assertException(function () {new Big('12.345').minus('10.1.0')}, ".minus('10.1.0')");
-    assertException(function () {new Big('12.345').minus('234.')}, ".minus('234.')");
-    assertException(function () {new Big('12.345').minus('.5')}, ".minus('.5')");
     assertException(function () {new Big('12.345').minus('0x16')}, ".minus('0x16')");
     assertException(function () {new Big('12.345').minus('1e')}, ".minus('1e')");
     assertException(function () {new Big('12.345').minus('8 e')}, ".minus('8 e')");

@@ -1823,8 +1823,6 @@ var count = (function mod(Big) {
     assertException(function () {new Big('12.345').mod('- 99')}, ".mod('- 99')");
     assertException(function () {new Big('12.345').mod('9.9.9')}, ".mod('9.9.9')");
     assertException(function () {new Big('12.345').mod('10.1.0')}, ".mod('10.1.0')");
-    assertException(function () {new Big('12.345').mod('234.')}, ".mod('234.')");
-    assertException(function () {new Big('12.345').mod('.5')}, ".mod('.5')");
     assertException(function () {new Big('12.345').mod('0x16')}, ".mod('0x16')");
     assertException(function () {new Big('12.345').mod('1e')}, ".mod('1e')");
     assertException(function () {new Big('12.345').mod('8 e')}, ".mod('8 e')");

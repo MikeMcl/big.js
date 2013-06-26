@@ -1898,8 +1898,6 @@ var count = (function plus(Big) {
     assertException(function () {new Big('12.345').plus('- 99')}, ".plus('- 99')");
     assertException(function () {new Big('12.345').plus('9.9.9')}, ".plus('9.9.9')");
     assertException(function () {new Big('12.345').plus('10.1.0')}, ".plus('10.1.0')");
-    assertException(function () {new Big('12.345').plus('234.')}, ".plus('234.')");
-    assertException(function () {new Big('12.345').plus('.5')}, ".plus('.5')");
     assertException(function () {new Big('12.345').plus('0x16')}, ".plus('0x16')");
     assertException(function () {new Big('12.345').plus('1e')}, ".plus('1e')");
     assertException(function () {new Big('12.345').plus('8 e')}, ".plus('8 e')");

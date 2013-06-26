@@ -2144,8 +2144,6 @@ var count = (function times(Big) {
     assertException(function () {new Big('1').times('- 99')}, ".times('- 99')");
     assertException(function () {new Big('1').times('9.9.9')}, ".times('9.9.9')");
     assertException(function () {new Big('1').times('10.1.0')}, ".times('10.1.0')");
-    assertException(function () {new Big('1').times('234.')}, ".times('234.')");
-    assertException(function () {new Big('1').times('.5')}, ".times('.5')");
     assertException(function () {new Big('1').times('0x16')}, ".times('0x16')");
     assertException(function () {new Big('1').times('1e')}, ".times('1e')");
     assertException(function () {new Big('1').times('8 e')}, ".times('8 e')");

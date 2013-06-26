@@ -4168,8 +4168,6 @@ var count = (function cmp(Big) {
     assertException(function () {new Big('12.345').eq('- 99')}, ".eq('- 99')");
     assertException(function () {new Big('12.345').eq('9.9.9')}, ".eq('9.9.9')");
     assertException(function () {new Big('12.345').eq('10.1.0')}, ".eq('10.1.0')");
-    assertException(function () {new Big('12.345').eq('234.')}, ".eq('234.')");
-    assertException(function () {new Big('12.345').eq('.5')}, ".eq('.5')");
     assertException(function () {new Big('12.345').eq('0x16')}, ".eq('0x16')");
     assertException(function () {new Big('12.345').eq('1e')}, ".eq('1e')");
     assertException(function () {new Big('12.345').eq('8 e')}, ".eq('8 e')");
@@ -4200,8 +4198,6 @@ var count = (function cmp(Big) {
     assertException(function () {new Big('0').gt('- 99')}, ".gt('- 99')");
     assertException(function () {new Big('0').gt('9.9.9')}, ".gt('9.9.9')");
     assertException(function () {new Big('0').gt('10.1.0')}, ".gt('10.1.0')");
-    assertException(function () {new Big('0').gt('234.')}, ".gt('234.')");
-    assertException(function () {new Big('0').gt('.5')}, ".gt('.5')");
     assertException(function () {new Big('0').gt('0x16')}, ".gt('0x16')");
     assertException(function () {new Big('0').gt('1e')}, ".gt('1e')");
     assertException(function () {new Big('0').gt('8 e')}, ".gt('8 e')");
@@ -4232,8 +4228,6 @@ var count = (function cmp(Big) {
     assertException(function () {new Big('9.9900E2').gte('- 99')}, ".gte('- 99')");
     assertException(function () {new Big('9.9900E2').gte('9.9.9')}, ".gte('9.9.9')");
     assertException(function () {new Big('9.9900E2').gte('10.1.0')}, ".gte('10.1.0')");
-    assertException(function () {new Big('9.9900E2').gte('234.')}, ".gte('234.')");
-    assertException(function () {new Big('9.9900E2').gte('.5')}, ".gte('.5')");
     assertException(function () {new Big('9.9900E2').gte('0x16')}, ".gte('0x16')");
     assertException(function () {new Big('9.9900E2').gte('1e')}, ".gte('1e')");
     assertException(function () {new Big('9.9900E2').gte('8 e')}, ".gte('8 e')");
@@ -4264,8 +4258,6 @@ var count = (function cmp(Big) {
     assertException(function () {new Big('12.345').lt('- 99')}, ".lt('- 99')");
     assertException(function () {new Big('12.345').lt('9.9.9')}, ".lt('9.9.9')");
     assertException(function () {new Big('12.345').lt('10.1.0')}, ".lt('10.1.0')");
-    assertException(function () {new Big('12.345').lt('234.')}, ".lt('234.')");
-    assertException(function () {new Big('12.345').lt('.5')}, ".lt('.5')");
     assertException(function () {new Big('12.345').lt('0x16')}, ".lt('0x16')");
     assertException(function () {new Big('12.345').lt('1e')}, ".lt('1e')");
     assertException(function () {new Big('12.345').lt('8 e')}, ".lt('8 e')");
@@ -4296,8 +4288,6 @@ var count = (function cmp(Big) {
     assertException(function () {new Big('12.345').lte('- 99')}, ".lte('- 99')");
     assertException(function () {new Big('12.345').lte('9.9.9')}, ".lte('9.9.9')");
     assertException(function () {new Big('12.345').lte('10.1.0')}, ".lte('10.1.0')");
-    assertException(function () {new Big('12.345').lte('234.')}, ".lte('234.')");
-    assertException(function () {new Big('12.345').lte('.5')}, ".lte('.5')");
     assertException(function () {new Big('12.345').lte('0x16')}, ".lte('0x16')");
     assertException(function () {new Big('12.345').lte('1e')}, ".lte('1e')");
     assertException(function () {new Big('12.345').lte('8 e')}, ".lte('8 e')");
