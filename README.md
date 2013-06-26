@@ -171,9 +171,13 @@ See LICENCE.
 
 ## Change Log
 
+####2.1.0  
+ 
+* 26/06/13 Allow e.g. `.1` and `2.`.
+
 ####2.0.0  
  
-* 12 May 2013 Added `abs` method and replaced `cmp` with `eq`, `gt`, `gte`, `lt`, and `lte` methods.
+* 12/05/13 Added `abs` method and replaced `cmp` with `eq`, `gt`, `gte`, `lt`, and `lte` methods.
 
 ####1.0.1 
 
