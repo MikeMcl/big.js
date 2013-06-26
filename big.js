@@ -1,9 +1,9 @@
-/* big.js v2.0.0 https://github.com/MikeMcl/big.js/LICENCE */
+/* big.js v2.1.0 https://github.com/MikeMcl/big.js/LICENCE */
 ;(function ( global ) {
     'use strict';
 
     /*
-      big.js v2.0.0
+      big.js v2.1.0
       A small, fast, easy-to-use library for arbitrary-precision decimal arithmetic.
       https://github.com/MikeMcl/big.js/
       Copyright (c) 2012 Michael Mclaughlin <M8ch88l@gmail.com>
@@ -24,8 +24,8 @@
     /*
      * The rounding mode used when rounding to the above decimal places.
      *
-     * 0 Round towards zero (i.e. truncate, no rounding).               (ROUND_DOWN     )
-     * 1 Round to nearest neighbour. If equidistant, round up.          (ROUND_HALF_UP  )
+     * 0 Round towards zero (i.e. truncate, no rounding).               (ROUND_DOWN)
+     * 1 Round to nearest neighbour. If equidistant, round up.          (ROUND_HALF_UP)
      * 2 Round to nearest neighbour. If equidistant, to even neighbour. (ROUND_HALF_EVEN)
      */
     Big['RM'] = 1;                                   // 0, 1 or 2
@@ -55,7 +55,7 @@
     /***********************************************************************************/
 
         P = Big.prototype,
-        isValid = /^-?\d+(?:\.\d+)?(?:e[+-]?\d+)?$/i,
+        isValid = /^-?(\d+(\.\d*)?|\.\d+)(e[+-]?\d+)?$/i,
         ONE = new Big(1);
 
 
@@ -445,7 +445,7 @@
             return y['s'] = -b, x['plus'](y)
         }
 
-        var xc = x['c'],
+        var xc = x['c'].slice(),
             xe = x['e'],
             yc = y['c'],
             ye = y['e'];
@@ -465,7 +465,7 @@
 
         // Determine which is the bigger number.
         // Prepend zeros to equalise exponents.
-        if ( xc = xc.slice(), a = xe - ye ) {
+        if ( a = xe - ye ) {
             d = ( xLTy = a < 0 ) ? ( a = -a, xc ) : ( ye = xe, yc );
 
             for ( d.reverse(), b = a; b--; d.push(0) ) {
