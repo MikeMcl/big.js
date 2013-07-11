@@ -9837,7 +9837,7 @@ var count = (function div(Big) {
     assertException(function () { Big.RM = -1; T(1, 3, 0.3) }, "Big.RM = -1");
     Big.RM = 0;
     T('1', '71', '0.01');
-    assertException(function () { Big.RM = 3; T(1, 3, 0.3) }, "Big.RM = 3");
+    assertException(function () { Big.RM = 3.1; T(1, 3, 0.3) }, "Big.RM = 3.1");
     Big.RM = 0;
     T('1', '1061', '0');
     assertException(function () { Big.RM = 1.5; T(1, 3, 0.3) }, "Big.RM = 1.5");
@@ -9937,6 +9937,40 @@ var count = (function div(Big) {
     assertException(function () {new Big('12.345').div('4e1.')}, ".div('4e1.')");
     assertException(function () {Big('12.345').div(Infinity)}, ".div(Infinity)");
     assertException(function () {new Big('12.345').div('-Infinity')}, ".div('-Infinity')");
+
+    // ROUND_UP
+    Big.DP = 0;
+    Big.RM = 3
+    T(0, 1, '0');
+    T('0.0', 1, '0');
+    T('0.1', 1, '1');
+    T('-0.1', 1, '-1');
+    T('1e-50', 1, '1');
+    T('1e-50', -1, '-1');
+    T('999.5', 1, '1000');
+    T('-999.5', 1, '-1000');
+    T('999.4', 1, '1000');
+    T('-999.4', 1, '-1000');
+    T('999.000001', 1, '1000');
+    T('-999.000001', 1, '-1000');
+    T('998.5', 1, '999');
+    T('-998.5', 1, '-999');
+    T('998.6', 1, '999');
+    T('-998.6', 1, '-999');
+    T('998.000001', 1, '999');
+    T('-998.000001', 1, '-999');
+
+    Big.DP = 1;
+    T('0.100000000000000000000000000000000', 1, '0.1');
+    T('0.100000000000000000000000000000000', -1, '-0.1');
+    T('0.1000000000000000000000000000000001', 1, '0.2');
+    T('-0.1000000000000000000000000000000001', 1, '-0.2');
+    T( 1, 3, '0.4');
+    T( -1, 3, '-0.4');
+    T( 1, 4, '0.3');
+    Big.DP = 2;
+    T( 1, 4, '0.25');
+    T( 0.25, 1, '0.25');
 
     log('\n ' + passed + ' of ' + total + ' tests passed in ' + (+new Date() - start) + ' ms \n');
     return [passed, total];;

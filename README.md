@@ -1,16 +1,16 @@
 
 # big.js #
 
-A small, fast Javascript library for arbitrary-precision decimal arithmetic.  
+A small, fast JavaScript library for arbitrary-precision decimal arithmetic.  
 
 The little sister to [bignumber.js](https://github.com/MikeMcl/bignumber.js/).
      
 ## Features
 
-  - Faster, smaller and easier-to-use than Javascript versions of Java's BigDecimal
-  - Only 2.5 KB minified and gzipped
+  - Faster, smaller and easier-to-use than JavaScript versions of Java's BigDecimal
+  - Only 2.6 KB minified and gzipped
   - Simple API
-  - Replicates the `toExponential`, `toFixed` and `toPrecision` methods of Javascript's Number type
+  - Replicates the `toExponential`, `toFixed` and `toPrecision` methods of JavaScript's Number type
   - Includes a `sqrt` method
   - Stores values in an accessible decimal floating point format
   - No dependencies
@@ -18,7 +18,7 @@ The little sister to [bignumber.js](https://github.com/MikeMcl/bignumber.js/).
 
 ## Load
 
-The library is the single Javascript file *big.js* (or *big.min.js*, which is *big.js* minified).   
+The library is the single JavaScript file *big.js* (or *big.min.js*, which is *big.js* minified).   
 
 It can be loaded via a script tag in an HTML document for the browser
 
@@ -63,7 +63,7 @@ The methods that return a Big number can be chained.
     x.div(y).plus(z).times(9).minus('1.234567801234567e+8').plus(976.54321).div('2598.11772')   
     x.sqrt().div(y).pow(3).gt(y.mod(z))    // true
 
-Like Javascript's Number type, there are `toExponential`, `toFixed` and `toPrecision` methods.
+Like JavaScript's Number type, there are `toExponential`, `toFixed` and `toPrecision` methods.
 
     x = new Big(255.5)        
     x.toExponential(5)                 // "2.55500e+2"
@@ -100,7 +100,7 @@ The *test* directory contains the test scripts for each Big number method.
 
 The tests can be run with Node or a browser.   
 
-To test a single method, from a command-line shell at the *test/* directory, use e.g.
+To test a single method, from a command-line shell at the *test* directory, use e.g.
 
     $ node toFixed
 
@@ -108,15 +108,15 @@ To test all the methods
 
     $ node every-test
 
-For the browser, see *single-test.html* and *every-test.html* in the *test/browser/* directory.    
+For the browser, see *single-test.html* and *every-test.html* in the *test/browser* directory.    
 
-*big-vs-number.html* enables some of the methods of big.js to be compared with those of Javascript's Number type.      
+*big-vs-number.html* enables some of the methods of big.js to be compared with those of JavaScript's Number type.      
 
 ## Performance
 
 The *perf* directory contains two applications and a *lib* directory containing the BigDecimal libraries used by both.   
  
-*big-vs-bigdecimal.html* tests the performance of big.js against the Javascript translations of two versions of BigDecimal, its use should be more or less self-explanatory.
+*big-vs-bigdecimal.html* tests the performance of big.js against the JavaScript translations of two versions of BigDecimal, its use should be more or less self-explanatory.
 (The GWT version doesn't work in IE 6.) 
 
 * GWT: java.math.BigDecimal   
@@ -149,7 +149,7 @@ For Node, if uglify-js is installed globally ( `npm install uglify-js -g` ) then
 
 will create *big.min.js*.   
 
-The *big.min.js* already present was created with *Microsoft Ajax Minifier 4.91*, as it produced a smaller file size.
+The *big.min.js* already present was created with *Microsoft Ajax Minifier 4.95*, as it produced a smaller file size.
 
 ## Feedback
 
@@ -170,6 +170,10 @@ Thank you
 See LICENCE.
 
 ## Change Log
+
+####2.2.0  
+ 
+* 11/07/13 Added 'round up' mode.
 
 ####2.1.0  
  

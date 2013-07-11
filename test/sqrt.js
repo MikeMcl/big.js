@@ -771,6 +771,17 @@ var count = (function sqrt(Big) {
     assertException(function () {new Big(-9.9e9).sqrt()}, "-9.9e9");
     assertException(function () {new Big('-9.9e9').sqrt()}, "'-9.9e9'");
 
+    // ROUND_UP
+    Big.DP = 0;
+    Big.RM = 3;
+    T('11', '101');
+    T('11', '111');
+    T('1000', 999000.25);
+    T('1', 0.25);
+    T('1', 0.001);
+    Big.DP = 2;
+    T('0.04', 0.001);
+
     log('\n ' + passed + ' of ' + total + ' tests passed in ' + (+new Date() - start) + ' ms \n');
     return [passed, total];;
 })(this.Big);

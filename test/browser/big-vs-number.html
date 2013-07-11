@@ -57,17 +57,22 @@
       <li>
         <input type='radio' id=0 name=2/>
         <label for=0 >Round down</label>
-        <span>Rounds towards zero. I.e. truncate, no rounding</span>
+        <span>Round towards zero. I.e. truncate, no rounding</span>
       </li>
       <li>
         <input type='radio' id=1 name=2/>
         <label for=1 >Round half up</label>
-        <span>Rounds towards nearest neighbour. If equidistant, rounds up</span>
+        <span>Round towards nearest neighbour. If equidistant, round up</span>
       </li>
       <li>
         <input type='radio' id=2 name=2/>
         <label for=2 >Round half even</label>
-        <span>Rounds towards nearest neighbour. If equidistant, rounds towards even neighbour</span>
+        <span>Round towards nearest neighbour. If equidistant, round towards even neighbour</span>
+      </li>
+      <li>
+        <input type='radio' id=3 name=2/>
+        <label for=3 >Round up</label>
+        <span>Round away from zero.</span>
       </li>
     </ul>
 
@@ -117,7 +122,7 @@
         }
 
         if (input) {
-            for (i = 0; i < 8; i++) {
+            for (i = 0; i < 9; i++) {
                 rb = $inputs[i];
                 if (rb.checked) {
                     if (i < 5) method = rb.id;
@@ -206,7 +211,7 @@
     $input.value = $dp.value = $num.value = $big.value = '';
     setTimeout(function () {$input.focus()}, 0);
 
-    for (i = 0; i < 8; i++) {
+    for (i = 0; i < 9; i++) {
         $inputs[i].checked = false;
 
         $inputs[i].onclick = function () {

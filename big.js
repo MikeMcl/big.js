@@ -1,9 +1,9 @@
-/* big.js v2.1.0 https://github.com/MikeMcl/big.js/LICENCE */
+/* big.js v2.2.0 https://github.com/MikeMcl/big.js/LICENCE */
 ;(function ( global ) {
     'use strict';
 
     /*
-      big.js v2.1.0
+      big.js v2.2.0
       A small, fast, easy-to-use library for arbitrary-precision decimal arithmetic.
       https://github.com/MikeMcl/big.js/
       Copyright (c) 2012 Michael Mclaughlin <M8ch88l@gmail.com>
@@ -27,8 +27,9 @@
      * 0 Round towards zero (i.e. truncate, no rounding).               (ROUND_DOWN)
      * 1 Round to nearest neighbour. If equidistant, round up.          (ROUND_HALF_UP)
      * 2 Round to nearest neighbour. If equidistant, to even neighbour. (ROUND_HALF_EVEN)
+     * 3 Round away from zero.                                          (ROUND_UP)
      */
-    Big['RM'] = 1;                                   // 0, 1 or 2
+    Big['RM'] = 1;                                   // 0, 1, 2 or 3
 
         // The maximum value of 'Big.DP'.
     var MAX_DP = 1E6,                                // 0 to 1e+6
@@ -150,23 +151,26 @@
      *
      * x {Big} The Big to round.
      * dp {number} Integer, 0 to MAX_DP inclusive.
-     * rm {number} 0, 1 or 2 ( ROUND_DOWN, ROUND_HALF_UP or ROUND_HALF_EVEN )
+     * rm {number} 0, 1, 2 or 3 ( ROUND_DOWN, ROUND_HALF_UP, ROUND_HALF_EVEN, ROUND_UP )
      * [more] {boolean} Whether the result of division was truncated.
      */
     function rnd( x, dp, rm, more ) {
         var xc = x['c'],
             i = x['e'] + dp + 1;
 
-        if ( rm !== 0 && rm !== 1 && rm !== 2 ) {
+        if ( rm === 1 ) {
+            // 'xc[i]' is the digit after the digit that may be rounded up.
+            more = xc[i] >= 5
+        } else if ( rm === 2 ) {
+            more = xc[i] > 5 || xc[i] == 5 && ( more || i < 0 || xc[i + 1] != null || xc[i - 1] & 1 )
+        } else if ( rm === 3 ) {
+            more = more || xc[i] != null || i < 0
+        } else if ( more = false, rm !== 0 ) {
             throw '!Big.RM!'
         }
 
-        // 'xc[i]' is the digit after the digit that may be rounded up.
-        rm = rm && ( xc[i] > 5 || xc[i] == 5 &&
-          ( rm == 1 || more || i < 0 || xc[i + 1] != null || xc[i - 1] & 1 ) );
-
         if ( i < 1 || !xc[0] ) {
-            x['c'] = rm
+            x['c'] = more
               // 1, 0.1, 0.01, 0.001, 0.0001 etc.
               ? ( x['e'] = -dp, [1] )
               // Zero.
@@ -177,7 +181,7 @@
             xc.length = i--;
 
             // Round up?
-            if ( rm ) {
+            if ( more ) {
 
                 // Rounding up may mean the previous digit has to be rounded up and so on.
                 for ( ; ++xc[i] > 9; ) {
@@ -518,7 +522,7 @@
         for ( ; xc[--j] == 0; xc.pop() ) {
         }
 
-        // Remove leading zeros and adbust exponent accordingly.
+        // Remove leading zeros and adjust exponent accordingly.
         for ( ; xc[0] == 0; xc.shift(), --ye ) {
         }
 
@@ -674,7 +678,7 @@
      * If 'rm' is not specified, use 'Big.RM'.
      *
      * [dp] {number} Integer, 0 to MAX_DP inclusive.
-     * [rm] 0, 1 or 2 ( i.e. ROUND_DOWN, ROUND_HALF_UP or ROUND_HALF_EVEN )
+     * [rm] 0, 1, 2 or 3 ( ROUND_DOWN, ROUND_HALF_UP, ROUND_HALF_EVEN, ROUND_UP )
      */
     P['round'] = function ( dp, rm ) {
         var x = new Big(this);

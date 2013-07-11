@@ -10,7 +10,7 @@ var arg, i, j, max, method, methodIndex, decimalPlaces, rounding, reps, start,
     bnMs = ['plus', 'minus', 'times', 'div', 'mod', 'pow'],
     Ms = [bdMs, bnMs],
     allMs = [].concat.apply([], Ms),
-    bdRounding = [1, 4, 6],
+    bdRounding = [1, 4, 6, 0],
     bdTotal = 0,
     bnTotal = 0,
     BD = {},
@@ -171,7 +171,7 @@ if (typeof arg != 'undefined' && !isFinite(arg) &&
     console.log(' Maximum digits of operands: %d', max);
 
     if (bdM == 'divide') {
-        rounding = Math.floor(Math.random() * 3);
+        rounding = Math.floor(Math.random() * 4);
         console.log(
             '\n Decimal places: %d\n Rounding mode: %d',
             Big.DP = decimalPlaces,
