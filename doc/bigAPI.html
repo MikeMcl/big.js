@@ -76,8 +76,8 @@ code,pre{font-family:Monaco,Consolas,"Lucida Console",monospace;
     <a href="#prototype-methods">Methods</a>
     <ul>
       <li><a href="#abs"    >abs</a></li>
-      <li><a href="#div"    >div</a></li>
       <li><a href="#cmp"    >cmp</a></li>
+      <li><a href="#div"    >div</a></li>
       <li><a href="#eq"     >eq</a></li>
       <li><a href="#gt"     >gt</a></li>
       <li><a href="#gte"    >gte</a></li>
@@ -281,6 +281,41 @@ x.abs()                     // '0.8'</pre>
 
 
 
+    <h5 id="cmp">
+      cmp<code class='inset'>.cmp( n ) &rArr; <i>number</i></code>
+    </h5>
+    <p><code>n</code> : <i>number|string|Big</i><br /></p>
+    <table>
+      <tr>
+        <th>Returns</th>
+        <th colspan=2>&nbsp;</th>
+      </tr>
+      <tr>
+        <td class='centre'>1</td>
+        <td>
+          If the value of this Big number is greater than the value of <code>n</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='centre'>-1</td>
+        <td>
+          If the value of this Big number is less than the value of <code>n</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='centre'>0</td>
+        <td>If this Big number and <code>n</code> have the same value</td>
+      </tr>
+    </table>
+    <p>Throws <code class='error'>NaN</code> if <code>n</code> is invalid.</p>
+    <pre>
+x = new Big(6)
+y = new Big(5)
+x.cmp(y)                   // 1
+y.cmp(x.minus(1))          // 0</pre>
+
+
+
     <h5 id="div">div<code class='inset'>.div(n) &rArr; <i>Big</i></code></h5>
     <p><code>n</code> : <i>number|string|Big</i><br /></p>
     <p>
@@ -308,38 +343,6 @@ x.div(5)                   // '71'</pre>
 
 
 
-    <h5 id="cmp">
-      cmp<code class='inset'>.cmp( n ) &rArr; <i>number</i></code>
-    </h5>
-    <p><code>n</code> : <i>number|string|Big</i><br /></p>
-    <table>
-      <tr>
-        <th>Returns</th>
-        <th colspan=2>&nbsp;</th>
-      </tr>
-      <tr>
-        <td class='centre'>1</td>
-        <td>
-          If the value of this Big number is greater than the value of <code>n</code>
-        </td>
-      </tr>
-      <tr>
-        <td class='centre'>-1</td>
-        <td>
-          If the value of this Big number is less than the value of <code>n</code>
-        </td>
-      </tr>
-      <tr>
-        <td class='centre'>0</td>
-        <td>If this Big number and <code>n</code> have the same value</td>
-      </tr>
-    </table>
-    <p>Throws NaN if <code>n</code> is invalid.</p>
-    <pre>
-x = new Big(6)
-y = new Big(5)
-x.cmp(y)                   // 1
-y.cmp(x.minus(1))          // 0</pre>
 
 
 
@@ -854,7 +857,7 @@ y.s                        // -1</pre>
       <tr>
         <td>
           <code>
-            Big<br />div<br />eq gt gte lt lte<br />minus<br />mod<br />plus
+            Big<br />cmp<br />div<br />eq gt gte lt lte<br />minus<br />mod<br />plus
             <br />times
           </code>
         </td>
