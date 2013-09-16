@@ -47,6 +47,7 @@
       <input type='radio' id=3 name=1/><label for=3>div</label>
       <input type='radio' id=4 name=1/><label for=4>mod</label>
       <input type='radio' id=5 name=1/><label for=5>pow</label>
+      <input type='radio' id=6 name=1/><label for=6>cmp</label>
     </div>
 
     <div class='bigd'>
@@ -103,8 +104,8 @@ var i, complete, target, reps, time, prev, limit,
     maxDigits, isFixed, isIntOnly, decimalPlaces, rounding, calcTimeout,
     counterTimeout, script, isGWT, BigDecimal_GWT, BigDecimal_ICU4J,
     bdM, bdTotal, bnM, bnTotal,
-    bdMs = ['add', 'subtract', 'multiply', 'divide', 'remainder', 'pow'],
-    bnMs = ['plus', 'minus', 'times', 'div', 'mod', 'pow'],
+    bdMs = ['add', 'subtract', 'multiply', 'divide', 'remainder', 'pow', 'compareTo'],
+    bnMs = ['plus', 'minus', 'times', 'div', 'mod', 'pow', 'cmp'],
     numberOfMethods = bdMs.length,
     rnd = [1, 4, 6, 0],
     lastRounding = 1,
@@ -447,7 +448,7 @@ var i, complete, target, reps, time, prev, limit,
 
             // Remove any trailing zeros from BigDecimal result
             if (isGWT) {
-                bdR = isIntOnly
+                bdR = bdM == 'compareTo' || isIntOnly
                     ? bdRs[i].toString()
                     : bdRs[i].stripTrailingZeros().toPlainString();
             } else {
