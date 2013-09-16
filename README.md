@@ -49,7 +49,6 @@ It accepts a value of type Number, String or Big number Object.
     x = new Big(123.4567)
     y = Big('123456.7e-3')             // 'new' is optional
     z = new Big(x)
-    y.cmp(z) == 0                      // true
     x.eq(y) && x.eq(z) && y.eq(z)      // true
 
 A Big number is immutable in the sense that it is not changed by its methods.
@@ -93,7 +92,7 @@ The value of a Big number is stored in a decimal floating point format in terms 
     x.e                                // 2                exponent
     x.s                                // -1               sign
 
-For futher information see the API reference in the *doc* folder.
+For further information see the API reference in the *doc* folder.
 
 ## Test
 
