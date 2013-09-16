@@ -1,9 +1,9 @@
-/* big.js v2.2.0 https://github.com/MikeMcl/big.js/LICENCE */
+/* big.js v2.3.0 https://github.com/MikeMcl/big.js/LICENCE */
 ;(function ( global ) {
     'use strict';
 
     /*
-      big.js v2.2.0
+      big.js v2.3.0
       A small, fast, easy-to-use library for arbitrary-precision decimal arithmetic.
       https://github.com/MikeMcl/big.js/
       Copyright (c) 2012 Michael Mclaughlin <M8ch88l@gmail.com>
@@ -217,6 +217,53 @@
 
 
     /*
+     * Return
+     * 1 if the value of this 'Big' is greater than the value of 'Big' 'y',
+     * -1 if the value of this 'Big' is less than the value of 'Big' 'y', or
+     * 0 if they have the same value.
+    */
+    P['cmp'] = function ( y ) {
+        var xNeg,
+            x = this,
+            xc = x['c'],
+            yc = ( y = new Big( y ) )['c'],
+            i = x['s'],
+            j = y['s'],
+            k = x['e'],
+            l = y['e'];
+
+        // Either zero?
+        if ( !xc[0] || !yc[0] ) {
+            return !xc[0] ? !yc[0] ? 0 : -j : i
+        }
+
+        // Signs differ?
+        if ( i != j ) {
+            return i
+        }
+        xNeg = i < 0;
+
+        // Compare exponents.
+        if ( k != l ) {
+            return k > l ^ xNeg ? 1 : -1
+        }
+
+        // Compare digit by digit.
+        for ( i = -1,
+              j = ( k = xc.length ) < ( l = yc.length ) ? k : l;
+              ++i < j; ) {
+
+            if ( xc[i] != yc[i] ) {
+                return xc[i] > yc[i] ^ xNeg ? 1 : -1
+            }
+        }
+
+        // Compare lengths.
+        return k == l ? 0 : k > l ^ xNeg ? 1 : -1
+    };
+
+
+    /*
      * Return a new Big whose value is the value of this Big divided by the
      * value of Big 'y', rounded, if necessary, to a maximum of 'Big.DP'
      * decimal places using rounding mode 'Big.RM'.
@@ -340,55 +387,6 @@
 
         return quo
     }
-
-
-    /*
-     * Return
-     * 1 if the value of this 'Big' is greater than the value of 'Big' 'y',
-     * -1 if the value of this 'Big' is less than the value of 'Big' 'y', or
-     * 0 if they have the same value.
-    */
-    P['cmp'] = function ( y ) {
-      // return cmp( this, y )
-
-      var xNeg,
-            x = this,
-            xc = x['c'],
-            yc = ( y = new Big( y ) )['c'],
-            i = x['s'],
-            j = y['s'],
-            k = x['e'],
-            l = y['e'];
-
-        // Either zero?
-        if ( !xc[0] || !yc[0] ) {
-            return !xc[0] ? !yc[0] ? 0 : -j : i
-        }
-
-        // Signs differ?
-        if ( i != j ) {
-            return i
-        }
-        xNeg = i < 0;
-
-        // Compare exponents.
-        if ( k != l ) {
-            return k > l ^ xNeg ? 1 : -1
-        }
-
-        // Compare digit by digit.
-        for ( i = -1,
-              j = ( k = xc.length ) < ( l = yc.length ) ? k : l;
-              ++i < j; ) {
-
-            if ( xc[i] != yc[i] ) {
-                return xc[i] > yc[i] ^ xNeg ? 1 : -1
-            }
-        }
-
-        // Compare lengths.
-        return k == l ? 0 : k > l ^ xNeg ? 1 : -1
-    };
 
 
     /*
