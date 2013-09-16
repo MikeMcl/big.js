@@ -6,8 +6,8 @@ var arg, i, j, max, method, methodIndex, decimalPlaces, rounding, reps, start,
     args = process.argv.splice(2),
     BigDecimal = require('./lib/bigdecimal_GWT/bigdecimal').BigDecimal,
     Big = require('../big'),
-    bdMs = ['add', 'subtract', 'multiply', 'divide', 'remainder', 'pow'],
-    bnMs = ['plus', 'minus', 'times', 'div', 'mod', 'pow'],
+    bdMs = ['add', 'subtract', 'multiply', 'divide', 'remainder', 'pow', 'compareTo'],
+    bnMs = ['plus', 'minus', 'times', 'div', 'mod', 'pow', 'cmp'],
     Ms = [bdMs, bnMs],
     allMs = [].concat.apply([], Ms),
     bdRounding = [1, 4, 6, 0],
@@ -116,8 +116,8 @@ if (typeof arg != 'undefined' && !isFinite(arg) &&
     console.log(
     '\n node bigtime [ METHOD ] [ METHOD_CALLS [ MAX_DIGITS [ DECIMAL_PLACES ] ] ]' +
     '\n\n METHOD: The method to be timed and compared with the corresponding other' +
-    '\n\n\tBig:        plus minus    times    div    mod       pow' +
-    '\n\n\tBigDecimal: add  subtract multiply divide remainder pow' +
+    '\n\n\tBig:        plus minus    times    div    mod       pow cmp' +
+    '\n\n\tBigDecimal: add  subtract multiply divide remainder pow compareTo' +
     '\n\n METHOD_CALLS:   The number of method calls to be timed for each' +
     '\n\n MAX_DIGITS:     The maximum number of digits of the random operands' +
     '\n\n DECIMAL_PLACES: The number of decimal places used in division' +

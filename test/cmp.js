@@ -46,7 +46,8 @@ var count = (function cmp(Big) {
     }
 
     function T(a, b, expected) {
-    
+        assert(String(expected), String(new Big(a).cmp(b)));
+
         if ( expected === 1 ) {
             assert(true, new Big(a).gt(b));
             assert(true, new Big(a).gte(b));
@@ -65,14 +66,15 @@ var count = (function cmp(Big) {
             assert(true, new Big(a).lte(b));
             assert(false, new Big(a).lt(b));
             assert(false, new Big(a).gt(b));
-        }    
+        }
     }
 
-    log('\n Testing eq, gt, gte, lt, lte...');
+    log('\n Testing cmp, eq, gt, gte, lt, lte...');
 
     /*
      *  Comparison methods
      *
+     *  cmp     comparator
      *  eq      equals
      *  gt      greater than
      *  gte     greater than or equal to

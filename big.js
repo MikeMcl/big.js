@@ -202,53 +202,6 @@
         return x
     }
 
-
-    /*
-     * Return
-     * 1 if the value of Big 'x' is greater than the value of Big 'y',
-     * -1 if the value of Big 'x' is less than the value of Big 'y', or
-     * 0 if they have the same value,
-     */
-    function cmp( x, y ) {
-        var xNeg,
-            xc = x['c'],
-            yc = ( y = new Big( y ) )['c'],
-            i = x['s'],
-            j = y['s'],
-            k = x['e'],
-            l = y['e'];
-
-        // Either zero?
-        if ( !xc[0] || !yc[0] ) {
-            return !xc[0] ? !yc[0] ? 0 : -j : i
-        }
-
-        // Signs differ?
-        if ( i != j ) {
-            return i
-        }
-        xNeg = i < 0;
-
-        // Compare exponents.
-        if ( k != l ) {
-            return k > l ^ xNeg ? 1 : -1
-        }
-
-        // Compare digit by digit.
-        for ( i = -1,
-              j = ( k = xc.length ) < ( l = yc.length ) ? k : l;
-              ++i < j; ) {
-
-            if ( xc[i] != yc[i] ) {
-                return xc[i] > yc[i] ^ xNeg ? 1 : -1
-            }
-        }
-
-        // Compare lengths.
-        return k == l ? 0 : k > l ^ xNeg ? 1 : -1
-    };
-
-
     // PROTOTYPE/INSTANCE METHODS
 
 
@@ -390,11 +343,60 @@
 
 
     /*
+     * Return
+     * 1 if the value of this 'Big' is greater than the value of 'Big' 'y',
+     * -1 if the value of this 'Big' is less than the value of 'Big' 'y', or
+     * 0 if they have the same value.
+    */
+    P['cmp'] = function ( y ) {
+      // return cmp( this, y )
+
+      var xNeg,
+            x = this,
+            xc = x['c'],
+            yc = ( y = new Big( y ) )['c'],
+            i = x['s'],
+            j = y['s'],
+            k = x['e'],
+            l = y['e'];
+
+        // Either zero?
+        if ( !xc[0] || !yc[0] ) {
+            return !xc[0] ? !yc[0] ? 0 : -j : i
+        }
+
+        // Signs differ?
+        if ( i != j ) {
+            return i
+        }
+        xNeg = i < 0;
+
+        // Compare exponents.
+        if ( k != l ) {
+            return k > l ^ xNeg ? 1 : -1
+        }
+
+        // Compare digit by digit.
+        for ( i = -1,
+              j = ( k = xc.length ) < ( l = yc.length ) ? k : l;
+              ++i < j; ) {
+
+            if ( xc[i] != yc[i] ) {
+                return xc[i] > yc[i] ^ xNeg ? 1 : -1
+            }
+        }
+
+        // Compare lengths.
+        return k == l ? 0 : k > l ^ xNeg ? 1 : -1
+    };
+
+
+    /*
      * Return true if the value of this Big is equal to the value of Big 'y',
      * otherwise returns false.
      */
     P['eq'] = function ( y ) {
-        return !cmp( this, y )
+        return !this.cmp( y )
     };
 
 
@@ -403,7 +405,7 @@
      * otherwise returns false.
      */
     P['gt'] = function ( y ) {
-        return cmp( this, y ) > 0
+        return this.cmp( y ) > 0
     };
 
 
@@ -412,7 +414,7 @@
      * value of Big 'y', otherwise returns false.
      */
     P['gte'] = function ( y ) {
-        return cmp( this, y ) > -1
+        return this.cmp( y ) > -1
     };
 
 
@@ -421,7 +423,7 @@
      * otherwise returns false.
      */
     P['lt'] = function ( y ) {
-        return cmp( this, y ) < 0
+        return this.cmp( y ) < 0
     };
 
 
@@ -430,7 +432,7 @@
      * of Big 'y', otherwise returns false.
      */
     P['lte'] = function ( y ) {
-         return cmp( this, y ) < 1
+         return this.cmp( y ) < 1
     };
 
 
@@ -552,7 +554,7 @@
         }
 
         x['s'] = y['s'] = 1;
-        c = cmp( y, x ) == 1;
+        c = y.cmp( x ) == 1;
         x['s'] = i, y['s'] = j;
 
         return c
