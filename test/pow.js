@@ -983,7 +983,7 @@ var count = (function pow(Big) {
     T('0.0625', 2, -4);
 
     // As negative exponents involve a division, the result depends on the
-    // decimal places and powing mode specified:
+    // decimal places and rounding mode specified:
 
     Big.DP = 40;
     Big.RM = 0;
