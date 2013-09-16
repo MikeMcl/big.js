@@ -195,5 +195,3 @@ See LICENCE.
 
 * 7/11/2012 Initial release
 
-
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/cc8d37bdc8c4ef250f2b83fd5b7a101a "githalytics.com")](http://githalytics.com/MikeMcl/big.js)
