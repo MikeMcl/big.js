@@ -171,6 +171,10 @@ See LICENCE.
 
 ## Change Log
 
+####2.4.0
+
+* 19/09/13 Throw instances of `Error`.
+
 ####2.3.0
 
 * 16/09/13 Added `cmp` method.

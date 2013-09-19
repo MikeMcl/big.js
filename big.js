@@ -1,9 +1,9 @@
-/* big.js v2.3.0 https://github.com/MikeMcl/big.js/LICENCE */
+/* big.js v2.4.0 https://github.com/MikeMcl/big.js/LICENCE */
 ;(function ( global ) {
     'use strict';
 
     /*
-      big.js v2.3.0
+      big.js v2.4.0
       A small, fast, easy-to-use library for arbitrary-precision decimal arithmetic.
       https://github.com/MikeMcl/big.js/
       Copyright (c) 2012 Michael Mclaughlin <M8ch88l@gmail.com>
@@ -91,7 +91,7 @@
             n = '-0'
         // Ensure 'n' is string and check validity.
         } else if ( !isValid.test(n += '') ) {
-            throw NaN
+            throwErr( NaN )
         }
 
         // Determine sign.
@@ -166,7 +166,7 @@
         } else if ( rm === 3 ) {
             more = more || xc[i] != null || i < 0
         } else if ( more = false, rm !== 0 ) {
-            throw '!Big.RM!'
+            throwErr( '!Big.RM!' )
         }
 
         if ( i < 1 || !xc[0] ) {
@@ -201,6 +201,20 @@
 
         return x
     }
+
+
+    /*
+     * Throw a BigError.
+     *
+     * message {string} The error message.
+     */
+    function throwErr( message ) {
+        var err = new Error( message );
+        err['name'] = 'BigError';
+
+        throw err
+    }
+
 
     // PROTOTYPE/INSTANCE METHODS
 
@@ -276,7 +290,7 @@
             dp = Big['DP'];
 
         if ( dp !== ~~dp || dp < 0 || dp > MAX_DP ) {
-            throw '!Big.DP!'
+            throwErr( '!Big.DP!' )
         }
 
         // Either 0?
@@ -284,13 +298,13 @@
 
             // Both 0?
             if ( dvd[0] == dvs[0] ) {
-                throw NaN
+                throwErr( NaN )
             }
 
             // 'dvs' is 0?
             if ( !dvs[0] ) {
                 // Throw +-Infinity.
-                throw s / 0
+                throwErr( s / 0 )
             }
 
             // 'dvd' is 0. Return +-0.
@@ -548,7 +562,7 @@
             j = y['s'];
 
         if ( !y['c'][0] ) {
-            throw NaN
+            throwErr( NaN )
         }
 
         x['s'] = y['s'] = 1;
@@ -651,7 +665,7 @@
             y = ONE;
 
         if ( e !== ~~e || e < -MAX_POWER || e > MAX_POWER ) {
-            throw '!pow!'
+            throwErr( '!pow!' )
         }
 
         for ( e = isNeg ? -e : e; ; ) {
@@ -686,7 +700,7 @@
         if ( dp == null ) {
             dp = 0
         } else if ( dp !== ~~dp || dp < 0 || dp > MAX_DP ) {
-            throw '!round!'
+            throwErr( '!round!' )
         }
         rnd( x, dp, rm == null ? Big['RM'] : rm );
 
@@ -714,7 +728,7 @@
 
         // Negative?
         if ( i < 0 ) {
-            throw NaN
+            throwErr( NaN )
         }
 
         // Estimate.
@@ -926,7 +940,7 @@
         if ( dp == null ) {
             dp = this['c'].length - 1
         } else if ( dp !== ~~dp || dp < 0 || dp > MAX_DP ) {
-            throw '!toExp!'
+            throwErr( '!toExp!' )
         }
 
         return format( this, dp, 1 )
@@ -962,7 +976,7 @@
         TO_EXP_NEG = neg, TO_EXP_POS = pos;
 
         if ( !str ) {
-            throw '!toFix!'
+            throwErr( '!toFix!' )
         }
 
         return str
@@ -982,7 +996,7 @@
         if ( sd == null ) {
             return this.toString()
         } else if ( sd !== ~~sd || sd < 1 || sd > MAX_DP ) {
-            throw '!toPre!'
+            throwErr( '!toPre!' )
         }
 
         return format( this, sd - 1, 2 )
