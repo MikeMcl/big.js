@@ -171,6 +171,10 @@ See LICENCE.
 
 ## Change Log
 
+####2.4.1
+
+* 17/10/13 Conform signed zero to IEEEE 754 (2008). 
+
 ####2.4.0
 
 * 19/09/13 Throw instances of `Error`.
