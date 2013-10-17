@@ -311,7 +311,6 @@
             return new Big( s * 0 )
         }
 
-
         var dvsL, dvsT, next, cmp, remI,
             dvsZ = dvs.slice(),
             dvdI = dvsL = dvs.length,
@@ -541,6 +540,9 @@
         }
 
         if ( !xc[0] ) {
+
+            // n - n = +0
+            y['s'] = 1;
 
             // Result must be zero.
             xc = [ye = 0]
