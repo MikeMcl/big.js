@@ -64,10 +64,13 @@ var count = (function plus(Big) {
     T(0, -1, -1);
     T(-0, 1, 1);
     T(-0, -1, -1);
+
     assert(false, isMinusZero(new Big(0).plus(0)));
     assert(false, isMinusZero(new Big(0).plus(-0)));
     assert(false, isMinusZero(new Big(-0).plus(0)));
     assert(true, isMinusZero(new Big(-0).plus(-0)));
+    assert(false, isMinusZero(new Big(1).plus(-1)));
+    assert(false, isMinusZero(new Big(-1).plus(1)));
 
     T(1, '0', '1');
     T(1, '1', '2');
