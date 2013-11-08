@@ -14,7 +14,7 @@ The little sister to [bignumber.js](https://github.com/MikeMcl/bignumber.js/).
   - Includes a `sqrt` method
   - Stores values in an accessible decimal floating point format
   - No dependencies
-  - Comprehensive documentation and test set
+  - Comprehensive [documentation](http://mikemcl.github.io/big.js/) and test set
 
 ## Load
 
@@ -92,7 +92,7 @@ The value of a Big number is stored in a decimal floating point format in terms 
     x.e                                // 2                exponent
     x.s                                // -1               sign
 
-For further information see the API reference in the *doc* folder.
+For further information see the [API](http://mikemcl.github.io/big.js/) reference from the *doc* folder.
 
 ## Test
 
