@@ -95,6 +95,7 @@ code,pre{font-family:Monaco,Consolas,"Lucida Console",monospace;
       <li><a href="#toP"    >toPrecision</a></li>
       <li><a href="#toS"    >toString</a></li>
       <li><a href="#valueOf">valueOf</a></li>
+      <li><a href="#toJSON" >toJSON</a></li>
     </ul>
 
     <a href="#instance-properties">Properties</a>
@@ -752,6 +753,23 @@ x.toString()               // '1e+21'</pre>
     <pre>
 x = new Big('177.7e+457')
 x.valueOf()                // '1.777e+459'</pre>
+
+
+
+    <h5 id="toJSON">
+      toJSON<code class='inset'>.toJSON() &rArr; <i>string</i></code>
+    </h5>
+    <p>
+      As <code>toString</code>.
+    </p>
+    <pre>
+x = new Big('177.7e+457')
+y = new Big(235.4325)
+z = new Big('0.0098074')
+str = JSON.stringify( [x, y, z] )
+
+JSON.parse( str, function ( k, v ) { return k === '' ? v : new Big(v) } )
+// Returns an array of three Big numbers.</pre>
 
 
 
