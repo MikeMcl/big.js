@@ -171,6 +171,10 @@ See LICENCE.
 
 ## Change Log
 
+####2.5.0
+
+* 26/01/14 Added `toJSON` method so serialization uses `toString`.
+
 ####2.4.1
 
 * 17/10/13 Conform signed zero to IEEEE 754 (2008). 

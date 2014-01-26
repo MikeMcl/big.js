@@ -1,9 +1,9 @@
-/* big.js v2.4.1 https://github.com/MikeMcl/big.js/LICENCE */
+/* big.js v2.5.0 https://github.com/MikeMcl/big.js/LICENCE */
 ;(function ( global ) {
     'use strict';
 
     /*
-      big.js v2.4.1
+      big.js v2.5.0
       A small, fast, easy-to-use library for arbitrary-precision decimal arithmetic.
       https://github.com/MikeMcl/big.js/
       Copyright (c) 2012 Michael Mclaughlin <M8ch88l@gmail.com>
@@ -831,7 +831,7 @@
      * to or greater than 'TO_EXP_POS', or a negative exponent equal to or less
      * than 'TO_EXP_NEG'.
      */
-    P['toString'] = P['valueOf'] = function () {
+    P['toString'] = P['valueOf'] = P['toJSON'] = function () {
         var x = this,
             e = x['e'],
             str = x['c'].join(''),
