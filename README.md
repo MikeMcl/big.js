@@ -4,6 +4,7 @@
 A small, fast JavaScript library for arbitrary-precision decimal arithmetic.
 
 The little sister to [bignumber.js](https://github.com/MikeMcl/bignumber.js/).
+See also [decimal.js](https://github.com/MikeMcl/decimal.js/).
 
 ## Features
 
@@ -28,9 +29,9 @@ or as a CommonJS, [Node.js](http://nodejs.org) or AMD module using `require`.
 
 For Node, put the *big.js* file into the same directory as the file that is requiring it and use
 
-    var Big = require('./big');
+    var Big = require('./big.js');
 
-or put it in a *node_modules* directory within the directory and use `require('big')`.
+or put it in a *node_modules* directory within the directory and use `require('big.js')`.
 
 To load with AMD loader libraries such as [requireJS](http://requirejs.org/):
 
@@ -170,6 +171,10 @@ Thank you
 See LICENCE.
 
 ## Change Log
+
+####2.5.1
+
+* 8/06/14 Amend README requires.
 
 ####2.5.0
 
