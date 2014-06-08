@@ -159,7 +159,7 @@ Feedback is welcome.
 Bugs/comments/questions?
 Open an issue, or email
 
-Michael Mclaughlin
+Michael
 <a href="mailto:M8ch88l@gmail.com">M8ch88l@gmail.com</a>
 
 Bitcoin donation to:

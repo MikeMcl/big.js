@@ -1,7 +1,7 @@
 {
   "name": "big.js",
   "description": "A small, fast, easy-to-use library for arbitrary-precision decimal arithmetic",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "keywords": [
     "arbitrary",
     "precision",
