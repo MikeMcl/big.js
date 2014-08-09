@@ -152,6 +152,16 @@ will create *big.min.js*.
 
 The *big.min.js* already present was created with *Microsoft Ajax Minifier 4.95*, as it produced a smaller file size.
 
+## TypeScript
+
+The [DefinitelyTyped](https://github.com/borisyankov/DefinitelyTyped) project has a TypeScript [definitions file](https://github.com/borisyankov/DefinitelyTyped/blob/master/big.js/big.js.d.ts) for big.js.
+
+The definitions file can be added to your project via the [big.js.TypeScript.DefinitelyTyped](https://www.nuget.org/packages/big.js.TypeScript.DefinitelyTyped/0.0.1) NuGet package or via [tsd](http://definitelytyped.org/tsd/).
+
+    tsd query big.js --action install
+
+Any questions about the TypeScript definitions file should be addressed to the DefinitelyTyped project.
+
 ## Feedback
 
 Feedback is welcome.
