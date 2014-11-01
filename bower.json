@@ -1,0 +1,12 @@
+{
+    "name": "big.js",
+    "main": "big.js",
+    "license": "MIT",
+    "ignore": [
+        ".*",
+        "doc",
+        "perf",
+        "test",
+        "*.json"
+    ]
+}
