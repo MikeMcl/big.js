@@ -182,6 +182,10 @@ See LICENCE.
 
 ## Change Log
 
+####2.5.2
+
+* 1/11/14 Added bower.json.
+
 ####2.5.1
 
 * 8/06/14 Amend README requires.
