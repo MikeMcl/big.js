@@ -9,7 +9,7 @@ See also [decimal.js](https://github.com/MikeMcl/decimal.js/).
 ## Features
 
   - Faster, smaller and easier-to-use than JavaScript versions of Java's BigDecimal
-  - Only 2.6 KB minified and gzipped
+  - Only 2.7 KB minified and gzipped
   - Simple API
   - Replicates the `toExponential`, `toFixed` and `toPrecision` methods of JavaScript's Number type
   - Includes a `sqrt` method
@@ -72,8 +72,11 @@ Like JavaScript's Number type, there are `toExponential`, `toFixed` and `toPreci
     x.toPrecision(5)                   // "255.50"
 
 The maximum number of decimal places and the rounding mode used to round the results of the `div`, `sqrt` and `pow`
-(with negative exponent) methods is determined by the value of the `DP` and `RM` properties of the `Big` number constructor.
-The other methods always give the exact result.
+(with negative exponent) methods is determined by the value of the `DP` and `RM` properties of the `Big` number constructor.  
+
+The other methods always give the exact result.  
+
+(From *v3.0.0*, multiple Big number constructors can be created, see Change Log below.)
 
     Big.DP = 10
     Big.RM = 1
@@ -85,6 +88,7 @@ The other methods always give the exact result.
     z.pow(-3)                          // "3.3749999995"
     z.times(z)                         // "0.44444444448888888889"
     z.times(z).round(10)               // "0.4444444445"
+    
 
 The value of a Big number is stored in a decimal floating point format in terms of a coefficient, exponent and sign.
 
@@ -150,7 +154,7 @@ For Node, if uglify-js is installed globally ( `npm install uglify-js -g` ) then
 
 will create *big.min.js*.
 
-The *big.min.js* already present was created with *Microsoft Ajax Minifier 4.95*, as it produced a smaller file size.
+The *big.min.js* already present was created with *Microsoft Ajax Minifier 5.11*.
 
 ## TypeScript
 
@@ -181,6 +185,12 @@ Thank you
 See LICENCE.
 
 ## Change Log
+
+####3.0.0
+
+* 10/12/14 Added [multiple constructor functionality](http://mikemcl.github.io/big.js/#faq).
+* No breaking changes or other additions, but a major code reorganisation,
+ so *v3* seemed appropiate.
 
 ####2.5.2
 
