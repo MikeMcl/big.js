@@ -558,7 +558,7 @@
      * Return a new Big whose value is the value of this Big minus the value
      * of Big y.
      */
-    P.minus = function (y) {
+    P.sub = P.minus = function (y) {
         var i, j, t, xLTy,
             x = this,
             Big = x.constructor,
@@ -709,7 +709,7 @@
      * Return a new Big whose value is the value of this Big plus the value
      * of Big y.
      */
-    P.plus = function (y) {
+    P.add = P.plus = function (y) {
         var t,
             x = this,
             Big = x.constructor,
@@ -909,7 +909,7 @@
      * Return a new Big whose value is the value of this Big times the value of
      * Big y.
      */
-    P.times = function (y) {
+    P.mul = P.times = function (y) {
         var c,
             x = this,
             Big = x.constructor,
