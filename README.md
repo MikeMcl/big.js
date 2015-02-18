@@ -186,6 +186,11 @@ See LICENCE.
 
 ## Change Log
 
+####3.0.1 
+
+* Added `sub`, `add` and `mul` aliases.
+* Clean-up after lint.
+
 ####3.0.0
 
 * 10/12/14 Added [multiple constructor functionality](http://mikemcl.github.io/big.js/#faq).
