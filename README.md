@@ -186,6 +186,10 @@ See LICENCE.
 
 ## Change Log
 
+####3.0.2 
+
+* Remove *.npmignore*, use `files` field in *package.json* instead.
+
 ####3.0.1 
 
 * Added `sub`, `add` and `mul` aliases.
