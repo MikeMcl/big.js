@@ -186,6 +186,10 @@ See LICENCE.
 
 ## Change Log
 
+####3.0.3
+
+* Renamed and exposed TO_EXP_NEG and TO_EXP_POS under Big.E_NEG and Big.E_POS with multiple constructor functionality.
+
 ####3.0.2 
 
 * Remove *.npmignore*, use `files` field in *package.json* instead.
