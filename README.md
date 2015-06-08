@@ -186,7 +186,7 @@ See LICENCE.
 
 ## Change Log
 
-####3.0.3
+####3.1.0
 
 * Renamed and exposed TO_EXP_NEG and TO_EXP_POS under Big.E_NEG and Big.E_POS with multiple constructor functionality.
 
