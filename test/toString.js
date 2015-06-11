@@ -50,6 +50,9 @@ var count = (function toString(Big) {
 
     log('\n Testing toString...');
 
+    Big.E_NEG = -7;
+    Big.E_POS = 21;
+
     // ---------------------------------------------------------------------- v8
 
     T('0', 0);
@@ -1061,6 +1064,14 @@ var count = (function toString(Big) {
     assertException(function () {new Big('e0')}, "new Big('e0')");
     assertException(function () {Big(Infinity)}, "new Big(Infinity)");
     assertException(function () {new Big('-Infinity')}, "new Big('-Infinity')");
+
+    Big.E_NEG = -10;
+    Big.E_POS = 10;
+
+    T('1234567890', '1234567890');
+    T('1.2345678901e+10', '12345678901');
+    T('0.000000001', '0.000000001');
+    T('1e-11', '0.00000000001');
 
     log('\n ' + passed + ' of ' + total + ' tests passed in ' + (+new Date() - start) + ' ms \n');
     return [passed, total];;

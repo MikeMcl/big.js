@@ -1,9 +1,9 @@
-/* big.js v3.0.2 https://github.com/MikeMcl/big.js/LICENCE */
+/* big.js v3.1.0 https://github.com/MikeMcl/big.js/LICENCE */
 ;(function (global) {
     'use strict';
 
 /*
-  big.js v3.0.2
+  big.js v3.1.0
   A small, fast, easy-to-use library for arbitrary-precision decimal arithmetic.
   https://github.com/MikeMcl/big.js/
   Copyright (c) 2014 Michael Mclaughlin <M8ch88l@gmail.com>
@@ -42,7 +42,7 @@
          * JavaScript's Number type: -7
          * -1000000 is the minimum recommended exponent value of a Big.
          */
-        TO_EXP_NEG = -7,                   // 0 to -1000000
+        E_NEG = -7,                   // 0 to -1000000
 
         /*
          * The exponent value at and above which toString returns exponential
@@ -51,7 +51,7 @@
          * 1000000 is the maximum recommended exponent value of a Big.
          * (This limit is not enforced or checked.)
          */
-        TO_EXP_POS = 21,                   // 0 to 1000000
+        E_POS = 21,                   // 0 to 1000000
 
 /******************************************************************************/
 
@@ -100,6 +100,8 @@
         Big.prototype = P;
         Big.DP = DP;
         Big.RM = RM;
+        Big.E_NEG = E_NEG;
+        Big.E_POS = E_POS;
 
         return Big;
     }
@@ -152,7 +154,7 @@
          * necessary to represent the integer part of the value in normal
          * notation.
          */
-        return toE === 1 || toE && (dp <= i || i <= TO_EXP_NEG) ?
+        return toE === 1 || toE && (dp <= i || i <= Big.E_NEG) ?
 
           // Exponential notation.
           (x.s < 0 && c[0] ? '-' : '') +
@@ -986,17 +988,18 @@
     /*
      * Return a string representing the value of this Big.
      * Return exponential notation if this Big has a positive exponent equal to
-     * or greater than TO_EXP_POS, or a negative exponent equal to or less than
-     * TO_EXP_NEG.
+     * or greater than Big.E_POS, or a negative exponent equal to or less than
+     * Big.E_NEG.
      */
     P.toString = P.valueOf = P.toJSON = function () {
         var x = this,
+            Big = x.constructor,
             e = x.e,
             str = x.c.join(''),
             strL = str.length;
 
         // Exponential notation?
-        if (e <= TO_EXP_NEG || e >= TO_EXP_POS) {
+        if (e <= Big.E_NEG || e >= Big.E_POS) {
             str = str.charAt(0) + (strL > 1 ? '.' + str.slice(1) : '') +
               (e < 0 ? 'e' : 'e+') + e;
 
@@ -1067,11 +1070,12 @@
     P.toFixed = function (dp) {
         var str,
             x = this,
-            neg = TO_EXP_NEG,
-            pos = TO_EXP_POS;
+            Big = x.constructor,
+            neg = Big.E_NEG,
+            pos = Big.E_POS;
 
         // Prevent the possibility of exponential notation.
-        TO_EXP_NEG = -(TO_EXP_POS = 1 / 0);
+        Big.E_NEG = -(Big.E_POS = 1 / 0);
 
         if (dp == null) {
             str = x.toString();
@@ -1085,8 +1089,8 @@
                 str = '-' + str;
             }
         }
-        TO_EXP_NEG = neg;
-        TO_EXP_POS = pos;
+        Big.E_NEG = neg;
+        Big.E_POS = pos;
 
         if (!str) {
             throwErr('!toFix!');
