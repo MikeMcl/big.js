@@ -4,7 +4,7 @@
 A small, fast JavaScript library for arbitrary-precision decimal arithmetic.
 
 The little sister to [bignumber.js](https://github.com/MikeMcl/bignumber.js/).
-See also [decimal.js]((https://github.com/MikeMcl/decimal.js/), and [here](https://github.com/MikeMcl/big.js/wiki) for the difference between them.
+See also [decimal.js](https://github.com/MikeMcl/decimal.js/), and [here](https://github.com/MikeMcl/big.js/wiki) for the difference between them.
 
 ## Features
 
@@ -185,6 +185,10 @@ Thank you
 See LICENCE.
 
 ## Change Log
+
+####3.1.2
+
+* README typo.
 
 ####3.1.1
 
