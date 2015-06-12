@@ -67,8 +67,10 @@ code,pre{font-family:Monaco,Consolas,"Lucida Console",monospace;
 
     <a href="#constructor-properties">Properties</a>
     <ul>
-      <li><a href="#dp">DP</a></li>
-      <li><a href="#rm">RM</a></li>
+      <li><a href="#dp"  >DP</a></li>
+      <li><a href="#rm"  >RM</a></li>
+      <li><a href="#eneg">E_NEG</a></li>
+      <li><a href="#epos">E_POS</a></li>
     </ul>
 
     <b> INSTANCE </b>
@@ -251,6 +253,58 @@ new Big('-735.0918e-430')            // '-7.350918e-428'</pre>
       value is found to be invalid.
     </p>
     <pre>Big.RM = 0</pre>
+    
+    
+    
+    <h5 id="eneg">E_NEG</h5>
+    <p>
+      <i>number</i> : integer, -1e+6 to 0 inclusive<br />
+      Default value: <code>-7</code>
+    </p>
+    <p>
+      The negative exponent value at and below which
+      <a href='#toS'><code>toString</code></a> returns exponential notation.
+    </p>
+    <pre>
+Big.E_NEG = -7
+x = new Big(0.00000123)            // '0.00000123'       e is -6
+x = new Big(0.000000123)           // '1.23e-7'</pre>
+    <p>
+      JavaScript numbers use exponential notation for negative exponents of
+      <code>-7</code> and below.
+    </p>
+    <p>
+      Regardless of the value of <code>Big.E_NEG</code>, the
+      <a href='#toF'><code>toFixed</code></a> method will always return a value
+      in normal notation and the <a href='#toE'><code>toExponential</code></a>
+      method will always return a value in exponential form.
+    </p>
+
+
+
+    <h5 id="epos">E_POS</h5>
+    <p>
+      <i>number</i> : integer, 0 to 1e+6 inclusive<br />
+      Default value: <code>21</code>
+    </p>
+    <p>
+      The positive exponent value at and above which
+      <a href='#toS'><code>toString</code></a> returns exponential notation.
+    </p>
+    <pre>
+Big.E_POS = 2    
+x = new Big(12.3)                  // '12.3'        e is 1
+x = new Big(123)                   // '1.23e+2'</pre>
+    <p>
+      JavaScript numbers use exponential notation for positive exponents of
+      <code>21</code> and above.
+    </p>
+    <p>
+      Regardless of the value of <code>Big.E_POS</code>, the
+      <a href='#toF'><code>toFixed</code></a> method will always return a value
+      in normal notation and the <a href='#toE'><code>toExponential</code></a>
+      method will always return a value in exponential form.
+    </p>
 
 
 
@@ -751,11 +805,7 @@ x = new Big('9.99e+20')
 x.toString()               // '999000000000000000000'
 y = new Big('1E21')
 y.toString()               // '1e+21'
-
-Big2 = Big();
-Big2.E_POS = 22;
-y = new Big('1E21')
-y.toString()               // '1000000000000000000000'</pre>
+</pre>
 
 
 
@@ -988,6 +1038,135 @@ y.s                        // -1</pre>
 
 
     <h4 id='faq'>FAQ</h4>
+    <h6>How can I convert a Big number to a primitive JavaScript number?</h6>
+    <p>
+      To convert a Big number to a primitive number, <code>parseFloat</code> or
+      any of the other methods for converting a string to a number can be used.
+    </p>
+    <pre>
+x = new Big('12345.6789')
+parseFloat(x)             // 12345.6789
+Number(x)                 // 12345.6789
++x                        // 12345.6789
+x * 1                     // 12345.6789
+x / 1                     // 12345.6789
+x - 0                     // 12345.6789
+x + 0                     // '12345.67890' (string concatenation, do not use!)
+</pre>
+    <p>
+      If converting to an integer be aware that <code>parseInt</code> doees not
+      handle exponential notation.
+    <p>
+    <pre>
+x = new Big('9.87654e+32')
+parseInt(x)               // 9
+parseInt(+x)              // 9
+parseInt(x.toFixed())     // 9.87654e+32 
+parseInt(x.round())       // 9.87654e+32 
+</pre>
+    <p>
+      The <code>Math</code> methods can also be used, as can certain bitwise
+      operators if the number is within the limits shown.
+    <p>
+    <pre>
+x = new Big('1234.56')
+Math.floor(x)             // 1234
+Math.round(x)             // 1235 
+Number(x.round())         // 1235
+x | 0                     // 1234 (x &lt; Math.pow(2, 31))
+~~x                       // 1234 (x &lt; Math.pow(2, 31))
+x >>> 0                   // 1234 (x &gt;= 0 && x &lt; Math.pow(2, 32))
+</pre>
+    <br />
+    
+    <h6>
+      How can I set the decimal places and/or rounding mode for just one
+      operation?
+    </h6>
+    <p>
+      This library uses a global configuration for the decimal places and
+      rounding mode used by division operations, so it is just a matter of
+      altering this before each.
+    </p>
+    <pre>
+Big.DP = 10
+y = x.sqrt()
+Big.DP = 0
+Big.RM = 1
+z = x.div(3)
+</pre>
+    <p>
+      There is also the ability to create separate Big number constructors each
+      with their own particular <code>DP</code> and <code>RM</code> settings.
+      See below.
+    </p>
+    <p>
+      Finally, there is always the option of redefining the relevant prototype
+      method as required. For example, the following would enable a decimal
+      places and rounding mode to be passed to the <code>div</code> method.
+    </p>
+    <pre>
+Big.prototype.div = (function () {
+  var div = Big.prototype.div;
+  return function (n, dp, rm) {
+    var result,
+      Big = this.constructor,
+      _dp = Big.DP,
+      _rm = Big.RM;
+    if (dp != null) Big.DP = dp;
+    if (rm != null) Big.RM = rm;
+    result = div.call(this, n);
+    Big.DP = _dp;
+    Big.RM = _rm;
+    return result;    
+  }
+})();
+
+var dp = 10;
+var round_up = 2;
+x = x.div(y, dp, round_up);
+</pre>
+    <br />
+
+    <h6>
+      How can I simultaneously use different decimal places and/or rounding mode
+      settings for different Big numbers?
+    </h6>
+    <p>
+      From <i>v3.0.0</i>, it is possible to have multiple Big number
+      constructors each with their own particular <code>DP</code> and
+      <code>RM</code> settings which apply to all Big numbers created from it.
+    </p>
+    <pre>
+/*
+Create an additional Big number constructor by calling the original Big
+number constructor without using new and without any argument.
+*/
+Big10 = Big();
+
+// Set the decimal places of division operations for each constructor.
+Big.DP = 3;
+Big10.DP = 10;
+
+x = Big(5);
+y = Big10(5);
+
+x.div(3)     // 1.667
+y.div(3)     // 1.6666666667
+</pre>
+    <p>
+      Big numbers created by different constructors can be used together in
+      operations, and it is the <code>DP</code> and <code>RM</code> setting of
+      the Big number that an operation is called upon that will apply.
+    </p>
+    <p>
+      In the interest of memory efficiency, all Big number constructors share
+      the same <code>prototype</code> object, so while the <code>DP</code> and
+      <code>RM</code> (and any other <i>own</i> properties) of a constructor are
+      isolated and untouchable by another, its prototype methods are not.
+    </p>
+    <br />
+        
     <h6>Why are trailing fractional zeros removed from Big numbers?</h6>
     <p>
       Many arbitrary-precision libraries retain trailing fractional zeros as
@@ -1032,45 +1211,7 @@ z = x.multiply(y)                 // 4.1400000
       Instead, the <code>toExponential</code>, <code>toFixed</code> and
       <code>toPrecision</code> methods enable trailing zeros to be added if and
       when required.
-    </p>
-    <br />
-    <h6>
-      How can I simultaneously use different decimal places and/or rounding mode
-      settings for different Big numbers?
-    </h6>
-    <p>
-      From <i>v3.0.0</i>, it is possible to have multiple Big number
-      constructors each with their own particular <code>DP</code> and
-      <code>RM</code> settings which apply to all Big numbers created from it.
-    </p>
-    <pre>
-/*
-Create an additional Big number constructor by calling the original Big
-number constructor without using new and without any argument.
-*/
-Big10 = Big();
-
-// Set the decimal places of division operations for each constructor.
-Big.DP = 3;
-Big10.DP = 10;
-
-x = Big(5);
-y = Big10(5);
-
-x.div(3)     // 1.667
-y.div(3)     // 1.6666666667
-</pre>
-    <p>
-      Big numbers created by different constructors can be used together in
-      operations, and it is the <code>DP</code> and <code>RM</code> setting of
-      the Big number that an operation is called upon that will apply.
-    </p>
-    <p>
-      In the interest of memory efficiency, all Big number constructors share
-      the same <code>prototype</code> object, so while the <code>DP</code> and
-      <code>RM</code> (and any other <i>own</i> properties) of a constructor are
-      isolated and untouchable by another, its prototype methods are not.
-    </p>
+    </p>    
     <br />
 
   </div>

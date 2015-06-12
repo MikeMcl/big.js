@@ -4,7 +4,7 @@
 A small, fast JavaScript library for arbitrary-precision decimal arithmetic.
 
 The little sister to [bignumber.js](https://github.com/MikeMcl/bignumber.js/).
-See also [decimal.js](https://github.com/MikeMcl/decimal.js/).
+See also [decimal.js]((https://github.com/MikeMcl/decimal.js/), and [here](https://github.com/MikeMcl/big.js/wiki) for the difference between them.
 
 ## Features
 
@@ -88,7 +88,7 @@ The other methods always give the exact result.
     z.pow(-3)                          // "3.3749999995"
     z.times(z)                         // "0.44444444448888888889"
     z.times(z).round(10)               // "0.4444444445"
-    
+
 
 The value of a Big number is stored in a decimal floating point format in terms of a coefficient, exponent and sign.
 
@@ -186,15 +186,20 @@ See LICENCE.
 
 ## Change Log
 
+####3.1.1
+
+* API documentation update, including FAQ additions.
+
 ####3.1.0
 
-* Renamed and exposed TO_EXP_NEG and TO_EXP_POS under Big.E_NEG and Big.E_POS with multiple constructor functionality.
+* Renamed and exposed `TO_EXP_NEG` and `TO_EXP_POS` as `Big.E_NEG` and
+ `Big.E_POS`.
 
-####3.0.2 
+####3.0.2
 
 * Remove *.npmignore*, use `files` field in *package.json* instead.
 
-####3.0.1 
+####3.0.1
 
 * Added `sub`, `add` and `mul` aliases.
 * Clean-up after lint.
@@ -219,7 +224,7 @@ See LICENCE.
 
 ####2.4.1
 
-* 17/10/13 Conform signed zero to IEEEE 754 (2008). 
+* 17/10/13 Conform signed zero to IEEEE 754 (2008).
 
 ####2.4.0
 
@@ -248,4 +253,3 @@ See LICENCE.
 ####1.0.0
 
 * 7/11/2012 Initial release
-
