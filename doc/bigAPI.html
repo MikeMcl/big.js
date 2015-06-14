@@ -2,7 +2,6 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="Author" content="M Mclaughlin">
   <title>big.js API</title>
   <style>
@@ -797,8 +796,9 @@ y.toPrecision(5)           // '45.600'</pre>
     <p>
       The point at which <code>toString</code> returns exponential rather than
       normal notation can be adjusted by changing the value of
-      <code>Big.E_POS</code> and <code>Big.E_NEG</code>. By default,
-      Big numbers correspond to Javascript's number type in this regard.
+      <a href='#epos'><code>Big.E_POS</code></a> and
+      <a href='#eneg'><code>Big.E_NEG</code></a>. By default, Big numbers
+      correspond to Javascript's number type in this regard.
     </p>
     <pre>
 x = new Big('9.99e+20')
@@ -1065,17 +1065,30 @@ parseInt(x.toFixed())     // 9.87654e+32
 parseInt(x.round())       // 9.87654e+32 
 </pre>
     <p>
-      The <code>Math</code> methods can also be used, as can certain bitwise
-      operators if the number is within the limits shown.
+      The <code>Math</code> methods can also be used.
     <p>
     <pre>
 x = new Big('1234.56')
 Math.floor(x)             // 1234
 Math.round(x)             // 1235 
-Number(x.round())         // 1235
-x | 0                     // 1234 (x &lt; Math.pow(2, 31))
-~~x                       // 1234 (x &lt; Math.pow(2, 31))
-x >>> 0                   // 1234 (x &gt;= 0 && x &lt; Math.pow(2, 32))
+</pre>
+    <br />
+    
+     <h6>
+      How can I round a Big number to a specified number of significant digits?
+    </h6>
+    <p>
+      <a href='#toP'><code>toPrecision</code></a> returns a string representing
+      the value of a Big number rounded to a specified number of significant
+      digits. Or, the number of significant digits of a Big number can be set by
+      truncating the array that stores its coefficient. For example, using the
+      array's length property:
+    </p>
+    <pre>
+x = new Big('987.654321')
+len = x.c.length          // 9
+if (len > 6) x.c.length = 6            
+x                         // 987.654  
 </pre>
     <br />
     
@@ -1086,7 +1099,7 @@ x >>> 0                   // 1234 (x &gt;= 0 && x &lt; Math.pow(2, 32))
     <p>
       This library uses a global configuration for the decimal places and
       rounding mode used by division operations, so it is just a matter of
-      altering this before each.
+      altering this as required.
     </p>
     <pre>
 Big.DP = 10
@@ -1101,8 +1114,8 @@ z = x.div(3)
       See below.
     </p>
     <p>
-      Finally, there is always the option of redefining the relevant prototype
-      method as required. For example, the following would enable a decimal
+      Finally, there is the option of redefining the relevant prototype method
+      as required. For example, the following would enable a decimal
       places and rounding mode to be passed to the <code>div</code> method.
     </p>
     <pre>

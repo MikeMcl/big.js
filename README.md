@@ -27,17 +27,13 @@ It can be loaded via a script tag in an HTML document for the browser
 
 or as a CommonJS, [Node.js](http://nodejs.org) or AMD module using `require`.
 
-For Node, put the *big.js* file into the same directory as the file that is requiring it and use
+    var Big = require('big.js');
 
-    var Big = require('./big.js');
+For Node.js, the library is available from the npm registry:
 
-or put it in a *node_modules* directory within the directory and use `require('big.js')`.
+    $ npm install big.js
 
-To load with AMD loader libraries such as [requireJS](http://requirejs.org/):
 
-    require(['big'], function(Big) {
-        // Use Big here in local scope. No global Big.
-    });
 
 ## Use
 
@@ -93,7 +89,7 @@ The other methods always give the exact result.
 The value of a Big number is stored in a decimal floating point format in terms of a coefficient, exponent and sign.
 
     x = new Big(-123.456);
-    x.c                                // "1,2,3,4,5,6"    coefficient (i.e. significand)
+    x.c                                // [1,2,3,4,5,6]    coefficient (i.e. significand)
     x.e                                // 2                exponent
     x.s                                // -1               sign
 
@@ -185,6 +181,10 @@ Thank you
 See LICENCE.
 
 ## Change Log
+
+####3.1.3
+
+* Minor documentation updates.
 
 ####3.1.2
 
