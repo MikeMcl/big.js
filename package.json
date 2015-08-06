@@ -39,5 +39,10 @@
   "files": [
     "big.js",
     "big.min.js"
-  ]
+  ],
+  "spm": {
+    "main": "big.js",
+    "dependencies": {},
+    "devDependencies": {}
+  }
 }
