@@ -2,6 +2,14 @@
 
 ---
 
+## 3.1.5
+
+* Add standalone for spm in package.json.
+
+## 3.1.4
+
+* Remove npm build in package.json.
+
 ## 3.1.3
 
 * Minor documentation updates.
