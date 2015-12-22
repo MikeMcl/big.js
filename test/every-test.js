@@ -15,6 +15,7 @@ console.log( '\n STARTING TESTS...\n' );
   'pow',
   'round',
   'sqrt',
+  'sum',
   'times',
   'toExponential',
   'toFixed',
