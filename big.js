@@ -184,8 +184,16 @@
             throwErr(NaN);
         }
 
-        // Determine sign.
-        x.s = n.charAt(0) == '-' ? (n = n.slice(1), -1) : 1;
+        // Determine sign. Permit "+" on strings.
+        if (n.charAt(0) === "-") {
+            n = n.slice(1);
+            x.s = -1;
+        } else {
+            if (n.charAt(0) === "+") {
+                n = n.slice(1);
+            } 
+            x.s = 1;
+        }
 
         // Decimal point?
         if ((e = n.indexOf('.')) > -1) {
