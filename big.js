@@ -57,7 +57,7 @@
 
         // The shared prototype object.
         P = {},
-        isValid = /^-?(\d+(\.\d*)?|\.\d+)(e[+-]?\d+)?$/i,
+        isValid = /^(\+|-)?(\d+(\.\d*)?|\.\d+)(e[+-]?\d+)?$/i,
         Big;
 
 
