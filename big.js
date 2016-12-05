@@ -62,6 +62,18 @@
 
 
     /*
+     * Sum the supplied array of Bigs.
+     */
+    var sum = function (array) {
+
+        return array.reduce(function(previousValue, currentValue) {
+            return previousValue.plus(currentValue);
+        }, new Big(0));
+
+    };
+
+
+    /*
      * Create and return a Big constructor.
      *
      */
@@ -102,6 +114,8 @@
         Big.RM = RM;
         Big.E_NEG = E_NEG;
         Big.E_POS = E_POS;
+
+        Big.sum = sum;
 
         return Big;
     }
