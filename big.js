@@ -1119,6 +1119,13 @@
         return format(this, sd - 1, 2);
     };
 
+    /*
+     * Return a primitive JavaScript number with the value of this Big.
+     */
+    P.toFloat = function () {
+        return parseFloat(this);
+    }
+
 
     // Export
 
