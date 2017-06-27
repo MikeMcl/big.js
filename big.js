@@ -1,4 +1,4 @@
-/* big.js v3.1.3 https://github.com/MikeMcl/big.js/LICENCE */
+/* big.js v3.1.3 + shift fix https://github.com/Kounta/big.js/LICENCE */
 ;(function (global) {
     'use strict';
 
@@ -291,7 +291,7 @@
 
                     if (!i--) {
                         ++x.e;
-                        xc.unshift(1);
+                        xc.splice(0, 0, 1);
                     }
                 }
             }
@@ -433,7 +433,7 @@
         s = digits < 0 ? 0 : digits;
 
         // Create version of divisor with leading zero.
-        dvsZ.unshift(0);
+        dvsZ.splice(0, 0, 0);
 
         // Add zeros to make remainder as long as divisor.
         for (; remL++ < dvsL; rem.push(0)) {
@@ -475,7 +475,7 @@
                         }
                         rem[remL] -= dvsT[remL];
                     }
-                    for (; !rem[0]; rem.shift()) {
+                    for (; !rem[0]; rem.splice(0, 1)) {
                     }
                 } else {
                     break;
@@ -498,7 +498,7 @@
         if (!qc[0] && qi != 1) {
 
             // There can't be more than one zero.
-            qc.shift();
+            qc.splice(0, 1);
             q.e--;
         }
 
@@ -652,7 +652,7 @@
 
         // Remove leading zeros and adjust exponent accordingly.
         for (; xc[0] === 0;) {
-            xc.shift();
+            xc.splice(0, 1);
             --ye;
         }
 
@@ -775,7 +775,7 @@
         // No need to check for zero, as +x + +y != 0 && -x + -y != 0
 
         if (b) {
-            xc.unshift(b);
+            xc.splice(0, 0, b);
             ++ye;
         }
 
@@ -973,7 +973,7 @@
 
         // Remove any leading zero.
         if (!c[0]) {
-            c.shift();
+            c.splice(0, 1);
         }
 
         // Remove trailing zeros.
