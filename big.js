@@ -208,18 +208,20 @@
             e = n.length;
         }
 
+        nL = n.length;
+
         // Determine leading zeros.
-        for (i = 0; n.charAt(i) == '0'; i++) {
+        for (i = 0; i < nL && n.charAt(i) == '0'; i++) {
         }
 
-        if (i == (nL = n.length)) {
+        if (i == nL) {
 
             // Zero.
             x.c = [ x.e = 0 ];
         } else {
 
             // Determine trailing zeros.
-            for (; n.charAt(--nL) == '0';) {
+            for (; nL > 0 && n.charAt(--nL) == '0';) {
             }
 
             x.e = e - i - 1;
