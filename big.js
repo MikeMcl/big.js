@@ -1136,6 +1136,7 @@
     // Node and other CommonJS-like environments that support module.exports.
     } else if (typeof module !== 'undefined' && module.exports) {
         module.exports = Big;
+        module.exports.Big = Big;
 
     //Browser.
     } else {
