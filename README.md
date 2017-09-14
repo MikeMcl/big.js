@@ -182,6 +182,10 @@ See LICENCE.
 
 ## Change Log
 
+####3.2.0
+
+* 14/09/17 Aid ES6 import.
+
 ####3.1.3
 
 * Minor documentation updates.
