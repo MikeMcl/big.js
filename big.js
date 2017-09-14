@@ -228,7 +228,8 @@
             x.c = [];
 
             // Convert string to array of digits without leading/trailing zeros.
-            for (e = 0; i <= nL; x.c[e++] = +n.charAt(i++)) {
+            //for (e = 0; i <= nL; x.c[e++] = +n.charAt(i++)) {
+            for (; i <= nL; x.c.push(+n.charAt(i++))) {
             }
         }
 
