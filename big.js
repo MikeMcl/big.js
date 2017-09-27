@@ -1,9 +1,9 @@
-/* big.js v3.1.3 https://github.com/MikeMcl/big.js/LICENCE */
+/* big.js v3.2.0 https://github.com/MikeMcl/big.js/LICENCE */
 ;(function (global) {
     'use strict';
 
 /*
-  big.js v3.1.3
+  big.js v3.2.0
   A small, fast, easy-to-use library for arbitrary-precision decimal arithmetic.
   https://github.com/MikeMcl/big.js/
   Copyright (c) 2014 Michael Mclaughlin <M8ch88l@gmail.com>
@@ -1128,17 +1128,17 @@
 
     Big = bigFactory();
 
+    // Node and other CommonJS-like environments that support module.exports.
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = Big;
+        module.exports.Big = Big;
+        
     //AMD.
-    if (typeof define === 'function' && define.amd) {
+    } else if (typeof define === 'function' && define.amd) {
         define(function () {
             return Big;
         });
-
-    // Node and other CommonJS-like environments that support module.exports.
-    } else if (typeof module !== 'undefined' && module.exports) {
-        module.exports = Big;
-        module.exports.Big = Big;
-
+        
     //Browser.
     } else {
         global.Big = Big;
