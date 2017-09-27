@@ -178,6 +178,13 @@ See LICENCE.
 
 ## Change Log
 
+####4.0.0
+
+* 27/09/17
+* Rename `Big.E_POS` to `Big.PE`, `Big.E_NEG` to `Big.NE`.
+* Refactor error messaging.
+* Throw if `null` is passed to `toFixed` etc.
+
 ####3.2.0
 
 * 14/09/17 Aid ES6 import.
