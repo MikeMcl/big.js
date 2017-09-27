@@ -68,8 +68,8 @@ code,pre{font-family:Monaco,Consolas,"Lucida Console",monospace;
     <ul>
       <li><a href="#dp"  >DP</a></li>
       <li><a href="#rm"  >RM</a></li>
-      <li><a href="#eneg">E_NEG</a></li>
-      <li><a href="#epos">E_POS</a></li>
+      <li><a href="#eneg">NE</a></li>
+      <li><a href="#epos">PE</a></li>
     </ul>
 
     <b> INSTANCE </b>
@@ -191,8 +191,7 @@ new Big('-735.0918e-430')            // '-7.350918e-428'</pre>
     </p>
     <p>
       The value will be checked for validity when one of the above methods is
-      called.<br /> <code class='error'>!Big.DP!</code> will be thrown if the
-      value is found to be invalid.
+      called.<br /> An error will be thrown if the value is found to be invalid.
     </p>
     <pre>Big.DP = 40</pre>
 
@@ -248,14 +247,13 @@ new Big('-735.0918e-430')            // '-7.350918e-428'</pre>
     </table>
     <p>
       The value will be checked for validity when one of the above methods is
-      called.<br /> <code class='error'>!Big.RM!</code> will be thrown if the
-      value is found to be invalid.
+      called.<br /> An error will be thrown if the value is found to be invalid.
     </p>
     <pre>Big.RM = 0</pre>
-    
-    
-    
-    <h5 id="eneg">E_NEG</h5>
+
+
+
+    <h5 id="eneg">NE</h5>
     <p>
       <i>number</i> : integer, -1e+6 to 0 inclusive<br />
       Default value: <code>-7</code>
@@ -265,7 +263,7 @@ new Big('-735.0918e-430')            // '-7.350918e-428'</pre>
       <a href='#toS'><code>toString</code></a> returns exponential notation.
     </p>
     <pre>
-Big.E_NEG = -7
+Big.NE = -7
 x = new Big(0.00000123)            // '0.00000123'       e is -6
 x = new Big(0.000000123)           // '1.23e-7'</pre>
     <p>
@@ -273,7 +271,7 @@ x = new Big(0.000000123)           // '1.23e-7'</pre>
       <code>-7</code> and below.
     </p>
     <p>
-      Regardless of the value of <code>Big.E_NEG</code>, the
+      Regardless of the value of <code>Big.NE</code>, the
       <a href='#toF'><code>toFixed</code></a> method will always return a value
       in normal notation and the <a href='#toE'><code>toExponential</code></a>
       method will always return a value in exponential form.
@@ -281,7 +279,7 @@ x = new Big(0.000000123)           // '1.23e-7'</pre>
 
 
 
-    <h5 id="epos">E_POS</h5>
+    <h5 id="epos">PE</h5>
     <p>
       <i>number</i> : integer, 0 to 1e+6 inclusive<br />
       Default value: <code>21</code>
@@ -291,7 +289,7 @@ x = new Big(0.000000123)           // '1.23e-7'</pre>
       <a href='#toS'><code>toString</code></a> returns exponential notation.
     </p>
     <pre>
-Big.E_POS = 2    
+Big.PE = 2
 x = new Big(12.3)                  // '12.3'        e is 1
 x = new Big(123)                   // '1.23e+2'</pre>
     <p>
@@ -299,7 +297,7 @@ x = new Big(123)                   // '1.23e+2'</pre>
       <code>21</code> and above.
     </p>
     <p>
-      Regardless of the value of <code>Big.E_POS</code>, the
+      Regardless of the value of <code>Big.PE</code>, the
       <a href='#toF'><code>toFixed</code></a> method will always return a value
       in normal notation and the <a href='#toE'><code>toExponential</code></a>
       method will always return a value in exponential form.
@@ -556,7 +554,7 @@ Big(0.7).plus(x).plus(y)   // '1.1'</pre>
       rounding mode <a href='#rm'><code>Big.RM</code></a>.
     </p>
     <p>
-      Throws <code class='error'>!pow!</code> if <code>exp</code> is invalid.
+      Throws if <code>exp</code> is invalid.
     </p>
     <p>
       Note: High value exponents may cause this method to be slow to return.
@@ -588,16 +586,13 @@ new Big(2).pow(1e+6)       // Time taken (Node.js): 9 minutes 34 secs.</pre>
       decimal places.
     </p>
     <p>
-      if <code>dp</code> is omitted or is <code>null</code> or undefined, the
-      return value is <code>n</code> rounded to a whole number.<br />
-      if <code>rm</code> is omitted or is <code>null</code> or
-      undefined, the current <a href='#rm'><code>Big.RM</code></a> setting is
-      used.
+      if <code>dp</code> is omitted or is undefined, the return value is
+      <code>n</code> rounded to a whole number.<br />
+      if <code>rm</code> is omitted or is undefined, the current
+      <a href='#rm'><code>Big.RM</code></a> setting is used.
     </p>
     <p>
-      Throws <code class='error'>!round!</code> if <code>dp</code> is invalid.
-      <br />
-      Throws <code class='error'>!Big.RM!</code> if <code>rm</code> is invalid.
+      Throws if <code>dp</code> or <code>rm</code> is invalid.
     </p>
     <pre>
 x = 123.45
@@ -671,12 +666,12 @@ Big('7e+500').times(y)     // '1.26e+501'</pre>
       the return value will be appended with zeros accordingly.
     </p>
     <p>
-      If <code>dp</code> is omitted, or is <code>null</code> or undefined, the
-      number of digits after the decimal point defaults to the minimum number of
-      digits necessary to represent the value exactly.
+      If <code>dp</code> is omitted or is undefined, the number of digits
+      after the decimal point defaults to the minimum number of digits
+      necessary to represent the value exactly.
     </p>
     <p>
-      Throws <code class='error'>!toExp!</code> if <code>dp</code> is invalid.
+      Throws if <code>dp</code> is invalid.
     </p>
     <pre>
 x = 45.6
@@ -720,13 +715,13 @@ y.toExponential(3)         // '4.560e+1'</pre>
       this method will always return normal notation.
     </p>
     <p>
-      If <code>dp</code> is omitted, or is <code>null</code> or
-      undefined, then the return value is simply the value in normal notation.
-      This is  also unlike <code>Number.prototype.toFixed</code>, which returns
-      the value to zero decimal places.
+      If <code>dp</code> is omitted or is undefined, the return value is
+      simply the value in normal notation. This is also unlike
+      <code>Number.prototype.toFixed</code>, which returns the value to zero
+      decimal places.
     </p>
     <p>
-      Throws <code class='error'>!toFix!</code> if <code>dp</code> is invalid.
+      Throws if <code>dp</code> is invalid.
     </p>
     <pre>
 x = 45.6
@@ -760,15 +755,15 @@ y.toFixed(3)               // '45.600'</pre>
     </p>
     <p>
       If <code>sd</code> is less than the number of digits necessary to
-      represent the integer part of the value in normal notation, then
+      represent the integer part of the value in normal notation,
       exponential notation is used.
     </p>
     <p>
-      If <code>sd</code> is omitted, or is <code>null</code> or undefined, then
-      the return value is the same as <code>.toString()</code>.
+      If <code>sd</code> is omitted or is undefined, the return value is
+      the same as <code>.toString()</code>.
     </p>
     <p>
-      Throws <code class='error'>!toPre!</code> if <code>sd</code> is invalid.
+      Throws if <code>sd</code> is invalid.
     </p>
     <pre>
 x = 45.6
@@ -790,14 +785,14 @@ y.toPrecision(5)           // '45.600'</pre>
     </p>
      <p>
       If this Big number has a positive exponent that is equal to or greater
-      than 21, or a negative exponent equal to or less than -7, then exponential
+      than 21, or a negative exponent equal to or less than -7, exponential
       notation is returned.
     </p>
     <p>
       The point at which <code>toString</code> returns exponential rather than
       normal notation can be adjusted by changing the value of
-      <a href='#epos'><code>Big.E_POS</code></a> and
-      <a href='#eneg'><code>Big.E_NEG</code></a>. By default, Big numbers
+      <a href='#epos'><code>Big.PE</code></a> and
+      <a href='#eneg'><code>Big.NE</code></a>. By default, Big numbers
       correspond to Javascript's number type in this regard.
     </p>
     <pre>
@@ -929,9 +924,9 @@ y.s                        // -1</pre>
 
     <h4 id='Errors'>Errors</h4>
     <p>
-      The errors that are thrown are instances of <code>Error</code> with
-      <code>name</code> <code class='error'>BigError</code> and message as
-      shown in the table below.
+      The errors that are thrown are instances of <code>Error</code>.<br />
+      The <code>message</code> of the errors always begins with
+      <code class='error'>[BigError]</code>.
     </p>
     <table>
       <tr>
@@ -959,11 +954,11 @@ y.s                        // -1</pre>
         <td>Division of zero by zero</td>
       </tr>
       <tr>
-        <td>!Big.DP!</td>
+        <td>DP: <i>invalidValue</i></td>
         <td>Invalid Big.DP</td>
       </tr>
       <tr>
-        <td>!Big.RM!</td>
+        <td>RM: <i>invalidValue</i></td>
         <td>Invalid Big.RM</td>
       </tr>
       <tr>
@@ -973,24 +968,24 @@ y.s                        // -1</pre>
       </tr>
       <tr>
         <td rowspan=3><code>pow</code></td>
-        <td>!pow!</td>
+        <td><i>invalidValue</i></td>
         <td>Invalid exponent</td>
       </tr>
       <tr>
-        <td>!Big.DP!</td>
+        <td>DP: <i>invalidValue</i></td>
         <td>Invalid Big.DP</td>
       </tr>
       <tr>
-        <td>!Big.RM!</td>
+        <td>RM: <i>invalidValue</i></td>
         <td>Invalid Big.RM</td>
       </tr>
       <tr>
         <td rowspan=2><code>round</code></td>
-        <td>!round!</td>
+        <td><i>invalidValue</i></td>
         <td>Invalid dp</td>
       </tr>
       <tr>
-        <td>!Big.RM!</td>
+        <td>RM: <i>invalidValue</i></td>
         <td>Invalid rm/Big.RM</td>
       </tr>
       <tr>
@@ -999,38 +994,38 @@ y.s                        // -1</pre>
         <td>Negative number</td>
       </tr>
       <tr>
-        <td>!Big.DP!</td>
+        <td>DP: <i>invalidValue</i></td>
         <td>Invalid Big.DP</td>
       </tr>
       <tr>
-        <td>!Big.RM!</td>
+        <td>RM: <i>invalidValue</i></td>
         <td>Invalid Big.RM</td>
       </tr>
       <tr>
         <td rowspan=2><code>toExponential</code></td>
-        <td>!toExp!</td>
+        <td><i>invalidValue</i></td>
         <td>Invalid dp</td>
       </tr>
       <tr>
-        <td>!Big.RM!</td>
+        <td>RM: <i>invalidValue</i></td>
         <td>Invalid Big.RM</td>
       </tr>
       <tr>
         <td rowspan=2><code>toFixed</code></td>
-        <td>!toFix!</td>
+        <td><i>invalidValue</i></td>
         <td>Invalid dp</td>
       </tr>
       <tr>
-        <td>!Big.RM!</td>
+        <td>RM: <i>invalidValue</i></td>
         <td>Invalid Big.RM</td>
       </tr>
       <tr>
         <td rowspan=2><code>toPrecision</code></td>
-        <td>!toPre!</td>
+        <td><i>invalidValue</i></td>
         <td>Invalid sd</td>
       </tr>
       <tr>
-        <td>!Big.RM!</td>
+        <td>RM: <i>invalidValue</i></td>
         <td>Invalid Big.RM</td>
       </tr>
     </table>
@@ -1061,8 +1056,8 @@ x + 0                     // '12345.67890' (string concatenation, do not use!)
 x = new Big('9.87654e+32')
 parseInt(x)               // 9
 parseInt(+x)              // 9
-parseInt(x.toFixed())     // 9.87654e+32 
-parseInt(x.round())       // 9.87654e+32 
+parseInt(x.toFixed())     // 9.87654e+32
+parseInt(x.round())       // 9.87654e+32
 </pre>
     <p>
       The <code>Math</code> methods can also be used.
@@ -1070,10 +1065,10 @@ parseInt(x.round())       // 9.87654e+32
     <pre>
 x = new Big('1234.56')
 Math.floor(x)             // 1234
-Math.round(x)             // 1235 
+Math.round(x)             // 1235
 </pre>
     <br />
-    
+
      <h6>
       How can I round a Big number to a specified number of significant digits?
     </h6>
@@ -1087,11 +1082,11 @@ Math.round(x)             // 1235
     <pre>
 x = new Big('987.654321')
 len = x.c.length          // 9
-if (len > 6) x.c.length = 6            
-x                         // 987.654  
+if (len > 6) x.c.length = 6
+x                         // 987.654
 </pre>
     <br />
-    
+
     <h6>
       How can I set the decimal places and/or rounding mode for just one
       operation?
@@ -1126,12 +1121,12 @@ Big.prototype.div = (function () {
       Big = this.constructor,
       _dp = Big.DP,
       _rm = Big.RM;
-    if (dp != null) Big.DP = dp;
-    if (rm != null) Big.RM = rm;
+    if (dp != undefined) Big.DP = dp;
+    if (rm != undefined) Big.RM = rm;
     result = div.call(this, n);
     Big.DP = _dp;
     Big.RM = _rm;
-    return result;    
+    return result;
   }
 })();
 
@@ -1179,7 +1174,7 @@ y.div(3)     // 1.6666666667
       isolated and untouchable by another, its prototype methods are not.
     </p>
     <br />
-        
+
     <h6>Why are trailing fractional zeros removed from Big numbers?</h6>
     <p>
       Many arbitrary-precision libraries retain trailing fractional zeros as
@@ -1224,10 +1219,10 @@ z = x.multiply(y)                 // 4.1400000
       Instead, the <code>toExponential</code>, <code>toFixed</code> and
       <code>toPrecision</code> methods enable trailing zeros to be added if and
       when required.
-    </p>    
+    </p>
     <br />
 
   </div>
-  
+
 </body>
 </html>

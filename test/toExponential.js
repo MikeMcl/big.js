@@ -20,12 +20,11 @@ var count = (function toExponential(Big) {
     function assert(expected, actual) {
         total++;
         if (expected !== actual) {
-           error('\n Test number: ' + total + ' failed');
-           error(' Expected: ' + expected);
-           error(' Actual:   ' + actual);
-           //process.exit();
-        }
-        else {
+            error('\n Test number: ' + total + ' failed');
+            error(' Expected: ' + expected);
+            error(' Actual:   ' + actual);
+            //process.exit();
+        } else {
             passed++;
             //log('\n Expected and actual: ' + actual);
         }
@@ -396,11 +395,11 @@ var count = (function toExponential(Big) {
     T('-3.00e+0', '-3', 2);
     T('-5.00e-2', '-0.05', 2);
     T('1.00e-2', '0.01', 2);
-    T('1.23e+2', '12.3e1', null);
     T('1.23e+2', '12.3e1', undefined);
     T('1e+2', '12.3e1', 0);
     T('1e+2', '12.3e1', -0);
 
+    assertException(function () {new Big(1.23).toExponential(null)}, "null");
     assertException(function () {new Big(1.23).toExponential(NaN)}, "NaN");
     assertException(function () {new Big(1.23).toExponential('NaN')}, "'NaN'");
     assertException(function () {new Big(1.23).toExponential([])}, "[]");
@@ -460,7 +459,6 @@ var count = (function toExponential(Big) {
     T('-3.00e+0', '-3', 2);
     T('-5.00e-2', '-0.05', 2);
     T('1.00e-2', '0.01', 2);
-    T('1.23e+2', '12.3e1', null);
     T('1.23e+2', '12.3e1', undefined);
     T('2e+2', '12.3e1', 0);
     T('-2e+2', '-12.3e1', 0);

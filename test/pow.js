@@ -21,12 +21,11 @@ var count = (function pow(Big) {
     function assert(expected, actual) {
         total++;
         if (expected !== actual) {
-           error('\n Test number: ' + total + ' failed');
-           error(' Expected: ' + expected);
-           error(' Actual:   ' + actual);
-           //process.exit();
-        }
-        else {
+            error('\n Test number: ' + total + ' failed');
+            error(' Expected: ' + expected);
+            error(' Actual:   ' + actual);
+            //process.exit();
+        } else {
             passed++;
             //log('\n Expected and actual: ' + actual);
         }

@@ -150,8 +150,6 @@ For Node, if uglify-js is installed globally ( `npm install uglify-js -g` ) then
 
 will create *big.min.js*.
 
-The *big.min.js* already present was created with *Microsoft Ajax Minifier 5.11*.
-
 ## TypeScript
 
 The [DefinitelyTyped](https://github.com/borisyankov/DefinitelyTyped) project has a TypeScript [definitions file](https://github.com/borisyankov/DefinitelyTyped/blob/master/big.js/big.js.d.ts) for big.js.
@@ -172,9 +170,7 @@ Open an issue, or email
 Michael
 <a href="mailto:M8ch88l@gmail.com">M8ch88l@gmail.com</a>
 
-Bitcoin donation to:
-**1DppGRQSjVSMgGxuygDEHQuWEdTiVEzJYG**
-Thank you
+BTC **1DppGRQSjVSMgGxuygDEHQuWEdTiVEzJYG**
 
 ## Licence
 
@@ -200,8 +196,7 @@ See LICENCE.
 
 ####3.1.0
 
-* Renamed and exposed `TO_EXP_NEG` and `TO_EXP_POS` as `Big.E_NEG` and
- `Big.E_POS`.
+* Renamed and exposed `TO_EXP_NEG` and `TO_EXP_POS` as `Big.E_NEG` and `Big.E_POS`.
 
 ####3.0.2
 
@@ -215,8 +210,7 @@ See LICENCE.
 ####3.0.0
 
 * 10/12/14 Added [multiple constructor functionality](http://mikemcl.github.io/big.js/#faq).
-* No breaking changes or other additions, but a major code reorganisation,
- so *v3* seemed appropriate.
+* No breaking changes or other additions, but a major code reorganisation, so *v3* seemed appropiate.
 
 ####2.5.2
 
