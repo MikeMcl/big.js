@@ -178,6 +178,10 @@ See LICENCE.
 
 ## Change Log
 
+####4.0.1
+
+* 28/09/17 Add *big.mjs* for use with `node --experimental-modules` flag. 
+
 ####4.0.0
 
 * 27/09/17

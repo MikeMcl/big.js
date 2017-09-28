@@ -1,5 +1,5 @@
 /*
- *  big.js v4.0.0
+ *  big.js v4.0.1
  *  A small, fast, easy-to-use library for arbitrary-precision decimal arithmetic.
  *  https://github.com/MikeMcl/big.js/
  *  Copyright (c) 2017 Michael Mclaughlin <M8ch88l@gmail.com>
