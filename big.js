@@ -103,7 +103,8 @@
     Big.RM = RM;
     Big.NE = NE;
     Big.PE = PE;
-
+    Big.version = '4.0.2';
+    
     return Big;
   }
 
