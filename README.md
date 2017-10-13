@@ -1,6 +1,6 @@
 
-# big.js #
-
+# big.js #  
+  
 A small, fast JavaScript library for arbitrary-precision decimal arithmetic.
 
 The little sister to [bignumber.js](https://github.com/MikeMcl/bignumber.js/).
@@ -175,6 +175,11 @@ Michael
 See LICENCE.
 
 ## Change Log
+
+####5.0.1
+
+* 13/10/17
+* Correct `Big.version` number.
 
 ####5.0.0
 
