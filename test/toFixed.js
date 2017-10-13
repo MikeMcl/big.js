@@ -53,10 +53,10 @@ var count = (function toFixed(Big) {
     Big.DP = 20;
     Big.RM = 1;
 
-    // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number/toFixed
-    // Javascript:            2.26.toFixed(5)  returns  2.26000
-    // Javascript:           -2.26.toFixed(5)  returns -2.26
-    // Big:  new Big(-2.26).toFixed(5) returns -2.26000
+    T('0.0', 0, 1);
+    T('0.0', 0, 1);
+    T('0.0', -0, 1);
+    T('0.00', -0, 2);
 
     T('100.0', 99.9512986, 1);
     T('10.0',  9.95036, 1);

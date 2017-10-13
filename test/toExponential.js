@@ -53,6 +53,13 @@ var count = (function toExponential(Big) {
     Big.DP = 20;
     Big.RM = 1;
 
+    T('0e+0', 0);
+    T('0e+0', -0);
+    T('0.0e+0', 0, 1);
+    T('0.0e+0', -0, 1);
+    T('0.00e+0', 0, 2);
+    T('0.00e+0', -0, 2);
+    
     T('1e+0', 1, undefined);
     T('1.1e+1', 11, undefined);
     T('1.12e+2', 112, undefined);

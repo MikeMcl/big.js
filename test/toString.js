@@ -1072,6 +1072,18 @@ var count = (function toString(Big) {
     T('0.000000001', '0.000000001');
     T('1e-11', '0.00000000001');
 
+    T('0', '-0');
+    assert('-0', new Big(-0).valueOf());
+    assert('-0', new Big('-0').valueOf());
+    assert('-0', new Big('-0.0000000000').valueOf());
+
+    Big.NE = Big.PE = 0;
+
+    T('0e+0', '-0');
+    assert('-0e+0', new Big(-0).valueOf());
+    assert('-0e+0', new Big('-0').valueOf());
+    assert('-0e+0', new Big('-0.0000000000').valueOf());
+
     log('\n ' + passed + ' of ' + total + ' tests passed in ' + (+new Date() - start) + ' ms \n');
     return [passed, total];;
 })(this.Big);
