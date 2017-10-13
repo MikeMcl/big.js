@@ -21,10 +21,6 @@ The little sister to [bignumber.js](https://github.com/MikeMcl/bignumber.js/) an
 
     $ npm install --save big.js
 
-or
-
-    $ yarn add big.js
-
 ## Use
 
 The library is the single JavaScript file *big.js* (or *big.min.js*, which is *big.js* minified).
@@ -41,9 +37,7 @@ If using an ES6 transpiler, or Node.js with the [`--experimental-modules`](https
 
     import Big from './big';
 
-<br />
-*In all examples below, `var`, semicolons and `toString` calls are not shown. \
-If a commented-out value is in quotes it means `toString` has been called on the preceding expression.*
+*In all examples below, `var`, semicolons and `toString` calls are not shown. If a commented-out value is in quotes it means `toString` has been called on the preceding expression.*
 
 The library exports a single function, `Big`, the constructor of Big number instances.
 It accepts a value of type number, string or Big number object.
@@ -113,15 +107,15 @@ To test a single method
 
     $ node test/toFixed
 
-For the browser, see *single-test.html* and [*every-test.html*](test/browser/every-test.html) in the *test/browser* directory.
+For the browser, see *single-test.html* and *every-test.html* in the *test/browser* directory.
 
-[*big-vs-number.html*](test/browser/big-vs-number.html) is a simple application that enables some of the methods of big.js to be compared with those of JavaScript's Number type.
+*big-vs-number.html* is a simple application that enables some of the methods of big.js to be compared with those of JavaScript's Number type.
 
 ## Performance
 
 The *perf* directory contains two old applications and a *lib* directory containing the BigDecimal libraries used by both.
 
-[*big-vs-bigdecimal.html*](perf/big-vs-bigdecimal.html) tests the performance of big.js against the JavaScript translations of two versions of BigDecimal, its use should be more or less self-explanatory.
+*big-vs-bigdecimal.html* tests the performance of big.js against the JavaScript translations of two versions of BigDecimal, its use should be more or less self-explanatory.
 
 * [GWT: java.math.BigDecimal](https://github.com/iriscouch/bigdecimal.js)
 * [ICU4J: com.ibm.icu.math.BigDecimal](https://github.com/dtrebbien/BigDecimal.js)
@@ -169,4 +163,4 @@ Open an issue, or email <a href="mailto:M8ch88l@gmail.com">Michael</a>
 
 ## Licence
 
-[MIT](LICENSE)
+[MIT](LICENCE)
