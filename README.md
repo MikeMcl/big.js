@@ -9,7 +9,7 @@ See also [decimal.js](https://github.com/MikeMcl/decimal.js/), and [here](https:
 ## Features
 
   - Faster, smaller and easier-to-use than JavaScript versions of Java's BigDecimal
-  - Only 2.7 KB minified and gzipped
+  - Only 5.9 KB minified and 2.7 KB gzipped
   - Simple API
   - Replicates the `toExponential`, `toFixed` and `toPrecision` methods of JavaScript's Number type
   - Includes a `sqrt` method
@@ -68,9 +68,9 @@ Like JavaScript's Number type, there are `toExponential`, `toFixed` and `toPreci
     x.toPrecision(5)                   // "255.50"
 
 The maximum number of decimal places and the rounding mode used to round the results of the `div`, `sqrt` and `pow`
-(with negative exponent) methods is determined by the value of the `DP` and `RM` properties of the `Big` number constructor.  
+(with negative exponent) methods is determined by the value of the `DP` and `RM` properties of the `Big` number constructor.
 
-The other methods always give the exact result.  
+The other methods always give the exact result.
 
 (From *v3.0.0*, multiple Big number constructors can be created, see Change Log below.)
 
@@ -170,18 +170,26 @@ Open an issue, or email
 Michael
 <a href="mailto:M8ch88l@gmail.com">M8ch88l@gmail.com</a>
 
-BTC **1DppGRQSjVSMgGxuygDEHQuWEdTiVEzJYG**
-
 ## Licence
 
 See LICENCE.
 
 ## Change Log
 
+####5.0.0
+
+* 13/10/17
+* Return `-0` from `valueOf` for negative zero.
+* Refactor the methods which return a string.
+* Amend error messaging.
+* Update API document and change its colour scheme.
+* Add `Big.version`.
+* Remove bitcoin address.
+
 ####4.0.2
 
 * 28/09/17
-* Add *big.mjs* for use with Node.js with `--experimental-modules` flag. 
+* Add *big.mjs* for use with Node.js with `--experimental-modules` flag.
 
 ####4.0.0
 
