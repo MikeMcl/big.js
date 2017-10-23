@@ -1,3 +1,8 @@
+#### 5.0.3
+
+* 23/10/17
+* #89 Optimisation of internal `round` function.
+
 #### 5.0.2
 
 * 13/10/17
