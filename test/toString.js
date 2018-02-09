@@ -19,12 +19,11 @@ var count = (function toString(Big) {
     function assert(expected, actual) {
         total++;
         if (expected !== actual) {
-           error('\n Test number: ' + total + ' failed');
-           error(' Expected: ' + expected);
-           error(' Actual:   ' + actual);
-           //process.exit();
-        }
-        else {
+            error('\n Test number: ' + total + ' failed');
+            error(' Expected: ' + expected);
+            error(' Actual:   ' + actual);
+            //process.exit();
+        } else {
             passed++;
             //log('\n Expected and actual: ' + actual);
         }
@@ -50,8 +49,8 @@ var count = (function toString(Big) {
 
     log('\n Testing toString...');
 
-    Big.E_NEG = -7;
-    Big.E_POS = 21;
+    Big.NE = -7;
+    Big.PE = 21;
 
     // ---------------------------------------------------------------------- v8
 
@@ -1065,13 +1064,25 @@ var count = (function toString(Big) {
     assertException(function () {Big(Infinity)}, "new Big(Infinity)");
     assertException(function () {new Big('-Infinity')}, "new Big('-Infinity')");
 
-    Big.E_NEG = -10;
-    Big.E_POS = 10;
+    Big.NE = -10;
+    Big.PE = 10;
 
     T('1234567890', '1234567890');
     T('1.2345678901e+10', '12345678901');
     T('0.000000001', '0.000000001');
     T('1e-11', '0.00000000001');
+
+    T('0', '-0');
+    assert('-0', new Big(-0).valueOf());
+    assert('-0', new Big('-0').valueOf());
+    assert('-0', new Big('-0.0000000000').valueOf());
+
+    Big.NE = Big.PE = 0;
+
+    T('0e+0', '-0');
+    assert('-0e+0', new Big(-0).valueOf());
+    assert('-0e+0', new Big('-0').valueOf());
+    assert('-0e+0', new Big('-0.0000000000').valueOf());
 
     log('\n ' + passed + ' of ' + total + ' tests passed in ' + (+new Date() - start) + ' ms \n');
     return [passed, total];;

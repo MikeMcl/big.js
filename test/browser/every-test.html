@@ -35,7 +35,7 @@
           script = document.createElement("script");
       script.src = '../' + methods[i] + '.js';
       if (!methods[i++]) {
-          document.body.innerHTML += '<br>IN TOTAL: ' + passed + ' of ' + total +
+          document.body.innerHTML += '<br>RESULTS: ' + passed + ' of ' + total +
           ' tests passed in ' + ( (+new Date() - start) / 1000 ) + ' secs.<br>';
           document.body.scrollIntoView(false);
           return;

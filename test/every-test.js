@@ -27,5 +27,5 @@ console.log( '\n STARTING TESTS...\n' );
     total += arr[1];
 });
 
-console.log( '\n IN TOTAL: ' + passed + ' of ' + total + ' tests passed in ' +
+console.log( '\n RESULTS: ' + passed + ' of ' + total + ' tests passed in ' +
     ( (+new Date() - start) / 1000 ) + ' secs.\n' );

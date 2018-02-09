@@ -20,12 +20,11 @@ var count = (function toPrecision(Big) {
     function assert(expected, actual) {
         total++;
         if (expected !== actual) {
-           error('\n Test number: ' + total + ' failed');
-           error(' Expected: ' + expected);
-           error(' Actual:   ' + actual);
-           //process.exit();
-        }
-        else {
+            error('\n Test number: ' + total + ' failed');
+            error(' Expected: ' + expected);
+            error(' Actual:   ' + actual);
+            //process.exit();
+        } else {
             passed++;
             //log('\n Expected and actual: ' + actual);
         }
@@ -53,6 +52,13 @@ var count = (function toPrecision(Big) {
 
     Big.DP = 20;
     Big.RM = 1;
+    
+    T('0', 0);
+    T('0', -0);
+    T('0', 0, 1);
+    T('0', -0, 1);
+    T('0.0', 0, 2);
+    T('0.0', -0, 2);
 
     // ---------------------------------------------------------------- v8 start
 
@@ -411,9 +417,9 @@ var count = (function toPrecision(Big) {
     T('243028.94040290384317164750687246', '243028.940402903843171647506872458168411478', 32);
     T('5313610990.737', '5313610990.7373810218', 13);
     T('-3.56e+4', '-35566.4678487', 3);
-    T('123.45', '12.345e1', null);
     T('123.45', '12.345e1', undefined);
 
+    assertException(function () {new Big(1.23).toPrecision(null)}, "null");
     assertException(function () {new Big(1.23).toPrecision(NaN)}, "NaN");
     assertException(function () {new Big(1.23).toPrecision('NaN')}, "'NaN'");
     assertException(function () {new Big(1.23).toPrecision([])}, "[]");
