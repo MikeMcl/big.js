@@ -21,6 +21,7 @@
     "url": "https://github.com/MikeMcl/big.js.git"
   },
   "main": "big.js",
+  "module": "big.mjs",
   "author": {
     "name": "Michael Mclaughlin",
     "email": "M8ch88l@gmail.com"
