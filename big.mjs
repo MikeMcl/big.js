@@ -4,7 +4,6 @@
  *  Copyright (c) 2017 Michael Mclaughlin <M8ch88l@gmail.com>
  *  https://github.com/MikeMcl/big.js/LICENCE
  */
-var Big,
 
 
 /************************************** EDITABLE DEFAULTS *****************************************/
@@ -16,7 +15,7 @@ var Big,
    * The maximum number of decimal places (DP) of the results of operations involving division:
    * div and sqrt, and pow with negative exponents.
    */
-  DP = 20,          // 0 to MAX_DP
+var DP = 20,          // 0 to MAX_DP
 
   /*
    * The rounding mode (RM) used when rounding to the above decimal places.
@@ -918,8 +917,6 @@ P.valueOf = P.toJSON = function () {
 // Export
 
 
-Big = _Big_();
-
-Big.Big = Big;
+export var Big = _Big_();
 
 export default Big;

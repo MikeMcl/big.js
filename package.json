@@ -20,7 +20,7 @@
     "type": "git",
     "url": "https://github.com/MikeMcl/big.js.git"
   },
-  "main": "big.js",
+  "main": "big",
   "module": "big.mjs",
   "author": {
     "name": "Michael Mclaughlin",

@@ -35,7 +35,7 @@ or as a CommonJS, Node.js or AMD module using `require`.
 
 If using an ES6 transpiler, or Node.js with the [`--experimental-modules`](https://nodejs.org/api/esm.html) flag, try
 
-    import Big from './big';
+    import Big from 'big.js';
 
 *In all examples below, `var`, semicolons and `toString` calls are not shown. If a commented-out value is in quotes it means `toString` has been called on the preceding expression.*
 
