@@ -1,3 +1,9 @@
+#### 5.1.0
+
+* 22/05/18
+* Amend *.mjs* exports.
+* Remove extension from `main` field in *package.json*.
+
 #### 5.0.3
 
 * 23/10/17
