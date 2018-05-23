@@ -21,6 +21,7 @@
     "url": "https://github.com/MikeMcl/big.js.git"
   },
   "main": "big",
+  "browser": "big.js",
   "module": "big.mjs",
   "author": {
     "name": "Michael Mclaughlin",
