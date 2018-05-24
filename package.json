@@ -16,7 +16,7 @@
     "bigint",
     "bignum"
   ],
-  "repository" : {
+  "repository": {
     "type": "git",
     "url": "https://github.com/MikeMcl/big.js.git"
   },
@@ -27,7 +27,7 @@
     "name": "Michael Mclaughlin",
     "email": "M8ch88l@gmail.com"
   },
-   "bugs": {
+  "bugs": {
     "url": "https://github.com/MikeMcl/big.js/issues"
   },
   "engines": {
@@ -36,11 +36,19 @@
   "license": "MIT",
   "scripts": {
     "test": "node ./test/every-test.js",
-    "build": "uglifyjs big.js --source-map doc/big.js.map -c -m -o big.min.js --preamble \"/* big.js v5.1.2 https://github.com/MikeMcl/big.js/LICENCE */\""
+    "build": "uglifyjs big.js --source-map doc/big.js.map -c -m -o big.min.js --preamble \"/* big.js v5.1.2 https://github.com/MikeMcl/big.js/LICENCE */\"",
+    "postinstall": "opencollective postinstall"
   },
   "files": [
     "big.js",
     "big.mjs",
     "big.min.js"
-  ]
+  ],
+  "dependencies": {
+    "opencollective": "^1.0.3"
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/bigjs"
+  }
 }
