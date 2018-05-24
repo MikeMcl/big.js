@@ -1,3 +1,9 @@
+#### 5.1.2
+
+* 24/05/18
+* #95 Add `browser` field to *package.json*.
+* Restore named export to enable `import {Big}`.
+
 #### 5.1.1
 
 * 22/05/18

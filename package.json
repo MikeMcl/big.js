@@ -1,7 +1,7 @@
 {
   "name": "big.js",
   "description": "A small, fast, easy-to-use library for arbitrary-precision decimal arithmetic",
-  "version": "5.1.1",
+  "version": "5.1.2",
   "keywords": [
     "arbitrary",
     "precision",
@@ -36,7 +36,7 @@
   "license": "MIT",
   "scripts": {
     "test": "node ./test/every-test.js",
-    "build": "uglifyjs big.js --source-map doc/big.js.map -c -m -o big.min.js --preamble \"/* big.js v5.1.1 https://github.com/MikeMcl/big.js/LICENCE */\""
+    "build": "uglifyjs big.js --source-map doc/big.js.map -c -m -o big.min.js --preamble \"/* big.js v5.1.2 https://github.com/MikeMcl/big.js/LICENCE */\""
   },
   "files": [
     "big.js",
