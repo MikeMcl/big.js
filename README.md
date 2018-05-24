@@ -1,4 +1,6 @@
 # big.js
+[![Backers on Open Collective](https://opencollective.com/bigjs/backers/badge.svg)](#backers)
+ [![Sponsors on Open Collective](https://opencollective.com/bigjs/sponsors/badge.svg)](#sponsors) 
 
 **A small, fast JavaScript library for arbitrary-precision decimal arithmetic.**
 
@@ -164,3 +166,33 @@ Open an issue, or email <a href="mailto:M8ch88l@gmail.com">Michael</a>
 ## Licence
 
 [MIT](LICENCE)
+
+## Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="graphs/contributors"><img src="https://opencollective.com/bigjs/contributors.svg?width=890&button=false" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/bigjs#backer)]
+
+<a href="https://opencollective.com/bigjs#backers" target="_blank"><img src="https://opencollective.com/bigjs/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/bigjs#sponsor)]
+
+<a href="https://opencollective.com/bigjs/sponsor/0/website" target="_blank"><img src="https://opencollective.com/bigjs/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/bigjs/sponsor/1/website" target="_blank"><img src="https://opencollective.com/bigjs/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/bigjs/sponsor/2/website" target="_blank"><img src="https://opencollective.com/bigjs/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/bigjs/sponsor/3/website" target="_blank"><img src="https://opencollective.com/bigjs/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/bigjs/sponsor/4/website" target="_blank"><img src="https://opencollective.com/bigjs/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/bigjs/sponsor/5/website" target="_blank"><img src="https://opencollective.com/bigjs/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/bigjs/sponsor/6/website" target="_blank"><img src="https://opencollective.com/bigjs/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/bigjs/sponsor/7/website" target="_blank"><img src="https://opencollective.com/bigjs/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/bigjs/sponsor/8/website" target="_blank"><img src="https://opencollective.com/bigjs/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/bigjs/sponsor/9/website" target="_blank"><img src="https://opencollective.com/bigjs/sponsor/9/avatar.svg"></a>
+
+
