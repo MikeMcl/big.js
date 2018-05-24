@@ -917,7 +917,6 @@ P.valueOf = P.toJSON = function () {
 // Export
 
 
-var Big = _Big_();
-Big.Big = Big;
+export var Big = _Big_();
 
 export default Big;
