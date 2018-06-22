@@ -658,7 +658,7 @@
     xc = xc.slice();
 
     // Prepend zeros to equalise exponents.
-    // Note: Faster to use reverse then do unshifts.
+    // Note: Faster to use reverse than do unshifts.
     if (a = xe - ye) {
       if (a > 0) {
         ye = xe;
