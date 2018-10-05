@@ -104,7 +104,7 @@ function _Big_() {
   Big.RM = RM;
   Big.NE = NE;
   Big.PE = PE;
-  Big.version = '5.0.2';
+  Big.version = '5.1.2';
 
   return Big;
 }
@@ -188,7 +188,7 @@ function round(x, dp, rm, more) {
       more = xc[i] > 5 || xc[i] == 5 &&
         (more || i < 0 || xc[i + 1] !== UNDEFINED || xc[i - 1] & 1);
     } else if (rm === 3) {
-      more = more || xc[i] !== UNDEFINED || i < 0;
+      more = more || !!xc[0];
     } else {
       more = false;
       if (rm !== 0) throw Error(INVALID_RM);
@@ -655,7 +655,7 @@ P.plus = P.add = function (y) {
   xc = xc.slice();
 
   // Prepend zeros to equalise exponents.
-  // Note: Faster to use reverse then do unshifts.
+  // Note: reverse faster than unshifts.
   if (a = xe - ye) {
     if (a > 0) {
       ye = xe;
@@ -730,6 +730,7 @@ P.pow = function (n) {
  * Return a new Big whose value is the value of this Big rounded to a maximum of dp decimal
  * places using rounding mode rm.
  * If dp is not specified, round to 0 decimal places.
+ * If dp is negative, round to a multiple of 10**abs(dp).                                                         
  * If rm is not specified, use Big.RM.
  *
  * dp? {number} Integer, 0 to MAX_DP inclusive.
@@ -738,7 +739,7 @@ P.pow = function (n) {
 P.round = function (dp, rm) {
   var Big = this.constructor;
   if (dp === UNDEFINED) dp = 0;
-  else if (dp !== ~~dp || dp < 0 || dp > MAX_DP) throw Error(INVALID_DP);
+  else if (dp !== ~~dp || dp < -MAX_DP || dp > MAX_DP) throw Error(INVALID_DP);
   return round(new Big(this), dp, rm === UNDEFINED ? Big.RM : rm);
 };
 
