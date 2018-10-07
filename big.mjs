@@ -763,17 +763,18 @@ P.sqrt = function () {
   if (s < 0) throw Error(NAME + 'No square root');
 
   // Estimate.
-  s = Math.sqrt(x.toString());
+  s = Math.sqrt(x + '');
 
   // Math.sqrt underflow/overflow?
-  // Re-estimate: pass x to Math.sqrt as integer, then adjust the result exponent.
+  // Re-estimate: pass x coefficient to Math.sqrt as integer, then adjust the result exponent.
   if (s === 0 || s === 1 / 0) {
     c = x.c.join('');
     if (!(c.length + e & 1)) c += '0';
-    r = new Big(Math.sqrt(c).toString());
-    r.e = ((e + 1) / 2 | 0) - (e < 0 || e & 1);
+    s = Math.sqrt(c);
+    e = ((e + 1) / 2 | 0) - (e < 0 || e & 1);
+    r = new Big((s == 1 / 0 ? '1e' : (s = s.toExponential()).slice(0, s.indexOf('e') + 1)) + e);
   } else {
-    r = new Big(s.toString());
+    r = new Big(s);
   }
 
   e = r.e + (Big.DP += 4);
