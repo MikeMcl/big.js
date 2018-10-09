@@ -1,6 +1,4 @@
 # big.js
-[![Backers on Open Collective](https://opencollective.com/bigjs/backers/badge.svg)](#backers)
- [![Sponsors on Open Collective](https://opencollective.com/bigjs/sponsors/badge.svg)](#sponsors) 
 
 **A small, fast JavaScript library for arbitrary-precision decimal arithmetic.**
 
@@ -17,27 +15,32 @@ The little sister to [bignumber.js](https://github.com/MikeMcl/bignumber.js/) an
   - No dependencies
   - Comprehensive [documentation](http://mikemcl.github.io/big.js/) and test set
 
-## Install
-
-[Node.js](http://nodejs.org) users can install from the [npm](https://www.npmjs.com/package/big.js) registry using
-
-    $ npm install --save big.js
-
-## Use
+## Set up
 
 The library is the single JavaScript file *big.js* (or *big.min.js*, which is *big.js* minified).
 
-It can be loaded via a script tag in an HTML document for the browser
+Browser:
 
-    <script src='./relative/path/to/big.js'></script>
+```html
+<script src='path/to/big.js'></script>
+```
 
-or as a CommonJS, Node.js or AMD module using `require`.
+[Node.js](http://nodejs.org):
 
-    var Big = require('big.js');
+```bash
+$ npm install big.js
+```
 
-If using an ES6 transpiler, or Node.js with the [`--experimental-modules`](https://nodejs.org/api/esm.html) flag, try
+```javascript
+const Big = require('big.js');
+```
 
-    import Big from 'big.js';
+ES6 module (*big.mjs*):
+
+```javascript
+import Big from 'big.js';
+```
+## Use
 
 *In all examples below, `var`, semicolons and `toString` calls are not shown. If a commented-out value is in quotes it means `toString` has been called on the preceding expression.*
 
@@ -69,7 +72,7 @@ Like JavaScript's Number type, there are `toExponential`, `toFixed` and `toPreci
     x.toPrecision(5)                   // "255.50"
 
 The arithmetic methods always return the exact result except `div`, `sqrt` and `pow`
-(with negative exponent), as these are the methods which involve division.
+(with negative exponent), as these methods involve division.
 
 The maximum number of decimal places and the rounding mode used to round the results of these methods is determined by the value of the `DP` and `RM` properties of the `Big` number constructor.
 
@@ -115,14 +118,14 @@ For the browser, see *single-test.html* and *every-test.html* in the *test/brows
 
 ## Performance
 
-The *perf* directory contains two old applications and a *lib* directory containing the BigDecimal libraries used by both.
+The *perf* directory contains two legacy applications and a *lib* directory containing the BigDecimal libraries used by both.
 
 *big-vs-bigdecimal.html* tests the performance of big.js against the JavaScript translations of two versions of BigDecimal, its use should be more or less self-explanatory.
 
 * [GWT: java.math.BigDecimal](https://github.com/iriscouch/bigdecimal.js)
 * [ICU4J: com.ibm.icu.math.BigDecimal](https://github.com/dtrebbien/BigDecimal.js)
 
-The BigDecimal in the npm registry is the GWT version. Despite its seeming popularity I have found it to have some serious bugs, see the Node.js script *perf/lib/bigdecimal_GWT/bugs.js* for examples of flaws in its *remainder*, *divide* and *compareTo* methods.
+The BigDecimal in the npm registry is the GWT version. It has some bugs, see the Node.js script *perf/lib/bigdecimal_GWT/bugs.js* for examples of flaws in its *remainder*, *divide* and *compareTo* methods.
 
 *bigtime.js* is a Node.js command-line application which tests the performance of big.js against the GWT version of
 BigDecimal from the npm registry.
@@ -153,7 +156,7 @@ will create *big.min.js*.
 
 The [DefinitelyTyped](https://github.com/borisyankov/DefinitelyTyped) project has a Typescript type definitions file for big.js.
 
-    $ npm install --save @types/big.js
+    $ npm install @types/big.js
 
 Any questions about the TypeScript type definitions file should be addressed to the DefinitelyTyped project.
 

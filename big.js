@@ -1,7 +1,7 @@
 /*
- *  big.js v5.1.2
+ *  big.js v5.2.0
  *  A small, fast, easy-to-use library for arbitrary-precision decimal arithmetic.
- *  Copyright (c) 2017 Michael Mclaughlin <M8ch88l@gmail.com>
+ *  Copyright (c) 2018 Michael Mclaughlin <M8ch88l@gmail.com>
  *  https://github.com/MikeMcl/big.js/LICENCE
  */
 ;(function (GLOBAL) {
@@ -107,7 +107,7 @@
     Big.RM = RM;
     Big.NE = NE;
     Big.PE = PE;
-    Big.version = '5.1.2';
+    Big.version = '5.2.0';
 
     return Big;
   }

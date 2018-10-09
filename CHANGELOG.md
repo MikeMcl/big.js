@@ -1,3 +1,9 @@
+#### 5.2.0
+
+* 09/10/18
+* #63 Allow negative argument for `round`.
+* #107 `sqrt` of large number.
+
 #### 5.1.2
 
 * 24/05/18
