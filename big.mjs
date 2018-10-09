@@ -727,13 +727,13 @@ P.pow = function (n) {
 
 
 /*
- * Return a new Big whose value is the value of this Big rounded to a maximum of dp decimal
- * places using rounding mode rm.
+ * Return a new Big whose value is the value of this Big rounded using rounding mode rm
+ * to a maximum of dp decimal places, or, if dp is negative, to an integer which is a
+ * multiple of 10**-dp.
  * If dp is not specified, round to 0 decimal places.
- * If dp is negative, round to a multiple of 10**abs(dp).                                                         
  * If rm is not specified, use Big.RM.
  *
- * dp? {number} Integer, 0 to MAX_DP inclusive.
+ * dp? {number} Integer, -MAX_DP to MAX_DP inclusive.
  * rm? 0, 1, 2 or 3 (ROUND_DOWN, ROUND_HALF_UP, ROUND_HALF_EVEN, ROUND_UP)
  */
 P.round = function (dp, rm) {

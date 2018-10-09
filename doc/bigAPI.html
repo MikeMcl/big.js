@@ -566,18 +566,19 @@ new Big(2).pow(1e+6)       // Time taken (Node.js): 9 minutes 34 secs.</pre>
       <i>&rArr; Big</i></code>
     </h5>
     <p>
-      <code>dp</code>? : <i>number</i> : integer, 0 to 1e+6 inclusive
+      <code>dp</code>? : <i>number</i> : integer, -1e+6 to 1e+6 inclusive
       <br />
       <code>rm</code>? : <i>number</i> : 0, 1, 2 or 3
     </p>
     <p>
       Returns a Big number whose value is the value of this Big number rounded
       using rounding mode <code>rm</code> to a maximum of <code>dp</code>
-      decimal places.
+      decimal places, or, if <code>dp</code> is negative, rounded to an
+      integer which is a multiple of <code>10**-dp</code>.
     </p>
     <p>
-      if <code>dp</code> is omitted or is undefined, the return value is
-      <code>n</code> rounded to a whole number.<br />
+      if <code>dp</code> is omitted or is undefined, the return value is the value of this Big
+      number rounded to a whole number.<br />
       if <code>rm</code> is omitted or is undefined, the current
       <a href='#rm'><code>Big.RM</code></a> setting is used.
     </p>
@@ -585,16 +586,24 @@ new Big(2).pow(1e+6)       // Time taken (Node.js): 9 minutes 34 secs.</pre>
       Throws if <code>dp</code> or <code>rm</code> is invalid.
     </p>
     <pre>
+down = 0
+half_up = 1
+half_even = 2
+up = 3
+
 x = 123.45
 Math.round(x)              // 123
+
 y = new Big(x)
 y.round()                  // '123'
 y.round(2)                 // '123.45'
 y.round(10)                // '123.45'
-y.round(1, 0)              // '123.4'
-y.round(1, 1)              // '123.5'
-y.round(1, 2)              // '123.4'
-y.round(1, 3)              // '123.5'
+y.round(1, down)           // '123.4'
+y.round(1, half_up)        // '123.5'
+y.round(1, half_even)      // '123.4'
+y.round(1, up)             // '123.5'
+y.round(-1, down)          // '120'
+y.round(-2, up)            // '200'
 y                          // '123.45'</pre>
 
 
@@ -642,7 +651,7 @@ Big('7e+500').times(y)     // '1.26e+501'</pre>
     <p><code>dp</code>? : <i>number</i> : integer, 0 to 1e+6 inclusive</p>
     <p>
       Returns a string representing the value of this Big number in exponential
-      notation to a fixed number of decimal places <code>dp</code>.
+      notation to a fixed number of <code>dp</code> decimal places.
     </p>
     <p>
       If the value of this Big number in exponential notation has more digits to
@@ -686,7 +695,7 @@ y.toExponential(3)         // '4.560e+1'</pre>
     </p>
     <p>
       Returns a string representing the value of this Big number in normal
-      notation to a fixed number of decimal places <code>dp</code>.
+      notation to a fixed number of <code>dp</code> decimal places.
     </p>
     <p>
       If the value of this Big number in normal notation has more digits to the
@@ -731,7 +740,7 @@ y.toFixed(3)               // '45.600'</pre>
     <p><code>sd</code>? : <i>number</i> : integer, 1 to 1e+6 inclusive</p>
     <p>
       Returns a string representing the value of this Big number to the
-      specified number of significant digits <code>sd</code>.
+      specified number of <code>sd</code> significant digits.
     </p>
     <p>
       If the value of this Big number has more digits than is specified by
@@ -1071,6 +1080,8 @@ Math.round(x)             // 1235
 x = new Big('987.654321')
 len = x.c.length          // 9
 if (len > 6) x.c.length = 6
+// Check for and remove any trailing zeros in the coefficient array.
+while (x.c[x.c.length - 1] === 0 && x.c.length > 1) x.c.pop();
 x                         // 987.654
 </pre>
     <br />
@@ -1170,6 +1181,7 @@ y.div(3)     // 1.6666666667
       results of arithmetic operations can be misleading.
     </p>
     <pre>
+// Java's BigDecimal
 x = new BigDecimal("1.0")
 y = new BigDecimal("1.1000")
 z = x.add(y)                      // 2.1000
