@@ -1,3 +1,12 @@
+#### 5.2.2
+
+* 18/10/18
+* #109 Remove opencollective dependency.
+
+#### 5.2.1
+
+* Delete *bower.json*.
+
 #### 5.2.0
 
 * 09/10/18

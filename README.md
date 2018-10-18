@@ -35,10 +35,10 @@ $ npm install big.js
 const Big = require('big.js');
 ```
 
-ES6 module (*big.mjs*):
+ES6 module:
 
 ```javascript
-import Big from 'big.js';
+import Big from 'big.mjs';
 ```
 ## Use
 
