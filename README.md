@@ -156,7 +156,7 @@ will create *big.min.js*.
 
 The [DefinitelyTyped](https://github.com/borisyankov/DefinitelyTyped) project has a Typescript type definitions file for big.js.
 
-    $ npm install @types/big.js
+    $ npm install --save-dev @types/big.js
 
 Any questions about the TypeScript type definitions file should be addressed to the DefinitelyTyped project.
 
