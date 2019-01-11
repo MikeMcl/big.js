@@ -38,7 +38,7 @@ const Big = require('big.js');
 ES6 module:
 
 ```javascript
-import Big from 'big.mjs';
+import Big from 'big.js';
 ```
 ## Use
 
