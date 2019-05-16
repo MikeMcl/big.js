@@ -70,6 +70,11 @@ code, .nav-title, .error{color:#f00}
       <li><a href="#epos"   >PE</a></li>
     </ul>
 
+    <a href="#static-methods">Static Methods</a>
+    <ul>
+      <li><a href="#is-numeric">isNumeric</a></li>
+    </ul>
+
     <b> INSTANCE </b>
 
     <a href="#prototype-methods">Methods</a>
@@ -295,6 +300,17 @@ x = new Big(123)                   // '1.23e+2'</pre>
       in normal notation and the <a href='#toE'><code>toExponential</code></a>
       method will always return a value in exponential form.
     </p>
+
+
+
+    <h4 id="static-methods">Static Methods</h4>
+
+    <h5 id="is-numeric">isNumeric</h5>
+    <p>
+      Same function that checks the input number inside Big constructor.
+    </p>
+    <pre>Big.isNumeric(42) // true</pre>
+    <pre>Big.isNumeric('NaN') // false</pre>
 
 
 

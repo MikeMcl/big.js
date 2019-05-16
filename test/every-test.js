@@ -19,7 +19,8 @@ console.log( '\n STARTING TESTS...\n' );
   'toExponential',
   'toFixed',
   'toPrecision',
-  'toString'
+  'toString',
+  'isNumeric'
 ]
 .forEach( function (method) {
     arr = require('./' + method);

@@ -64,6 +64,9 @@ var DP = 20,          // 0 to MAX_DP
   UNDEFINED = void 0,
   NUMERIC = /^-?(\d+(\.\d*)?|\.\d+)(e[+-]?\d+)?$/i;
 
+function isNumeric(val) {
+  return NUMERIC.test(val);
+}
 
 /*
  * Create and return a Big constructor.
@@ -104,6 +107,7 @@ function _Big_() {
   Big.RM = RM;
   Big.NE = NE;
   Big.PE = PE;
+  Big.isNumeric = isNumeric;
   Big.version = '5.2.2';
 
   return Big;
@@ -121,7 +125,7 @@ function parse(x, n) {
 
   // Minus zero?
   if (n === 0 && 1 / n < 0) n = '-0';
-  else if (!NUMERIC.test(n += '')) throw Error(INVALID + 'number');
+  else if (!isNumeric(n += '')) throw Error(INVALID + 'number');
 
   // Determine sign.
   x.s = n.charAt(0) == '-' ? (n = n.slice(1), -1) : 1;
@@ -920,5 +924,6 @@ P.valueOf = P.toJSON = function () {
 
 
 export var Big = _Big_();
+export { isNumeric };
 
 export default Big;
