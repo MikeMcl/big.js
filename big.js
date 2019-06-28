@@ -80,19 +80,24 @@
      *
      * n {number|string|Big} A numeric value.
      */
-    function Big(n) {
+    function Big(n, label='') {
       var x = this;
 
-      // Enable constructor usage without new.
-      if (!(x instanceof Big)) return n === UNDEFINED ? _Big_() : new Big(n);
+      try {
+        // Enable constructor usage without new.
+        if (!(x instanceof Big)) return n === UNDEFINED ? _Big_() : new Big(n);
 
-      // Duplicate.
-      if (n instanceof Big) {
-        x.s = n.s;
-        x.e = n.e;
-        x.c = n.c.slice();
-      } else {
-        parse(x, n);
+        // Duplicate.
+        if (n instanceof Big) {
+          x.s = n.s;
+          x.e = n.e;
+          x.c = n.c.slice();
+        } else {
+          parse(x, n);
+        }
+      } catch (err) {
+        err.message = `${label ? `${label}:` : ''} ${err.message} (${n})`;
+        throw(err);
       }
 
       /*
