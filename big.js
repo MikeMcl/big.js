@@ -845,7 +845,7 @@
         b = b / 10 | 0;
       }
 
-      c[j] = (c[j] + b) % 10;
+      c[j] = b;
     }
 
     // Increment result exponent if there is a final carry, otherwise remove leading zero.
