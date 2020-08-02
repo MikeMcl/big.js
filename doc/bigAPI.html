@@ -154,7 +154,7 @@ code, .nav-title, .error{color:#f00}
       recommended exponent magnitude is 1000000.
     </p>
     <p>Returns a new Big number object with value <code>n</code>.</p>
-    <p>Throws on an invalid <code>n</code>.</p>
+    <p>Throws on an invalid <code>n</code> when called with <code>new</code>.</p>
     <p>
       To create additional Big number constructor functions each with their own
       separate configuration see <a href='#multiple'>below</a>.
@@ -162,12 +162,23 @@ code, .nav-title, .error{color:#f00}
     <pre>
 x = new Big(9)                       // '9'
 y = new Big(x)                       // '9'
-Big(435.345)                         // 'new' is optional
 new Big('5032485723458348569331745.33434346346912144534543')
 new Big('4.321e+4')                  // '43210'
-new Big('-735.0918e-430')            // '-7.350918e-428'</pre>
+new Big('-735.0918e-430')            // '-7.350918e-428'
+Big(435.345)                         // '435.345' ('new' keyword is optional *)
+Big(undefined)                       // Big constructor *
+Big(void 0)                          // Big constructor *
+new Big(undefined)                   // thrown Invalid number Error
+new Big(void 0)                      // thrown Invalid number Error
+    </pre>
 
-
+    <p>
+      * Using the <code>new</code> keyword with Big is optional, but if the value of
+      <code>n</code> is <code>undefined</code> or <code>void 0</code>, then the
+      call to Big() will return a new Big constructor rather than a Big instance.
+      If you would prefer <code>undefined</code> or <code>void 0</code> to throw an
+      Invalid number error, please use <code>new</code>.
+    </p>
 
     <h4 id="constructor-properties">Properties</h4>
 
