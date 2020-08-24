@@ -251,8 +251,9 @@
    *         4 valueOf
    * n? {number|undefined} Caller's argument.
    * k? {number|undefined}
+   * rm? 0, 1, 2 or 3 (ROUND_DOWN, ROUND_HALF_UP, ROUND_HALF_EVEN, ROUND_UP)
    */
-  function stringify(x, id, n, k) {
+  function stringify(x, id, n, k, rm) {
     var e, s,
       Big = x.constructor,
       z = !x.c[0];
@@ -268,7 +269,7 @@
       n = k - x.e;
 
       // Round?
-      if (x.c.length > ++k) round(x, n, Big.RM);
+      if (x.c.length > ++k) round(x, n, rm || Big.RM);
 
       // toFixed: recalculate k as x.e may have changed if value rounded up.
       if (id == 2) k = x.e + n + 1;
@@ -865,9 +866,10 @@
    * places and rounded using Big.RM.
    *
    * dp? {number} Integer, 0 to MAX_DP inclusive.
+   * rm? 0, 1, 2 or 3 (ROUND_DOWN, ROUND_HALF_UP, ROUND_HALF_EVEN, ROUND_UP)
    */
-  P.toExponential = function (dp) {
-    return stringify(this, 1, dp, dp);
+  P.toExponential = function (dp, rm) {
+    return stringify(this, 1, dp, dp, rm);
   };
 
 
@@ -876,12 +878,13 @@
    * places and rounded using Big.RM.
    *
    * dp? {number} Integer, 0 to MAX_DP inclusive.
-   *
+   * rm? 0, 1, 2 or 3 (ROUND_DOWN, ROUND_HALF_UP, ROUND_HALF_EVEN, ROUND_UP)
+   * 
    * (-0).toFixed(0) is '0', but (-0.1).toFixed(0) is '-0'.
    * (-0).toFixed(1) is '0.0', but (-0.01).toFixed(1) is '-0.0'.
    */
-  P.toFixed = function (dp) {
-    return stringify(this, 2, dp, this.e + dp);
+  P.toFixed = function (dp, rm) {
+    return stringify(this, 2, dp, this.e + dp, rm);
   };
 
 
@@ -891,9 +894,10 @@
    * the integer part of the value in normal notation.
    *
    * sd {number} Integer, 1 to MAX_DP inclusive.
+   * rm? 0, 1, 2 or 3 (ROUND_DOWN, ROUND_HALF_UP, ROUND_HALF_EVEN, ROUND_UP)
    */
-  P.toPrecision = function (sd) {
-    return stringify(this, 3, sd, sd - 1);
+  P.toPrecision = function (sd, rm) {
+    return stringify(this, 3, sd, sd - 1, rm);
   };
 
 
