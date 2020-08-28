@@ -269,7 +269,7 @@
       n = k - x.e;
 
       // Round?
-      if (x.c.length > ++k) round(x, n, rm || Big.RM);
+      if (x.c.length > ++k) round(x, n, rm === undefined ? Big.RM : rm);
 
       // toFixed: recalculate k as x.e may have changed if value rounded up.
       if (id == 2) k = x.e + n + 1;
