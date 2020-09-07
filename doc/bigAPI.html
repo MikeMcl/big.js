@@ -656,10 +656,14 @@ Big('7e+500').times(y)     // '1.26e+501'</pre>
 
 
     <h5 id="toE">
-      toExponential<code class='inset'>.toExponential(dp) &rArr;
+      toExponential<code class='inset'>.toExponential(dp, rm) &rArr;
       <i>string</i></code>
     </h5>
-    <p><code>dp</code>? : <i>number</i> : integer, 0 to 1e+6 inclusive</p>
+    <p>
+      <code>dp</code>? : <i>number</i> : integer, 0 to 1e+6 inclusive
+      <br />
+      <code>rm</code>? : <i>number</i> : 0, 1, 2 or 3
+    </p>
     <p>
       Returns a string representing the value of this Big number in exponential
       notation to a fixed number of <code>dp</code> decimal places.
@@ -668,7 +672,7 @@ Big('7e+500').times(y)     // '1.26e+501'</pre>
       If the value of this Big number in exponential notation has more digits to
       the right of the decimal point than is specified by <code>dp</code>, the
       return value will be rounded to <code>dp</code> decimal places using
-      rounding mode <a href='#rm'><code>Big.RM</code></a>.
+      rounding mode <a href='#rm'><code>rm</code></a>.
     </p>
     <p>
       If the value of this Big number in exponential notation has fewer digits
@@ -678,10 +682,12 @@ Big('7e+500').times(y)     // '1.26e+501'</pre>
     <p>
       If <code>dp</code> is omitted or is undefined, the number of digits
       after the decimal point defaults to the minimum number of digits
-      necessary to represent the value exactly.
+      necessary to represent the value exactly.<br />
+      if <code>rm</code> is omitted or is undefined, the current
+      <a href='#rm'><code>Big.RM</code></a> setting is used.
     </p>
     <p>
-      Throws if <code>dp</code> is invalid.
+      Throws if <code>dp</code> or <code>rm</code> is invalid.
     </p>
     <pre>
 x = 45.6
@@ -698,11 +704,13 @@ y.toExponential(3)         // '4.560e+1'</pre>
 
 
     <h5 id="toF">
-      toFixed<code class='inset'>.toFixed(dp) &rArr;
+      toFixed<code class='inset'>.toFixed(dp, rm) &rArr;
       <i>string</i></code>
     </h5>
     <p>
       <code>dp</code>? : <i>number</i> : integer, 0 to 1e+6 inclusive
+      <br />
+      <code>rm</code>? : <i>number</i> : 0, 1, 2 or 3
     </p>
     <p>
       Returns a string representing the value of this Big number in normal
@@ -712,7 +720,7 @@ y.toExponential(3)         // '4.560e+1'</pre>
       If the value of this Big number in normal notation has more digits to the
       right of the decimal point than is specified by <code>dp</code>, the
       return value will be rounded to <code>dp</code> decimal places using
-      rounding mode <a href='#rm'><code>Big.RM</code></a>.
+      rounding mode <a href='#rm'><code>rm</code></a>.
     </p>
     <p>
       If the value of this Big number in normal notation has fewer fraction
@@ -728,10 +736,12 @@ y.toExponential(3)         // '4.560e+1'</pre>
       If <code>dp</code> is omitted or is undefined, the return value is
       simply the value in normal notation. This is also unlike
       <code>Number.prototype.toFixed</code>, which returns the value to zero
-      decimal places.
+      decimal places.<br />
+      if <code>rm</code> is omitted or is undefined, the current
+      <a href='#rm'><code>Big.RM</code></a> setting is used.
     </p>
     <p>
-      Throws if <code>dp</code> is invalid.
+      Throws if <code>dp</code> or <code>rm</code> is invalid.
     </p>
     <pre>
 x = 45.6
@@ -745,10 +755,14 @@ y.toFixed(3)               // '45.600'</pre>
 
 
     <h5 id="toP">
-      toPrecision<code class='inset'>.toPrecision(sd) &rArr;
+      toPrecision<code class='inset'>.toPrecision(sd, rm) &rArr;
       <i>string</i></code>
     </h5>
-    <p><code>sd</code>? : <i>number</i> : integer, 1 to 1e+6 inclusive</p>
+    <p>
+      <code>sd</code>? : <i>number</i> : integer, 1 to 1e+6 inclusive
+      <br />
+      <code>rm</code>? : <i>number</i> : 0, 1, 2 or 3
+    </p>
     <p>
       Returns a string representing the value of this Big number to the
       specified number of <code>sd</code> significant digits.
@@ -757,7 +771,7 @@ y.toFixed(3)               // '45.600'</pre>
       If the value of this Big number has more digits than is specified by
       <code>sd</code>, the return value will be rounded to <code>sd</code>
       significant digits using rounding mode
-      <a href='#rm'><code>Big.RM</code></a>.
+      <a href='#rm'><code>rm</code></a>.
     </p>
     <p>
       If the value of this Big number has fewer digits than is specified by
@@ -770,10 +784,12 @@ y.toFixed(3)               // '45.600'</pre>
     </p>
     <p>
       If <code>sd</code> is omitted or is undefined, the return value is
-      the same as <code>.toString()</code>.
+      the same as <code>.toString()</code>.<br />
+      if <code>rm</code> is omitted or is undefined, the current
+      <a href='#rm'><code>Big.RM</code></a> setting is used.
     </p>
     <p>
-      Throws if <code>sd</code> is invalid.
+      Throws if <code>sd</code> or <code>rm</code> is invalid.
     </p>
     <pre>
 x = 45.6
