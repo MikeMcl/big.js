@@ -1,3 +1,20 @@
+#### 6.0.0
+
+* 25/09/20
+* Add optional rounding mode parameter to `toExponential`, `toFixed` and `toPrecision`.
+* Add a strict mode to disallow imprecise number/Big conversions when `Big.strict = true`.
+* Add `toNumber` method.
+* Add `prec` method to round a Big to a specified number of significant digits.
+* Add version selector to API documentation.
+* Change `toJSON` to return exponential format.
+* Remove *big.min.js*.
+* Remove `Big.version`.
+* Rename *doc* folder to *docs* to use it as the Github publishing source.
+* Add legacy API documentation to *docs*.
+* Add *README* to *perf* directory.
+* Refactor test suite, and add `toNumber` and `prec` tests.
+* Update *README*.
+
 #### 5.2.2
 
 * 18/10/18

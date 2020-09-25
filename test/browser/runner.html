@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8' />
+  <title>Testing big.js</title>
+  <style> body {font-family: monospace; font-size: 12px; line-height: 14px;}</style>
+  <script src='../../big.js'></script>
+  <script src='../test.js'></script>
+</head>
+<body>
+  <script>
+var arr;
+var head = document.getElementsByTagName("head")[0];
+var color = 'green';
+var passed = 0;
+var total = 0;
+var i = 0;
+var methods = [
+  'abs',
+  'div',
+  'cmp',
+  'minus',
+  'mod',
+  'plus',
+  'pow',
+  'prec',
+  'round',
+  'sqrt',
+  'times',
+  'toExponential',
+  'toFixed',
+  'toNumber',
+  'toPrecision',
+  'toString'
+];
+var start = +new Date();
+
+function load() {
+  var method = methods[i++];
+  if (!method) {
+    document.body.innerHTML += '<br><div style="display:inline-block;padding:4px;border:4px solid ' + color +
+      '">In total, ' + passed + ' of ' + total + ' tests passed in ' + ((+new Date() - start) / 1000) + ' secs.</div>';
+    document.body.scrollIntoView(false);
+    return;
+  }
+
+  var script = document.createElement("script");
+  script.src = '../methods/' + method + '.js';
+  script.onload = script.onreadystatechange = function () {
+    if (!script.readyState || /loaded|complete/.test(script.readyState)) {
+      if (test.result) {
+        passed += test.result[0];
+        total += test.result[1];
+        if (test.result[0] !== test.result[1]) color = 'red';
+      } else {
+        document.body.innerHTML += '<div style="color:red">&nbsp;Test script failed - see error console.</div>';
+      }
+      head.removeChild(script);
+      count = script = null;
+      document.body.scrollIntoView(false);
+      setTimeout(load, 0);
+    }
+  };
+
+  head.appendChild(script);
+}
+
+document.body.innerHTML += '&nbsp;Testing big.js<br><br>';
+load();
+  </script>
+</body>
+</html>

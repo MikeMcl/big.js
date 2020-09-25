@@ -2,101 +2,163 @@
 
 **A small, fast JavaScript library for arbitrary-precision decimal arithmetic.**
 
-The little sister to [bignumber.js](https://github.com/MikeMcl/bignumber.js/) and [decimal.js](https://github.com/MikeMcl/decimal.js/). See [here](https://github.com/MikeMcl/big.js/wiki) for some notes on the difference between them.
+[![npm version](https://img.shields.io/npm/v/big.js.svg)](https://www.npmjs.com/package/big.js)
+[![npm downloads](https://img.shields.io/npm/dw/big.js)](https://www.npmjs.com/package/big.js)
 
 ## Features
 
-  - Faster, smaller and easier-to-use than JavaScript versions of Java's BigDecimal
-  - Only 5.9 KB minified and 2.7 KB gzipped
-  - Simple API
-  - Replicates the `toExponential`, `toFixed` and `toPrecision` methods of JavaScript's Number type
-  - Includes a `sqrt` method
-  - Stores values in an accessible decimal floating point format
-  - No dependencies
-  - Comprehensive [documentation](http://mikemcl.github.io/big.js/) and test set
+- Simple API
+- Faster, smaller and easier-to-use than JavaScript versions of Java's BigDecimal
+- Only 6 KB minified
+- Replicates the `toExponential`, `toFixed` and `toPrecision` methods of JavaScript Numbers
+- Stores values in an accessible decimal floating point format
+- Comprehensive [documentation](http://mikemcl.github.io/big.js/) and test set
+- No dependencies
+- Uses ECMAScript 3 only, so works in all browsers
 
-## Set up
+The little sister to [bignumber.js](https://github.com/MikeMcl/bignumber.js/) and [decimal.js](https://github.com/MikeMcl/decimal.js/). See [here](https://github.com/MikeMcl/big.js/wiki) for some notes on the difference between them.
 
-The library is the single JavaScript file *big.js* (or *big.min.js*, which is *big.js* minified).
+## Install
 
-Browser:
+The library is the single JavaScript file *big.js* or the ES module *big.mjs*.
+
+### Browsers
+
+Add Big to global scope:
 
 ```html
 <script src='path/to/big.js'></script>
 ```
 
-[Node.js](http://nodejs.org):
+ES module:
+
+```html
+<script type='module'>
+import Big from './path/to/big.mjs';
+```
+
+Get a minified version from a CDN:
+
+```html
+<script src='https://cdn.jsdelivr.net/npm/big.js@6.0.0/big.min.js'></script>
+```
+
+### [Node.js](http://nodejs.org)
 
 ```bash
 $ npm install big.js
 ```
 
+CommonJS:
+
 ```javascript
 const Big = require('big.js');
 ```
 
-ES6 module:
+ES module:
 
 ```javascript
-import Big from './big.mjs';
+import Big from 'big.js';
 ```
+
+### [Deno](https://deno.land/)
+
+```javascript
+import Big from 'https://raw.githubusercontent.com/mikemcl/big.js/v6.0.0/big.mjs';
+import Big from 'https://unpkg.com/big.js@6.0.0/big.mjs';
+```
+
 ## Use
 
-*In all examples below, `var`, semicolons and `toString` calls are not shown. If a commented-out value is in quotes it means `toString` has been called on the preceding expression.*
+*In the code examples below, semicolons and `toString` calls are not shown.*
 
-The library exports a single function, `Big`, the constructor of Big number instances.
-It accepts a value of type number, string or Big number object.
+The library exports a single constructor function, `Big`.
 
-    x = new Big(123.4567)
-    y = Big('123456.7e-3')             // 'new' is optional
-    z = new Big(x)
-    x.eq(y) && x.eq(z) && y.eq(z)      // true
+A Big number is created from a primitive number, string, or other Big number.
+
+```javascript
+x = new Big(123.4567)
+y = Big('123456.7e-3')                 // 'new' is optional
+z = new Big(x)
+x.eq(y) && x.eq(z) && y.eq(z)          // true
+```
+
+In Big strict mode, creating a Big number from a primitive number is disallowed.
+
+```javascript
+Big.strict = true
+x = new Big(1)                         // TypeError: [big.js] Invalid number
+y = new Big('1.0000000000000001')
+y.toNumber()                           // Error: [big.js] Imprecise conversion
+```
 
 A Big number is immutable in the sense that it is not changed by its methods.
 
-    0.3 - 0.1                          // 0.19999999999999998
-    x = new Big(0.3)
-    x.minus(0.1)                       // "0.2"
-    x                                  // "0.3"
+```javascript
+0.3 - 0.1                              // 0.19999999999999998
+x = new Big(0.3)
+x.minus(0.1)                           // "0.2"
+x                                      // "0.3"
+```
 
 The methods that return a Big number can be chained.
 
-    x.div(y).plus(z).times(9).minus('1.234567801234567e+8').plus(976.54321).div('2598.11772')
-    x.sqrt().div(y).pow(3).gt(y.mod(z))    // true
+```javascript
+x.div(y).plus(z).times(9).minus('1.234567801234567e+8').plus(976.54321).div('2598.11772')
+x.sqrt().div(y).pow(3).gt(y.mod(z))    // true
+```
 
 Like JavaScript's Number type, there are `toExponential`, `toFixed` and `toPrecision` methods.
 
-    x = new Big(255.5)
-    x.toExponential(5)                 // "2.55500e+2"
-    x.toFixed(5)                       // "255.50000"
-    x.toPrecision(5)                   // "255.50"
+```javascript
+x = new Big(255.5)
+x.toExponential(5)                     // "2.55500e+2"
+x.toFixed(5)                           // "255.50000"
+x.toPrecision(5)                       // "255.50"
+```
 
 The arithmetic methods always return the exact result except `div`, `sqrt` and `pow`
 (with negative exponent), as these methods involve division.
 
 The maximum number of decimal places and the rounding mode used to round the results of these methods is determined by the value of the `DP` and `RM` properties of the `Big` number constructor.
 
-    Big.DP = 10
-    Big.RM = 1
+```javascript
+Big.DP = 10
+Big.RM = 1
 
-    x = new Big(2);
-    y = new Big(3);
-    z = x.div(y)                       // "0.6666666667"
-    z.sqrt()                           // "0.8164965809"
-    z.pow(-3)                          // "3.3749999995"
-    z.times(z)                         // "0.44444444448888888889"
-    z.times(z).round(10)               // "0.4444444445"
-
-Multiple Big number constructors can be created, each with an independent configuration.
+x = new Big(2);
+y = new Big(3);
+z = x.div(y)                           // "0.6666666667"
+z.sqrt()                               // "0.8164965809"
+z.pow(-3)                              // "3.3749999995"
+z.times(z)                             // "0.44444444448888888889"
+z.times(z).round(10)                   // "0.4444444445"
+```
 
 The value of a Big number is stored in a decimal floating point format in terms of a coefficient, exponent and sign.
 
-    x = new Big(-123.456);
-    x.c                                // [1,2,3,4,5,6]    coefficient (i.e. significand)
-    x.e                                // 2                exponent
-    x.s                                // -1               sign
+```javascript
+x = new Big(-123.456);
+x.c                                    // [1,2,3,4,5,6]    coefficient (i.e. significand)
+x.e                                    // 2                exponent
+x.s                                    // -1               sign
+```
 
-For further information see the [API](http://mikemcl.github.io/big.js/) reference from the *doc* folder.
+For advanced usage, multiple Big number constructors can be created, each with an independent configuration.
+
+For further information see the [API](http://mikemcl.github.io/big.js/) reference documentation.
+
+## Minify
+
+To minify using, for example, npm and [terser](https://github.com/terser/terse)
+
+```bash
+$ npm install -g terser
+```
+
+```bash
+$ terser big.js -c -m -o big.min.js
+```
 
 ## Test
 
@@ -104,98 +166,42 @@ The *test* directory contains the test scripts for each Big number method.
 
 The tests can be run with Node.js or a browser.
 
-To run all the tests
+Run all the tests:
 
-    $ npm test
+```bash
+$ npm test
+```
 
-To test a single method
+Test a single method:
 
-    $ node test/toFixed
+```bash
+$ node test/toFixed
+```
 
-For the browser, see *single-test.html* and *every-test.html* in the *test/browser* directory.
+For the browser, see *runner.html* and *test.html* in the *test/browser* directory.
 
-*big-vs-number.html* is a simple application that enables some of the methods of big.js to be compared with those of JavaScript's Number type.
-
-## Performance
-
-The *perf* directory contains two legacy applications and a *lib* directory containing the BigDecimal libraries used by both.
-
-*big-vs-bigdecimal.html* tests the performance of big.js against the JavaScript translations of two versions of BigDecimal, its use should be more or less self-explanatory.
-
-* [GWT: java.math.BigDecimal](https://github.com/iriscouch/bigdecimal.js)
-* [ICU4J: com.ibm.icu.math.BigDecimal](https://github.com/dtrebbien/BigDecimal.js)
-
-The BigDecimal in the npm registry is the GWT version. It has some bugs, see the Node.js script *perf/lib/bigdecimal_GWT/bugs.js* for examples of flaws in its *remainder*, *divide* and *compareTo* methods.
-
-*bigtime.js* is a Node.js command-line application which tests the performance of big.js against the GWT version of
-BigDecimal from the npm registry.
-
-For example, to compare the time taken by the big.js `plus` method and the BigDecimal `add` method
-
-    $ node bigtime plus 10000 40
-
-This will time 10000 calls to each, using operands of up to 40 random digits and will check that the results match.
-
-For help
-
-    $ node bigtime -h
-
-## Build
-
-If [uglify-js](https://github.com/mishoo/UglifyJS2) is installed globally
-
-    $ npm install uglify-js -g
-
-then
-
-    $ npm run build
-
-will create *big.min.js*.
+*big-vs-number.html* is a old application that enables some of the methods of big.js to be compared with those of JavaScript's Number type.
 
 ## TypeScript
 
 The [DefinitelyTyped](https://github.com/borisyankov/DefinitelyTyped) project has a Typescript type definitions file for big.js.
 
-    $ npm install --save-dev @types/big.js
+```bash
+$ npm install --save-dev @types/big.js
+```
 
 Any questions about the TypeScript type definitions file should be addressed to the DefinitelyTyped project.
 
-## Feedback
-
-Bugs/comments/questions?
-
-Open an issue, or email <a href="mailto:M8ch88l@gmail.com">Michael</a>
-
 ## Licence
 
-[MIT](LICENCE)
+[MIT](LICENCE.md)
 
 ## Contributors
 
-This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
 <a href="graphs/contributors"><img src="https://opencollective.com/bigjs/contributors.svg?width=890&button=false" /></a>
 
+## Financial supporters
 
-## Backers
+Thank you to all who have supported this project via [Open Collective](https://opencollective.com/bigjs), particularly [Coinbase](https://www.coinbase.com/).
 
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/bigjs#backer)]
-
-<a href="https://opencollective.com/bigjs#backers" target="_blank"><img src="https://opencollective.com/bigjs/backers.svg?width=890"></a>
-
-
-## Sponsors
-
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/bigjs#sponsor)]
-
-<a href="https://opencollective.com/bigjs/sponsor/0/website" target="_blank"><img src="https://opencollective.com/bigjs/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/bigjs/sponsor/1/website" target="_blank"><img src="https://opencollective.com/bigjs/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/bigjs/sponsor/2/website" target="_blank"><img src="https://opencollective.com/bigjs/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/bigjs/sponsor/3/website" target="_blank"><img src="https://opencollective.com/bigjs/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/bigjs/sponsor/4/website" target="_blank"><img src="https://opencollective.com/bigjs/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/bigjs/sponsor/5/website" target="_blank"><img src="https://opencollective.com/bigjs/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/bigjs/sponsor/6/website" target="_blank"><img src="https://opencollective.com/bigjs/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/bigjs/sponsor/7/website" target="_blank"><img src="https://opencollective.com/bigjs/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/bigjs/sponsor/8/website" target="_blank"><img src="https://opencollective.com/bigjs/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/bigjs/sponsor/9/website" target="_blank"><img src="https://opencollective.com/bigjs/sponsor/9/avatar.svg"></a>
-
-
+<img src="https://opencollective.com/bigjs/sponsor/0/avatar.svg">
