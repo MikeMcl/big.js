@@ -779,7 +779,7 @@ P.sqrt = function () {
     if (!(c.length + e & 1)) c += '0';
     s = Math.sqrt(c);
     e = ((e + 1) / 2 | 0) - (e < 0 || e & 1);
-    r = new Big((s == 1 / 0 ? '1e' : (s = s.toExponential()).slice(0, s.indexOf('e') + 1)) + e);
+    r = new Big((s == 1 / 0 ? '5e' : (s = s.toExponential()).slice(0, s.indexOf('e') + 1)) + e);
   } else {
     r = new Big(s);
   }
