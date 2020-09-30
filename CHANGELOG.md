@@ -1,3 +1,8 @@
+#### 6.0.1
+
+* 30/09/20
+* Correct `sqrt` initial estimate.
+
 #### 6.0.0
 
 * 25/09/20
