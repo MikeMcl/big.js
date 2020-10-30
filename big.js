@@ -925,7 +925,8 @@
 
 
   /*
-   * Return a string representing the value of this Big in exponential notation.
+   * Return a string representing the value of this Big. Use exponential notation
+   * if Big.JSON_EXPONENTIAL_NOTATION is true, otherwise use normal notation.
    * Include the sign for negative zero.
    */
   P.toJSON = function () {
