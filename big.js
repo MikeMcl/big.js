@@ -57,6 +57,11 @@
      */
     STRICT = false,     // true or false
 
+    /*
+     * When true, toJSON uses exponential notation. When false, toJSON uses normal notation.
+     */
+    JSON_EXPONENTIAL_NOTATION = true,     // true or false
+
 
 /**************************************************************************************************/
 
@@ -120,6 +125,7 @@
     Big.NE = NE;
     Big.PE = PE;
     Big.strict = STRICT;
+    Big.JSON_EXPONENTIAL_NOTATION = JSON_EXPONENTIAL_NOTATION;
 
     return Big;
   }
@@ -923,7 +929,7 @@
    * Include the sign for negative zero.
    */
   P.toJSON = function () {
-    return stringify(this, true, true);
+    return stringify(this, this.constructor.JSON_EXPONENTIAL_NOTATION, true);
   };
 
 
