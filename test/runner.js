@@ -20,7 +20,8 @@ console.log( '\n Testing big.js\n' );
   'toFixed',
   'toNumber',
   'toPrecision',
-  'toString'
+  'toString',
+  'toJSON'
 ]
 .forEach(function (method) {
   arr = require('./methods/' + method);
