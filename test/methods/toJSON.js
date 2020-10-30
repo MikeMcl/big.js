@@ -984,39 +984,6 @@ test('toJSON', function () {
   t('9.8e+2', '98.e1');
   t('3e-4', '3.e-4');
 
-  test.isException(function () {new Big(undefined)}, "new Big(undefined)");
-  test.isException(function () {new Big(null)}, "new Big(null)");
-  test.isException(function () {new Big(NaN)}, "new Big(NaN)");
-  test.isException(function () {new Big('NaN')}, "new Big('NaN')");
-  test.isException(function () {new Big([])}, "new Big([])");
-  test.isException(function () {new Big({})}, "new Big({})");
-  test.isException(function () {new Big('')}, "new Big('')");
-  test.isException(function () {Big(' ')}, "new Big(' ')");
-  test.isException(function () {new Big('hello')}, "new Big('hello')");
-  test.isException(function () {new Big('\t')}, "new Big('\t')");
-  test.isException(function () {new Big(new Date)}, "new Big(new Date)");
-  test.isException(function () {new Big(new RegExp)}, "new Big(new RegExp)");
-  test.isException(function () {new Big(function () {})}, "new Big(function () {})");
-  test.isException(function () {new Big(' 0.1')}, "new Big(' 0.1')");
-  test.isException(function () {new Big('7.5 ')}, "new Big('7.5 ')");
-  test.isException(function () {Big(' 0 ')}, "new Big(' 0 ')");
-  test.isException(function () {new Big('+1')}, "new Big('+1')");
-  test.isException(function () {new Big(' +1.2')}, "new Big(' +1.2')");
-  test.isException(function () {new Big('- 99')}, "new Big('- 99')");
-  test.isException(function () {new Big('9.9.9')}, "new Big('9.9.9')");
-  test.isException(function () {new Big('10.1.0')}, "new Big('10.1.0')");
-  test.isException(function () {new Big('0x16')}, "new Big('0x16')");
-  test.isException(function () {new Big('1e')}, "new Big('1e')");
-  test.isException(function () {new Big('8 e')}, "new Big('8 e')");
-  test.isException(function () {new Big('77-e')}, "new Big('77-e')");
-  test.isException(function () {new Big('123e.0')}, "new Big('123e.0')");
-  test.isException(function () {new Big('4e1.')}, "new Big('4e1.')");
-  test.isException(function () {new Big('41a')}, "new Big('41a')");
-  test.isException(function () {new Big('99ee')}, "new Big('99ee')");
-  test.isException(function () {new Big('e0')}, "new Big('e0')");
-  test.isException(function () {Big(Infinity)}, "new Big(Infinity)");
-  test.isException(function () {new Big('-Infinity')}, "new Big('-Infinity')");
-
   Big.NE = -10;
   Big.PE = 10;
 
@@ -1026,16 +993,10 @@ test('toJSON', function () {
   t('1e-11', '0.00000000001');
 
   t('-0e+0', '-0');
-  test.areEqual('-0', new Big(-0).valueOf());
-  test.areEqual('-0', new Big('-0').valueOf());
-  test.areEqual('-0', new Big('-0.0000000000').valueOf());
 
   Big.NE = Big.PE = 0;
 
   t('-0e+0', '-0');
-  test.areEqual('-0e+0', new Big(-0).valueOf());
-  test.areEqual('-0e+0', new Big('-0').valueOf());
-  test.areEqual('-0e+0', new Big('-0.0000000000').valueOf());
 
 
   Big.JSON_EXPONENTIAL_NOTATION = false;
@@ -2019,39 +1980,6 @@ test('toJSON', function () {
   t('0.0003', '3.e-4');
 
 
-  test.isException(function () {new Big(undefined)}, "new Big(undefined)");
-  test.isException(function () {new Big(null)}, "new Big(null)");
-  test.isException(function () {new Big(NaN)}, "new Big(NaN)");
-  test.isException(function () {new Big('NaN')}, "new Big('NaN')");
-  test.isException(function () {new Big([])}, "new Big([])");
-  test.isException(function () {new Big({})}, "new Big({})");
-  test.isException(function () {new Big('')}, "new Big('')");
-  test.isException(function () {Big(' ')}, "new Big(' ')");
-  test.isException(function () {new Big('hello')}, "new Big('hello')");
-  test.isException(function () {new Big('\t')}, "new Big('\t')");
-  test.isException(function () {new Big(new Date)}, "new Big(new Date)");
-  test.isException(function () {new Big(new RegExp)}, "new Big(new RegExp)");
-  test.isException(function () {new Big(function () {})}, "new Big(function () {})");
-  test.isException(function () {new Big(' 0.1')}, "new Big(' 0.1')");
-  test.isException(function () {new Big('7.5 ')}, "new Big('7.5 ')");
-  test.isException(function () {Big(' 0 ')}, "new Big(' 0 ')");
-  test.isException(function () {new Big('+1')}, "new Big('+1')");
-  test.isException(function () {new Big(' +1.2')}, "new Big(' +1.2')");
-  test.isException(function () {new Big('- 99')}, "new Big('- 99')");
-  test.isException(function () {new Big('9.9.9')}, "new Big('9.9.9')");
-  test.isException(function () {new Big('10.1.0')}, "new Big('10.1.0')");
-  test.isException(function () {new Big('0x16')}, "new Big('0x16')");
-  test.isException(function () {new Big('1e')}, "new Big('1e')");
-  test.isException(function () {new Big('8 e')}, "new Big('8 e')");
-  test.isException(function () {new Big('77-e')}, "new Big('77-e')");
-  test.isException(function () {new Big('123e.0')}, "new Big('123e.0')");
-  test.isException(function () {new Big('4e1.')}, "new Big('4e1.')");
-  test.isException(function () {new Big('41a')}, "new Big('41a')");
-  test.isException(function () {new Big('99ee')}, "new Big('99ee')");
-  test.isException(function () {new Big('e0')}, "new Big('e0')");
-  test.isException(function () {Big(Infinity)}, "new Big(Infinity)");
-  test.isException(function () {new Big('-Infinity')}, "new Big('-Infinity')");
-
   Big.NE = -10;
   Big.PE = 10;
 
@@ -2061,14 +1989,8 @@ test('toJSON', function () {
   t('0.00000000001', '0.00000000001');
 
   t('-0', '-0');
-  test.areEqual('-0', new Big(-0).valueOf());
-  test.areEqual('-0', new Big('-0').valueOf());
-  test.areEqual('-0', new Big('-0.0000000000').valueOf());
 
   Big.NE = Big.PE = 0;
 
   t('-0', '-0');
-  test.areEqual('-0e+0', new Big(-0).valueOf());
-  test.areEqual('-0e+0', new Big('-0').valueOf());
-  test.areEqual('-0e+0', new Big('-0.0000000000').valueOf());
 });
