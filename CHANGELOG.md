@@ -1,3 +1,8 @@
+#### 6.0.2
+
+* 31/10/20
+* #147 Change `toJSON` to be an alias of `toString`.
+
 #### 6.0.1
 
 * 30/09/20

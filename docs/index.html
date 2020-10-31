@@ -57,7 +57,7 @@ code, .nav-title, .error{color:#f00}
 
     <a class='nav-title' href="#">API</a>
     <select id="version" name="version" onchange="location.href=this.value;this.selectedIndex=0">
-      <option value="" selected>v6.0.1</option>
+      <option value="" selected>v6.0.x</option>
       <option value="legacy/v5.2.x.html">v5.2.x</option>
       <option value="legacy/v5.1.x.html">v5.1.x</option>
       <option value="legacy/v5.0.x.html">v5.0.x</option>
@@ -105,11 +105,11 @@ code, .nav-title, .error{color:#f00}
       <li><a href="#times"  >times</a></li>
       <li><a href="#toE"    >toExponential</a></li>
       <li><a href="#toF"    >toFixed</a></li>
+      <li><a href="#toJSON" >toJSON</a></li>
       <li><a href="#toN"    >toNumber</a></li>
       <li><a href="#toP"    >toPrecision</a></li>
       <li><a href="#toS"    >toString</a></li>
       <li><a href="#valueOf">valueOf</a></li>
-      <li><a href="#toJSON" >toJSON</a></li>
     </ul>
 
     <a href="#instance-properties">Properties</a>
@@ -817,6 +817,21 @@ y.toFixed(3)               // '45.600'</pre>
 
 
 
+    <h5 id="toJSON">
+      toJSON<code class='inset'>.toJSON() <i>&rArr; string</i></code>
+    </h5>
+    <p>As <a href='#toS'><code>toString</code></a>.</p>
+    <pre>
+x = new Big('177.7e+457')
+y = new Big(235.4325)
+z = new Big('0.0098074')
+str = JSON.stringify( [x, y, z] )
+
+JSON.parse(str, function (k, v) { return k === '' ? v : new Big(v) })
+// Returns an array of three Big numbers.</pre>
+
+
+
     <h5 id="toP">
       toPrecision<code class='inset'>.toPrecision(sd) &rArr;
       <i>string</i></code>
@@ -911,7 +926,8 @@ y.toString()               // '1e+21'
       valueOf<code class='inset'>.valueOf() <i>&rArr; string</i></code>
     </h5>
     <p>
-      As <code>toString</code> except the minus sign is included for negative zero.
+      As <a href='#toS'><code>toString</code></a> except the minus sign is
+      included for negative zero.
     </p>
     <pre>
 x = new Big(-0)
@@ -922,24 +938,6 @@ x.toString()                // '0'</pre>
       if <a href='#strict'><code>Big.strict</code></a> is <code>true</code> any
       explicit or implicit calls to <code>valueOf</code> will result in an error.
     </p>
-
-
-
-    <h5 id="toJSON">
-      toJSON<code class='inset'>.toJSON() <i>&rArr; string</i></code>
-    </h5>
-    <p>
-      Returns a string representing the value of this Big number in exponential
-      notation. The minus sign is included for negative zero.
-    </p>
-    <pre>
-x = new Big('177.7e+457')
-y = new Big(235.4325)
-z = new Big('0.0098074')
-str = JSON.stringify( [x, y, z] )
-
-JSON.parse(str, function (k, v) { return k === '' ? v : new Big(v) })
-// Returns an array of three Big numbers.</pre>
 
 
 
