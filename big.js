@@ -919,11 +919,15 @@
 
 
   /*
-   * Return a string representing the value of this Big in exponential notation.
-   * Include the sign for negative zero.
+   * Return a string representing the value of this Big.
+   * Return exponential notation if this Big has a positive exponent equal to or greater than
+   * Big.PE, or a negative exponent equal to or less than Big.NE.
+   * Omit the sign for negative zero.
    */
-  P.toJSON = function () {
-    return stringify(this, true, true);
+  P.toJSON = P.toString = function () {
+    var x = this,
+      Big = x.constructor;
+    return stringify(x, x.e <= Big.NE || x.e >= Big.PE, !!x.c[0]);
   };
 
 
@@ -962,19 +966,6 @@
     }
 
     return stringify(x, sd <= x.e || x.e <= Big.NE || x.e >= Big.PE, !!n);
-  };
-
-
-  /*
-   * Return a string representing the value of this Big.
-   * Return exponential notation if this Big has a positive exponent equal to or greater than
-   * Big.PE, or a negative exponent equal to or less than Big.NE.
-   * Omit the sign for negative zero.
-   */
-  P.toString = function () {
-    var x = this,
-      Big = x.constructor;
-    return stringify(x, x.e <= Big.NE || x.e >= Big.PE, !!x.c[0]);
   };
 
 
