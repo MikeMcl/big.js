@@ -353,7 +353,11 @@
     }
 
     // Dividend is 0? Return +-0.
-    if (!a[0]) return new Big(k * 0);
+    if (!a[0]) {
+      y.s = k;
+      y.c = [y.e = 0];
+      return y;
+    }
 
     var bl, bt, n, cmp, ri,
       bz = b.slice(),
@@ -504,9 +508,14 @@
 
     // Either zero?
     if (!xc[0] || !yc[0]) {
-
-      // y is non-zero? x is non-zero? Or both are zero.
-      return yc[0] ? (y.s = -b, y) : new Big(xc[0] ? x : 0);
+      if (yc[0]) {
+        y.s = -b;
+      } else if (xc[0]) {
+        y = new Big(x);
+      } else {
+        y.s = 1;
+      }
+      return y;
     }
 
     // Determine which is the bigger number. Prepend zeros to equalise exponents.
@@ -622,15 +631,15 @@
    * Return a new Big whose value is the value of this Big plus the value of Big y.
    */
   P.plus = P.add = function (y) {
-    var t,
+    var e, k, t,
       x = this,
-      Big = x.constructor,
-      a = x.s,
-      b = (y = new Big(y)).s;
+      Big = x.constructor;
+
+    y = new Big(y);
 
     // Signs differ?
-    if (a != b) {
-      y.s = -b;
+    if (x.s != y.s) {
+      y.s = -y.s;
       return x.minus(y);
     }
 
@@ -639,24 +648,33 @@
       ye = y.e,
       yc = y.c;
 
-    // Either zero? y is non-zero? x is non-zero? Or both are zero.
-    if (!xc[0] || !yc[0]) return yc[0] ? y : new Big(xc[0] ? x : a * 0);
+    // Either zero?
+    if (!xc[0] || !yc[0]) {
+      if (!yc[0]) {
+        if (xc[0]) {
+          y = new Big(x);
+        } else {
+          y.s = x.s;
+        }
+      }
+      return y;
+    }
 
     xc = xc.slice();
 
     // Prepend zeros to equalise exponents.
     // Note: reverse faster than unshifts.
-    if (a = xe - ye) {
-      if (a > 0) {
+    if (e = xe - ye) {
+      if (e > 0) {
         ye = xe;
         t = yc;
       } else {
-        a = -a;
+        e = -e;
         t = xc;
       }
 
       t.reverse();
-      for (; a--;) t.push(0);
+      for (; e--;) t.push(0);
       t.reverse();
     }
 
@@ -667,20 +685,20 @@
       xc = t;
     }
 
-    a = yc.length;
+    e = yc.length;
 
     // Only start adding at yc.length - 1 as the further digits of xc can be left as they are.
-    for (b = 0; a; xc[a] %= 10) b = (xc[--a] = xc[a] + yc[a] + b) / 10 | 0;
+    for (k = 0; e; xc[e] %= 10) k = (xc[--e] = xc[e] + yc[e] + k) / 10 | 0;
 
     // No need to check for zero, as +x + +y != 0 && -x + -y != 0
 
-    if (b) {
-      xc.unshift(b);
+    if (k) {
+      xc.unshift(k);
       ++ye;
     }
 
     // Remove trailing zeros.
-    for (a = xc.length; xc[--a] === 0;) xc.pop();
+    for (e = xc.length; xc[--e] === 0;) xc.pop();
 
     y.c = xc;
     y.e = ye;
@@ -698,7 +716,7 @@
    */
   P.pow = function (n) {
     var x = this,
-      one = new x.constructor(1),
+      one = new x.constructor('1'),
       y = one,
       isneg = n < 0;
 
@@ -762,7 +780,7 @@
       Big = x.constructor,
       s = x.s,
       e = x.e,
-      half = new Big(0.5);
+      half = new Big('0.5');
 
     // Zero?
     if (!x.c[0]) return new Big(x);
@@ -784,7 +802,7 @@
       e = ((e + 1) / 2 | 0) - (e < 0 || e & 1);
       r = new Big((s == 1 / 0 ? '5e' : (s = s.toExponential()).slice(0, s.indexOf('e') + 1)) + e);
     } else {
-      r = new Big(s);
+      r = new Big(s + '');
     }
 
     e = r.e + (Big.DP += 4);
@@ -817,7 +835,10 @@
     y.s = x.s == y.s ? 1 : -1;
 
     // Return signed 0 if either 0.
-    if (!xc[0] || !yc[0]) return new Big(y.s * 0);
+    if (!xc[0] || !yc[0]) {
+      y.c = [y.e = 0];
+      return y;
+    }
 
     // Initialise exponent of result as x.e + y.e.
     y.e = i + j;
