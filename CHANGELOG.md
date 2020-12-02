@@ -1,3 +1,8 @@
+#### 6.0.3
+
+* 02/12/20
+* #148 Bugfix: primitive numbers passed to constructor internally in strict mode.
+
 #### 6.0.2
 
 * 31/10/20
@@ -19,7 +24,7 @@
 * Change `toJSON` to return exponential format.
 * Remove *big.min.js*.
 * Remove `Big.version`.
-* Rename *doc* folder to *docs* to use it as the Github publishing source.
+* Rename *doc* folder to *docs* to use it as the GitHub publishing source.
 * Add legacy API documentation to *docs*.
 * Add *README* to *perf* directory.
 * Refactor test suite, and add `toNumber` and `prec` tests.
