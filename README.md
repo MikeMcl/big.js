@@ -150,7 +150,7 @@ For further information see the [API](http://mikemcl.github.io/big.js/) referenc
 
 ## Minify
 
-To minify using, for example, npm and [terser](https://github.com/terser/terse)
+To minify using, for example, npm and [terser](https://github.com/terser/terser)
 
 ```bash
 $ npm install -g terser
