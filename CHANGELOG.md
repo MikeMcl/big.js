@@ -1,3 +1,9 @@
+#### 6.1.0
+
+* 26/04/21
+* #165 Add missing documentation of `toFixed` etc. rounding mode parameter.
+* #150 Add static rounding modes to `Big` constructor.
+
 #### 6.0.3
 
 * 02/12/20
