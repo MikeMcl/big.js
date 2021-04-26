@@ -57,7 +57,8 @@ code, .nav-title, .error{color:#f00}
 
     <a class='nav-title' href="#">API</a>
     <select id="version" name="version" onchange="location.href=this.value;this.selectedIndex=0">
-      <option value="" selected>v6.0.x</option>
+      <option value="" selected>v6.1.x</option>
+      <option value="legacy/v6.0.x.html">v6.0.x</option>
       <option value="legacy/v5.2.x.html">v5.2.x</option>
       <option value="legacy/v5.1.x.html">v5.1.x</option>
       <option value="legacy/v5.0.x.html">v5.0.x</option>
@@ -81,6 +82,11 @@ code, .nav-title, .error{color:#f00}
       <li><a href="#eneg"  >NE</a></li>
       <li><a href="#epos"  >PE</a></li>
       <li><a href="#strict">strict</a></li>
+      <li><a href="#rm"    >roundDown</a></li>
+      <li><a href="#rm"    >roundHalfUp</a></li>
+      <li><a href="#rm"    >roundHalfEven</a></li> 
+      <li><a href="#rm"    >roundUp</a></li>
+      
     </ul>
 
     <b> INSTANCE </b>
@@ -229,7 +235,7 @@ Big()                                // No error, and a new Big constructor is r
       Default value: <code>1</code>
     </p>
     <p>
-      The rounding mode used in the above operations and by
+      The rounding mode used in operations involving division and by
       <a href='#round'><code>round</code></a>,
       <a href='#toE'><code>toExponential</code></a>,
       <a href='#toF'><code>toFixed</code></a> and
@@ -237,11 +243,13 @@ Big()                                // No error, and a new Big constructor is r
     </p>
     <table>
       <tr>
+        <th>Property</th>
         <th>Value</th>
         <th>Description</th>
         <th>BigDecimal equivalent</th>
       </tr>
       <tr>
+        <td>Big.roundUp</td>
         <td class='centre'>0</td>
         <td>
           Rounds towards zero.<br />
@@ -250,6 +258,7 @@ Big()                                // No error, and a new Big constructor is r
         <td id="round-down">ROUND_DOWN</td>
       </tr>
       <tr>
+        <td>Big.roundHalfUp</td>
         <td class='centre'>1</td>
         <td>
           Rounds towards nearest neighbour.<br />
@@ -258,6 +267,7 @@ Big()                                // No error, and a new Big constructor is r
         <td id="round-half-up">ROUND_HALF_UP</td>
       </tr>
       <tr>
+        <td>Big.roundHalfEven</td>
         <td class='centre'>2</td>
         <td>
           Rounds towards nearest neighbour.<br />
@@ -266,6 +276,7 @@ Big()                                // No error, and a new Big constructor is r
         <td id="round-half-even">ROUND_HALF_EVEN</td>
       </tr>
       <tr>
+        <td>Big.roundDown</td>
         <td class='centre'>3</td>
         <td>Rounds away from zero.</td>
         <td id="round-up">ROUND_UP</td>
@@ -275,7 +286,9 @@ Big()                                // No error, and a new Big constructor is r
       The value will be checked for validity when one of the above methods is
       called.<br /> An error will be thrown if the value is found to be invalid.
     </p>
-    <pre>Big.RM = 0</pre>
+    <pre>
+Big.RM = 0
+Big.RM = Big.roundUp</pre>
 
 
 
@@ -729,10 +742,14 @@ Big('7e+500').times(y)     // '1.26e+501'</pre>
 
 
     <h5 id="toE">
-      toExponential<code class='inset'>.toExponential(dp) &rArr;
+      toExponential<code class='inset'>.toExponential(dp, rm) &rArr;
       <i>string</i></code>
     </h5>
-    <p><code>dp</code>? : <i>number</i> : integer, 0 to 1e+6 inclusive</p>
+    <p>
+      <code>dp</code>? : <i>number</i> : integer, 0 to 1e+6 inclusive
+      <br />
+      <code>rm</code>? : <i>number</i> : 0, 1, 2 or 3
+    </p>
     <p>
       Returns a string representing the value of this Big number in exponential
       notation to a fixed number of <code>dp</code> decimal places.
@@ -741,7 +758,7 @@ Big('7e+500').times(y)     // '1.26e+501'</pre>
       If the value of this Big number in exponential notation has more digits to
       the right of the decimal point than is specified by <code>dp</code>, the
       return value will be rounded to <code>dp</code> decimal places using
-      rounding mode <a href='#rm'><code>Big.RM</code></a>.
+      rounding mode <a href='#rm'><code>rm</code></a>.
     </p>
     <p>
       If the value of this Big number in exponential notation has fewer digits
@@ -754,7 +771,11 @@ Big('7e+500').times(y)     // '1.26e+501'</pre>
       necessary to represent the value exactly.
     </p>
     <p>
-      Throws if <code>dp</code> is invalid.
+      if <code>rm</code> is omitted or is undefined, the current
+      <a href='#rm'><code>Big.RM</code></a> setting is used.
+    </p>
+    <p>
+      Throws if <code>dp</code> or <code>rm</code> is invalid.
     </p>
     <pre>
 x = 45.6
@@ -771,11 +792,13 @@ y.toExponential(3)         // '4.560e+1'</pre>
 
 
     <h5 id="toF">
-      toFixed<code class='inset'>.toFixed(dp) &rArr;
+      toFixed<code class='inset'>.toFixed(dp, rm) &rArr;
       <i>string</i></code>
     </h5>
     <p>
       <code>dp</code>? : <i>number</i> : integer, 0 to 1e+6 inclusive
+      <br />
+      <code>rm</code>? : <i>number</i> : 0, 1, 2 or 3
     </p>
     <p>
       Returns a string representing the value of this Big number in normal
@@ -785,7 +808,7 @@ y.toExponential(3)         // '4.560e+1'</pre>
       If the value of this Big number in normal notation has more digits to the
       right of the decimal point than is specified by <code>dp</code>, the
       return value will be rounded to <code>dp</code> decimal places using
-      rounding mode <a href='#rm'><code>Big.RM</code></a>.
+      rounding mode <a href='#rm'><code>rm</code></a>.
     </p>
     <p>
       If the value of this Big number in normal notation has fewer fraction
@@ -804,7 +827,11 @@ y.toExponential(3)         // '4.560e+1'</pre>
       decimal places.
     </p>
     <p>
-      Throws if <code>dp</code> is invalid.
+      if <code>rm</code> is omitted or is undefined, the current
+      <a href='#rm'><code>Big.RM</code></a> setting is used.
+    </p>
+    <p>
+      Throws if <code>dp</code> or <code>rm</code> is invalid.
     </p>
     <pre>
 x = 45.6
@@ -833,10 +860,14 @@ JSON.parse(str, function (k, v) { return k === '' ? v : new Big(v) })
 
 
     <h5 id="toP">
-      toPrecision<code class='inset'>.toPrecision(sd) &rArr;
+      toPrecision<code class='inset'>.toPrecision(sd, rm) &rArr;
       <i>string</i></code>
     </h5>
-    <p><code>sd</code>? : <i>number</i> : integer, 1 to 1e+6 inclusive</p>
+    <p>
+      <code>sd</code>? : <i>number</i> : integer, 1 to 1e+6 inclusive
+      <br />
+      <code>rm</code>? : <i>number</i> : 0, 1, 2 or 3
+    </p>
     <p>
       Returns a string representing the value of this Big number to the
       specified number of <code>sd</code> significant digits.
@@ -845,7 +876,7 @@ JSON.parse(str, function (k, v) { return k === '' ? v : new Big(v) })
       If the value of this Big number has more digits than is specified by
       <code>sd</code>, the return value will be rounded to <code>sd</code>
       significant digits using rounding mode
-      <a href='#rm'><code>Big.RM</code></a>.
+      <a href='#rm'><code>rm</code></a>.
     </p>
     <p>
       If the value of this Big number has fewer digits than is specified by
@@ -861,7 +892,11 @@ JSON.parse(str, function (k, v) { return k === '' ? v : new Big(v) })
       the same as <code>.toString()</code>.
     </p>
     <p>
-      Throws if <code>sd</code> is invalid.
+      if <code>rm</code> is omitted or is undefined, the current
+      <a href='#rm'><code>Big.RM</code></a> setting is used.
+    </p>
+    <p>
+      Throws if <code>sd</code> or <code>rm</code> is invalid.
     </p>
     <pre>
 x = 45.6
