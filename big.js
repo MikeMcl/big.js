@@ -120,6 +120,10 @@
     Big.NE = NE;
     Big.PE = PE;
     Big.strict = STRICT;
+    Big.roundDown = 0;
+    Big.roundHalfUp = 1;
+    Big.roundHalfEven = 2;
+    Big.roundUp = 3;
 
     return Big;
   }
