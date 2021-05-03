@@ -1,3 +1,10 @@
+#### 6.1.1
+
+* 03/05/21
+* #169 Bugfix: `round`, `toFixed` etc. using original constructor `RM` (bug introduced in *v6.0.0*).
+* #169 Correct rounding mode documentation.
+* Add version number to legacy documentation.
+
 #### 6.1.0
 
 * 26/04/21

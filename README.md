@@ -124,7 +124,7 @@ The maximum number of decimal places and the rounding mode used to round the res
 
 ```javascript
 Big.DP = 10
-Big.RM = 1
+Big.RM = Big.roundHalfUp
 
 x = new Big(2);
 y = new Big(3);
