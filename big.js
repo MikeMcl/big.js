@@ -196,7 +196,7 @@
   function round(x, sd, rm, more) {
     var xc = x.c;
 
-    if (rm === UNDEFINED) rm = Big.RM;
+    if (rm === UNDEFINED) rm = x.constructor.RM;
     if (rm !== 0 && rm !== 1 && rm !== 2 && rm !== 3) {
       throw Error(INVALID_RM);
     }

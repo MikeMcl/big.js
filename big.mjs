@@ -120,7 +120,7 @@ function _Big_() {
   Big.roundDown = 0;
   Big.roundHalfUp = 1;
   Big.roundHalfEven = 2;
-  Big.roundUp = 3;                   
+  Big.roundUp = 3;
 
   return Big;
 }
@@ -193,7 +193,7 @@ function parse(x, n) {
 function round(x, sd, rm, more) {
   var xc = x.c;
 
-  if (rm === UNDEFINED) rm = Big.RM;
+  if (rm === UNDEFINED) rm = x.constructor.RM;
   if (rm !== 0 && rm !== 1 && rm !== 2 && rm !== 3) {
     throw Error(INVALID_RM);
   }
