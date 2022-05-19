@@ -16,6 +16,12 @@
     "bigint",
     "bignum"
   ],
+  "exports": {
+      ".": {
+          "import": "./big.mjs",
+          "require": "./big.js"
+      }
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/MikeMcl/big.js.git"
