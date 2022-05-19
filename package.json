@@ -17,10 +17,10 @@
     "bignum"
   ],
   "exports": {
-      ".": {
-          "import": "./big.mjs",
-          "require": "./big.js"
-      }
+    ".": {
+      "import": "./big.mjs",
+      "require": "./big.js"
+    }
   },
   "repository": {
     "type": "git",
