@@ -10,6 +10,7 @@ console.log( '\n Testing big.js\n' );
   'div',
   'minus',
   'mod',
+  'neg',
   'plus',
   'pow',
   'prec',

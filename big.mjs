@@ -629,6 +629,16 @@ P.mod = function (y) {
 
 
 /*
+ * Return a new Big whose value is the value of this Big negated.
+ */
+P.neg = function () {
+  var x = new this.constructor(this);
+  x.s = -x.s;
+  return x;
+};
+
+
+/*
  * Return a new Big whose value is the value of this Big plus the value of Big y.
  */
 P.plus = P.add = function (y) {

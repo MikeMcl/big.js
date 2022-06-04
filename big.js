@@ -629,6 +629,16 @@
 
     return this.minus(x.times(y));
   };
+  
+  
+  /*
+   * Return a new Big whose value is the value of this Big negated.
+   */
+  P.neg = function () {
+    var x = new this.constructor(this);
+    x.s = -x.s;
+    return x;
+  };
 
 
   /*
