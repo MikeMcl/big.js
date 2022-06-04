@@ -1,3 +1,12 @@
+#### 6.2.0
+
+* 04/06/22
+* Add note that a Big number is created from a numbers `toString` value.
+* #173 Add `Symbol.for('nodejs.util.inspect.custom')`.
+* Allow `BigInt` when `Big.strict` is `true`.
+* #177 Add `neg` method to negate a Big number.
+* Add to *package.json* exports.
+
 #### 6.1.1
 
 * 03/05/21

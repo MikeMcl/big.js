@@ -57,8 +57,7 @@ code, .nav-title, .error{color:#f00}
 
     <a class='nav-title' href="#">API</a>
     <select id="version" name="version" onchange="location.href=this.value;this.selectedIndex=0">
-      <option value="" selected>v6.2.x</option>
-      <option value="legacy/v6.1.x.html">v6.1.x</option>
+      <option value="" selected>v6.1.x</option>
       <option value="legacy/v6.0.x.html">v6.0.x</option>
       <option value="legacy/v5.2.x.html">v5.2.x</option>
       <option value="legacy/v5.1.x.html">v5.1.x</option>
@@ -104,7 +103,6 @@ code, .nav-title, .error{color:#f00}
       <li><a href="#lte"    >lte</a></li>
       <li><a href="#minus"  >minus</a></li>
       <li><a href="#mod"    >mod</a></li>
-      <li><a href="#neg"    >neg</a></li>
       <li><a href="#plus"   >plus</a></li>
       <li><a href="#pow"    >pow</a></li>
       <li><a href="#prec"   >prec</a></li>
@@ -153,8 +151,9 @@ code, .nav-title, .error{color:#f00}
     <h2>API</h2>
 
     <p>
-      For brevity, <code>var</code>, semicolons and <code>toString</code> calls
-      have been omitted in the examples below.
+      In all examples below, <code>var</code> and semicolons are not shown, and
+      if a commented-out value is in quotes it means <code>toString</code> has
+      been called on the preceding expression.
     </p>
 
 
@@ -171,12 +170,6 @@ code, .nav-title, .error{color:#f00}
       an error will be thrown if <code>n</code> is not a string or Big number.
     </p>
     <p>
-      Note that primitive numbers are accepted purely as a convenience so that quotes
-      don't need to be typed for numeric literals of up to 15 significant digits, and
-      that a Big number is created from a number's <code>toString</code> value rather
-      than from its underlying binary floating point value.
-    </p>
-    <p>
       <code>Infinity</code>, <code>NaN</code> and hexadecimal literal
       strings, e.g. '0xff', are <u>not</u> valid.
     </p>
@@ -185,20 +178,21 @@ code, .nav-title, .error{color:#f00}
       e.g. '011' is 11, not 9.
     </p>
     <p>
-      String values may be in exponential, as well as normal notation.
+      String values may be in exponential, as well as normal (non-exponential)
+      notation.
     </p>
     <p>
       There is no limit to the number of digits of a <em>string</em> value
       (other than that of JavaScript's maximum array size), but the largest
       recommended exponent magnitude is 1000000.
     </p>
-    <p>Returns a new Big number with value <code>n</code>.</p>
+    <p>Returns a new Big number object with value <code>n</code>.</p>
     <p>Throws if <code>n</code> is invalid.</p>
     <p>
       Using <code>new</code> with Big is optional, but note that if no argument
       is passed when doing so, or if the argument is <code>undefined</code>,
-      then a new Big constructor will be returned rather than a new Big number.
-      See <a href='#multiple'>creating additional Big number constructors</a>
+      then a new Big constructor will be returned rather than a new Big number
+      instance. See <a href='#multiple'>creating additional Big number constructors</a>
       below.
     </p>
     <pre>
@@ -209,7 +203,7 @@ new Big('4.321e+4')                  // '43210'
 new Big('-735.0918e-430')            // '-7.350918e-428'
 Big(435.345)                         // '435.345'
 new Big()                            // 'Error: [big.js] Invalid value'
-Big2 = Big()                         // No error, and a new Big constructor is returned
+Big()                                // No error, and a new Big constructor is returned
     </pre>
 
 
@@ -579,17 +573,6 @@ x.minus(0.1)               // '0.2'</pre>
 1 % 0.9                    // 0.09999999999999998
 x = new Big(1)
 x.mod(0.9)                 // '0.1'</pre>
-
-
-
-    <h5 id="neg">neg<code class='inset'>.neg() <i>&rArr; Big</i></code></h5>
-    <p>
-      Returns a Big number whose value is the value of this Big number negated.
-    </p>
-    <pre>
-x = new Big(0.3)
-x.neg()                    // '-0.3'
-x.neg().neg()              // '0.3'</pre>
 
 
 
