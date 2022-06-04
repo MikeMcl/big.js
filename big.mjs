@@ -95,8 +95,8 @@ function _Big_() {
       x.c = n.c.slice();
     } else {
       if (typeof n !== 'string') {
-        if (Big.strict === true) {
-          throw TypeError(INVALID + 'number');
+        if (Big.strict === true && typeof n !== 'bigint') {
+          throw TypeError(INVALID + 'value');
         }
 
         // Minus zero?
