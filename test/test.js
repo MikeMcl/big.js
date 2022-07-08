@@ -88,6 +88,16 @@ test = (function () {
     }
   };
 
+  test.hasInvalidCoefficient = function(actual) {
+    ++count;
+    if (actual.c[-1] === undefined) {
+      ++passed;
+    } else {
+      fail(count, 'valid coefficient', actual.c[-1]);
+    }
+  }
+
+
   test.write = write;
 
   return test;

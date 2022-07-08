@@ -4,12 +4,16 @@ test('round', function () {
   var u;
   
   function t(expected, value, decimalPlaces, roundingMode) {
-    test.areEqual(String(expected), new Big(String(value)).round(decimalPlaces, roundingMode).toString());
+    var b = new Big(String(value)).round(decimalPlaces, roundingMode);
+    
+    test.areEqual(String(expected), b.toString());
+    test.hasInvalidCoefficient(b)
   }
   
   Big.DP = 20;
   Big.RM = 1;
 
+  t('10', '9.9');
   t('0', '0.000084888060736883027314038572334303632');
   t('30845717889906383053', '30845717889906383052.56472015469740823');
   t('76', '76.0719');

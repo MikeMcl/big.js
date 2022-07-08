@@ -241,6 +241,7 @@
           if (!sd--) {
             ++x.e;
             xc.unshift(1);
+            break;
           }
         }
       }
