@@ -40,7 +40,7 @@ import Big from './path/to/big.mjs';
 Get a minified version from a CDN:
 
 ```html
-<script src='https://cdn.jsdelivr.net/npm/big.js@6.2.0/big.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/big.js@6.2.1/big.min.js'></script>
 ```
 
 ### [Node.js](http://nodejs.org)
@@ -64,8 +64,8 @@ import Big from 'big.js';
 ### [Deno](https://deno.land/)
 
 ```javascript
-import Big from 'https://raw.githubusercontent.com/mikemcl/big.js/v6.2.0/big.mjs';
-import Big from 'https://unpkg.com/big.js@6.2.0/big.mjs';
+import Big from 'https://raw.githubusercontent.com/mikemcl/big.js/v6.2.1/big.mjs';
+import Big from 'https://unpkg.com/big.js@6.2.1/big.mjs';
 ```
 
 ## Use

@@ -1,3 +1,8 @@
+#### 6.2.1
+
+* 09/07/22
+* #191 Bugfix: `round` may result in improper coefficient.
+
 #### 6.2.0
 
 * 04/06/22
