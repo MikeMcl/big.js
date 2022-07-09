@@ -230,17 +230,18 @@
         rm === 3 && (more || !!xc[0]);
 
       // Remove any digits after the required precision.
-      xc.length = sd--;
+      xc.length = sd;
 
       // Round up?
       if (more) {
 
         // Rounding up may mean the previous digit has to be rounded up.
-        for (; ++xc[sd] > 9;) {
+        for (; ++xc[--sd] > 9;) {
           xc[sd] = 0;
-          if (!sd--) {
+          if (sd === 0) {
             ++x.e;
             xc.unshift(1);
+            break;
           }
         }
       }
