@@ -71,7 +71,7 @@
     // The shared prototype object.
     P = {},
     UNDEFINED = void 0,
-    NUMERIC = /^-?(\d+(\.\d*)?|\.\d+)(e[+-]?\d+)?$/i;
+    NUMERIC = /^[+-]?(\d+(\.\d*)?|\.\d+)(e[+-]?\d+)?$/i;
 
 
   /*
@@ -144,6 +144,9 @@
 
     // Determine sign.
     x.s = n.charAt(0) == '-' ? (n = n.slice(1), -1) : 1;
+
+    // Strip sign.
+    if (n.charAt(0) == "+") n = n.slice(1);
 
     // Decimal point?
     if ((e = n.indexOf('.')) > -1) n = n.replace('.', '');
