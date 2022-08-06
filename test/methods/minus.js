@@ -1708,6 +1708,8 @@ test('minus', function () {
   t('3.8313670568933092257440033774e+17', '-5.741523524290048567e+2', '383136705689331496.7267527667448567');
   t('-2.56218040669566121e+12', '1.83637202203675e+8', '-2562364043897.864885');
 
+  t('12.345', '+1', '11.345');
+
   test.isException(function () {new Big('12.345').minus(undefined)}, ".minus(undefined)");
   test.isException(function () {new Big('12.345').minus(null)}, ".minus(null)");
   test.isException(function () {new Big('12.345').minus(NaN)}, ".minus(NaN)");
@@ -1724,7 +1726,7 @@ test('minus', function () {
   test.isException(function () {new Big('12.345').minus(' 0.1')}, ".minus(' 0.1')");
   test.isException(function () {new Big('12.345').minus('7.5 ')}, ".minus('7.5 ')");
   test.isException(function () {Big('12.345').minus(' 0 ')}, ".minus(' 0 ')");
-  test.isException(function () {new Big('12.345').minus('+1')}, ".minus('+1')");
+  test.isException(function () {new Big('12.345').minus('+ 1')}, ".minus('+ 1')");
   test.isException(function () {new Big('12.345').minus(' +1.2')}, ".minus(' +1.2')");
   test.isException(function () {new Big('12.345').minus('- 99')}, ".minus('- 99')");
   test.isException(function () {new Big('12.345').minus('9.9.9')}, ".minus('9.9.9')");

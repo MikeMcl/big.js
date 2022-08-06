@@ -2073,6 +2073,9 @@ test('times', function () {
   t('8.944326872147001036632309667E-41', '1.34989853214019743744001484188796117541380712420727841534671603347856989127834147166127622e+48', '120739337.1569336009465330585026690676314127638673504378646869299090176172459431821906069831664699038568059542346321874');
   t('-1.06387569312217787644613114942E-25', '-3.49651047707433733724368394353972842316097364325909366154237667988339210449181953609691895611E35', '37198525073.064174722364904333744771229085129180022174384101305415837978911883846550330098510374779170577866567699408319562');
 
+  t('1', '+1', '1');
+  t('1', '+1.2', '1.2');
+
   test.isException(function () {new Big('1').times(undefined)}, ".times(undefined)");
   test.isException(function () {new Big('1').times(null)}, ".times(null)");
   test.isException(function () {new Big('1').times(NaN)}, ".times(NaN)");
@@ -2089,7 +2092,7 @@ test('times', function () {
   test.isException(function () {new Big('1').times(' 0.1')}, ".times(' 0.1')");
   test.isException(function () {new Big('1').times('7.5 ')}, ".times('7.5 ')");
   test.isException(function () {Big('1').times(' 0 ')}, ".times(' 0 ')");
-  test.isException(function () {new Big('1').times('+1')}, ".times('+1')");
+  test.isException(function () {new Big('1').times('+ 1')}, ".times('+ 1')");
   test.isException(function () {new Big('1').times(' +1.2')}, ".times(' +1.2')");
   test.isException(function () {new Big('1').times('- 99')}, ".times('- 99')");
   test.isException(function () {new Big('1').times('9.9.9')}, ".times('9.9.9')");

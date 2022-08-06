@@ -984,6 +984,14 @@ test('toString', function () {
   t('980', '98.e1');
   t('0.0003', '3.e-4');
 
+  t('1', '+1');
+  t('489329475293', '+489329475293');
+  t('1', '+1.0');
+  t('0', '+0.0');
+  t('0.000032453254', '+0.000032453254');
+  t('0.003', '+.003')
+  t('0', '+.00')
+
   test.isException(function () {new Big(undefined)}, "new Big(undefined)");
   test.isException(function () {new Big(null)}, "new Big(null)");
   test.isException(function () {new Big(NaN)}, "new Big(NaN)");
@@ -1000,7 +1008,9 @@ test('toString', function () {
   test.isException(function () {new Big(' 0.1')}, "new Big(' 0.1')");
   test.isException(function () {new Big('7.5 ')}, "new Big('7.5 ')");
   test.isException(function () {Big(' 0 ')}, "new Big(' 0 ')");
-  test.isException(function () {new Big('+1')}, "new Big('+1')");
+  test.isException(function () {new Big('+ 1')}, "new Big('+ 1')");
+  test.isException(function () {new Big('-+1')}, "new Big('-+1')");
+  test.isException(function () {new Big('+-1')}, "new Big('+-1')");
   test.isException(function () {new Big(' +1.2')}, "new Big(' +1.2')");
   test.isException(function () {new Big('- 99')}, "new Big('- 99')");
   test.isException(function () {new Big('9.9.9')}, "new Big('9.9.9')");

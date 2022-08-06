@@ -1746,6 +1746,8 @@ test('mod', function () {
   t('1.07984359784457855e+6', '2.92533631912192887348822954567386e+32', '1079843.59784457855');
   t('-5.343344296409307514661858172266262866671109159598323e+9', '2.3273061846552018803169584402231121660442419923712e+8', '-223270690.167863377964549603775416101373776776381683');
 
+  t('12.345', '+1', '0.345')
+
   test.isException(function () {new Big(0).mod(0)}, ".mod(0)");
   test.isException(function () {new Big('-1').mod(0)}, ".mod(0)");
   test.isException(function () {new Big(9).mod(0)}, ".mod(0)");
@@ -1769,7 +1771,7 @@ test('mod', function () {
   test.isException(function () {new Big('12.345').mod(' 0.1')}, ".mod(' 0.1')");
   test.isException(function () {new Big('12.345').mod('7.5 ')}, ".mod('7.5 ')");
   test.isException(function () {Big('12.345').mod(' 0 ')}, ".mod(' 0 ')");
-  test.isException(function () {new Big('12.345').mod('+1')}, ".mod('+1')");
+  test.isException(function () {new Big('12.345').mod('+ 1')}, ".mod('+ 1')");
   test.isException(function () {new Big('12.345').mod(' +1.2')}, ".mod(' +1.2')");
   test.isException(function () {new Big('12.345').mod('- 99')}, ".mod('- 99')");
   test.isException(function () {new Big('12.345').mod('9.9.9')}, ".mod('9.9.9')");

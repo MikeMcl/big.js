@@ -9848,6 +9848,9 @@ test('div', function () {
   t('144', '12.', '12');
   t('121', '1.e1', '12.1');
 
+  t('10', '+10', '1');
+
+
   // Division by zero.
   test.isException(function () {new Big(0).div(0)}, "Big(0).div(0)");
   test.isException(function () {new Big('0').div('-0')}, "Big('0').div('-0')");
@@ -9875,7 +9878,7 @@ test('div', function () {
   test.isException(function () {new Big('12.345').div(' 0.1')}, ".div(' 0.1')");
   test.isException(function () {new Big('12.345').div('7.5 ')}, ".div('7.5 ')");
   test.isException(function () {Big('12.345').div(' 0 ')}, ".div(' 0 ')");
-  test.isException(function () {new Big('12.345').div('+1')}, ".div('+1')");
+  test.isException(function () {new Big('12.345').div('+ 1')}, ".div('+ 1')");
   test.isException(function () {new Big('12.345').div(' +1.2')}, ".div(' +1.2')");
   test.isException(function () {new Big('12.345').div('- 99')}, ".div('- 99')");
   test.isException(function () {new Big('12.345').div('9.9.9')}, ".div('9.9.9')");

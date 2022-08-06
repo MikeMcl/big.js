@@ -4120,7 +4120,7 @@ test('cmp, eq, gt, gte, lt, lte', function () {
   test.isException(function () {new Big('12.345').eq(' 0.1')}, ".eq(' 0.1')");
   test.isException(function () {new Big('12.345').eq('7.5 ')}, ".eq('7.5 ')");
   test.isException(function () {Big('12.345').eq(' 0 ')}, ".eq(' 0 ')");
-  test.isException(function () {new Big('12.345').eq('+1')}, ".eq('+1')");
+  test.isException(function () {new Big('12.345').eq('+ 1')}, ".eq('+ 1')");
   test.isException(function () {new Big('12.345').eq(' +1.2')}, ".eq(' +1.2')");
   test.isException(function () {new Big('12.345').eq('- 99')}, ".eq('- 99')");
   test.isException(function () {new Big('12.345').eq('9.9.9')}, ".eq('9.9.9')");
@@ -4150,7 +4150,7 @@ test('cmp, eq, gt, gte, lt, lte', function () {
   test.isException(function () {new Big('0').gt(' 0.1')}, ".gt(' 0.1')");
   test.isException(function () {new Big('0').gt('7.5 ')}, ".gt('7.5 ')");
   test.isException(function () {Big('0').gt(' 0 ')}, ".gt(' 0 ')");
-  test.isException(function () {new Big('0').gt('+1')}, ".gt('+1')");
+  test.isException(function () {new Big('0').gt('+ 1')}, ".gt('+ 1')");
   test.isException(function () {new Big('0').gt(' +1.2')}, ".gt(' +1.2')");
   test.isException(function () {new Big('0').gt('- 99')}, ".gt('- 99')");
   test.isException(function () {new Big('0').gt('9.9.9')}, ".gt('9.9.9')");
@@ -4180,7 +4180,7 @@ test('cmp, eq, gt, gte, lt, lte', function () {
   test.isException(function () {new Big('9.9900E2').gte(' 0.1')}, ".gte(' 0.1')");
   test.isException(function () {new Big('9.9900E2').gte('7.5 ')}, ".gte('7.5 ')");
   test.isException(function () {Big('9.9900E2').gte(' 0 ')}, ".gte(' 0 ')");
-  test.isException(function () {new Big('9.9900E2').gte('+1')}, ".gte('+1')");
+  test.isException(function () {new Big('9.9900E2').gte('+ 1')}, ".gte('+ 1')");
   test.isException(function () {new Big('9.9900E2').gte(' +1.2')}, ".gte(' +1.2')");
   test.isException(function () {new Big('9.9900E2').gte('- 99')}, ".gte('- 99')");
   test.isException(function () {new Big('9.9900E2').gte('9.9.9')}, ".gte('9.9.9')");
@@ -4210,7 +4210,7 @@ test('cmp, eq, gt, gte, lt, lte', function () {
   test.isException(function () {new Big('12.345').lt(' 0.1')}, ".lt(' 0.1')");
   test.isException(function () {new Big('12.345').lt('7.5 ')}, ".lt('7.5 ')");
   test.isException(function () {Big('12.345').lt(' 0 ')}, ".lt(' 0 ')");
-  test.isException(function () {new Big('12.345').lt('+1')}, ".lt('+1')");
+  test.isException(function () {new Big('12.345').lt('+ 1')}, ".lt('+ 1')");
   test.isException(function () {new Big('12.345').lt(' +1.2')}, ".lt(' +1.2')");
   test.isException(function () {new Big('12.345').lt('- 99')}, ".lt('- 99')");
   test.isException(function () {new Big('12.345').lt('9.9.9')}, ".lt('9.9.9')");
@@ -4240,7 +4240,7 @@ test('cmp, eq, gt, gte, lt, lte', function () {
   test.isException(function () {new Big('12.345').lte(' 0.1')}, ".lte(' 0.1')");
   test.isException(function () {new Big('12.345').lte('7.5 ')}, ".lte('7.5 ')");
   test.isException(function () {Big('12.345').lte(' 0 ')}, ".lte(' 0 ')");
-  test.isException(function () {new Big('12.345').lte('+1')}, ".lte('+1')");
+  test.isException(function () {new Big('12.345').lte('+ 1')}, ".lte('+ 1')");
   test.isException(function () {new Big('12.345').lte(' +1.2')}, ".lte(' +1.2')");
   test.isException(function () {new Big('12.345').lte('- 99')}, ".lte('- 99')");
   test.isException(function () {new Big('12.345').lte('9.9.9')}, ".lte('9.9.9')");
