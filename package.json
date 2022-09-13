@@ -1,5 +1,5 @@
 {
-  "name": "big.js",
+  "name": "@zebreus/big.js",
   "description": "A small, fast, easy-to-use library for arbitrary-precision decimal arithmetic",
   "version": "6.2.1",
   "keywords": [
@@ -53,5 +53,8 @@
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/bigjs"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  }  
 }
