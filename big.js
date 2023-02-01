@@ -806,14 +806,14 @@
     }
 
     // Estimate.
-    s = Math.sqrt(x + '', { dp, rm });
+    s = Math.sqrt(x + '');
 
     // Math.sqrt underflow/overflow?
     // Re-estimate: pass x coefficient to Math.sqrt as integer, then adjust the result exponent.
     if (s === 0 || s === 1 / 0) {
       c = x.c.join('');
       if (!(c.length + e & 1)) c += '0';
-      s = Math.sqrt(c, { dp, rm });
+      s = Math.sqrt(c);
       e = ((e + 1) / 2 | 0) - (e < 0 || e & 1);
       r = new Big((s == 1 / 0 ? '5e' : (s = s.toExponential()).slice(0, s.indexOf('e') + 1)) + e);
     } else {
