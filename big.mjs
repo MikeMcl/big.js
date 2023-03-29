@@ -108,16 +108,11 @@ function _Big_() {
 
     // Retain a reference to this Big constructor.
     // Shadow Big.prototype.constructor which points to Object.
-    if (typeof Object.defineProperty === 'function') {
-      // If the Object prototype is frozen, the "constructor" property is non-writable. This means that any objects which inherit this
-      // property cannot have the property changed using an assignment. If using strict mode, attempting that will cause an error. If not
-      // using strict mode, attempting that will be silently ignored.
-      // However, we can still explicitly shadow the prototype's non-writable property by defining a new property on this object.
-      Object.defineProperty(x, 'constructor', { value: Big });
-    } else {
-      // If Object.defineProperty() doesn't exist, attempt to shadow this property using the assignment operator.
-      x.constructor = Big;
-    }
+    // If the Object prototype is frozen, the "constructor" property is non-writable. This means that any objects which inherit this
+    // property cannot have the property changed using an assignment. If using strict mode, attempting that will cause an error. If not
+    // using strict mode, attempting that will be silently ignored.
+    // However, we can still explicitly shadow the prototype's non-writable property by defining a new property on this object.
+    Object.defineProperty(x, 'constructor', { value: Big });
   }
 
   Big.prototype = P;
@@ -966,7 +961,7 @@ P.toFixed = function (dp, rm) {
  * Big.PE, or a negative exponent equal to or less than Big.NE.
  * Omit the sign for negative zero.
  */
-function toString() {
+var toString = P[Symbol.for('nodejs.util.inspect.custom')] = function () {
   var x = this,
     Big = x.constructor;
   return stringify(x, x.e <= Big.NE || x.e >= Big.PE, !!x.c[0]);
@@ -1027,19 +1022,13 @@ function valueOf() {
 };
 
 
-P[Symbol.for('nodejs.util.inspect.custom')] = P.toJSON = toString;
-if (typeof Object.defineProperty === 'function') {
-  // If the Object prototype is frozen, the "toString" and "valueOf" properties are non-writable. This means that any objects which
-  // inherit these property cannot have the property changed using an assignment. If using strict mode, attempting that will cause an
-  // error. If not using strict mode, attempting that will be silently ignored.
-  // However, we can still explicitly shadow the prototype's non-writable properties by defining new properties on this object.
-  Object.defineProperty(P, 'toString', { value: toString });
-  Object.defineProperty(P, 'valueOf', { value: valueOf });
-} else {
-  // If Object.defineProperty() doesn't exist, attempt to shadow this property using the assignment operator.
-  P.toString = toString;
-  P.valueOf = valueOf;
-}
+P.toJSON = toString;
+// If the Object prototype is frozen, the "toString" and "valueOf" properties are non-writable. This means that any objects which
+// inherit these property cannot have the property changed using an assignment. If using strict mode, attempting that will cause an
+// error. If not using strict mode, attempting that will be silently ignored.
+// However, we can still explicitly shadow the prototype's non-writable properties by defining new properties on this object.
+Object.defineProperty(P, 'toString', { value: toString });
+Object.defineProperty(P, 'valueOf', { value: valueOf });
 
 
 // Export
