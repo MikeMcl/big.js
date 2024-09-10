@@ -803,7 +803,7 @@ P.sqrt = function () {
   }
 
   // Estimate.
-  s = Math.sqrt(x + '');
+  s = Math.sqrt(+stringify(x, true, true));
 
   // Math.sqrt underflow/overflow?
   // Re-estimate: pass x coefficient to Math.sqrt as integer, then adjust the result exponent.
@@ -968,7 +968,7 @@ P[Symbol.for('nodejs.util.inspect.custom')] = P.toJSON = P.toString = function (
  * Return the value of this Big as a primitve number.
  */
 P.toNumber = function () {
-  var n = Number(stringify(this, true, true));
+  var n = +stringify(this, true, true);
   if (this.constructor.strict === true && !this.eq(n.toString())) {
     throw Error(NAME + 'Imprecise conversion');
   }
