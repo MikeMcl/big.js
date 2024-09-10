@@ -1,3 +1,8 @@
+#### 6.2.2
+
+* 10/09/24
+* #212 Bugfix: `sqrt` error when `Big.strict` is `true`.
+
 #### 6.2.1
 
 * 09/07/22
