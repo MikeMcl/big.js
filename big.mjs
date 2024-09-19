@@ -965,7 +965,7 @@ P[Symbol.for('nodejs.util.inspect.custom')] = P.toJSON = P.toString = function (
 
 
 /*
- * Return the value of this Big as a primitve number.
+ * Return the value of this Big as a primitive number.
  */
 P.toNumber = function () {
   var n = +stringify(this, true, true);
