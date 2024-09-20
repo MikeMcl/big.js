@@ -2,8 +2,8 @@ if (typeof test === 'undefined') require('../test');
 
 test('div', function () {
 
-  function t(dividend, divisor, expected) {
-    test.areEqual(String(expected), String(new Big(dividend).div(divisor)));
+  function t(dividend, divisor, expected, params) {
+    test.areEqual(String(expected), String(new Big(dividend).div(divisor, params)));
   }
 
   Big.DP = 40;
@@ -9922,4 +9922,20 @@ test('div', function () {
   Big.DP = 2;
   t( 1, 4, '0.25');
   t( 0.25, 1, '0.25');
+
+  // Using params.
+  t(0.034, 365, '0.0000931506', { dp: 10, rm: 0 });
+  t(0.034, 365, '0.0000931507', { dp: 10, rm: 1 });
+  t(0.034, 365, '0.0000931507', { dp: 10, rm: 2 });
+  t(0.034, 365, '0.0000931507', { dp: 10, rm: 3 });
+
+  t(0.034, 365, '0.00009315068493150684', { dp: 20, rm: 0 });
+  t(0.034, 365, '0.00009315068493150685', { dp: 20, rm: 1 });
+  t(0.034, 365, '0.00009315068493150685', { dp: 20, rm: 2 });
+  t(0.034, 365, '0.00009315068493150685', { dp: 20, rm: 3 });
+
+  t(0.034, 365, '0.000093150684931506849315068493', { dp: 30, rm: 0 });
+  t(0.034, 365, '0.000093150684931506849315068493', { dp: 30, rm: 1 });
+  t(0.034, 365, '0.000093150684931506849315068493', { dp: 30, rm: 2 });
+  t(0.034, 365, '0.000093150684931506849315068494', { dp: 30, rm: 3 });
 });
