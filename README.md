@@ -192,9 +192,9 @@ $ npm install --save-dev @types/big.js
 
 Any questions about the TypeScript type definitions file should be addressed to the DefinitelyTyped project.
 
-## Licence
+## License
 
-[MIT](LICENCE.md)
+[MIT](LICENSE.md)
 
 ## Contributors
 
