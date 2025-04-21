@@ -960,11 +960,14 @@ P.toFixed = function (dp, rm) {
  * Big.PE, or a negative exponent equal to or less than Big.NE.
  * Omit the sign for negative zero.
  */
-P[Symbol.for('nodejs.util.inspect.custom')] = P.toJSON = P.toString = function () {
+P.toJSON = P.toString = function () {
   var x = this,
     Big = x.constructor;
   return stringify(x, x.e <= Big.NE || x.e >= Big.PE, !!x.c[0]);
 };
+if (typeof Symbol !== "undefined") {
+  P[Symbol.for('nodejs.util.inspect.custom')] = P.toJSON;
+}
 
 
 /*
