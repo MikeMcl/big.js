@@ -965,6 +965,7 @@ P.toJSON = P.toString = function () {
     Big = x.constructor;
   return stringify(x, x.e <= Big.NE || x.e >= Big.PE, !!x.c[0]);
 };
+
 if (typeof Symbol !== "undefined") {
   P[Symbol.for('nodejs.util.inspect.custom')] = P.toJSON;
 }
