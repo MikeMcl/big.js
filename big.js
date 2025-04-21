@@ -89,7 +89,9 @@
       var x = this;
 
       // Enable constructor usage without new.
-      if (!(x instanceof Big)) return n === UNDEFINED ? _Big_() : new Big(n);
+      if (!(x instanceof Big)) {
+        return n === UNDEFINED && arguments.length === 0 ? _Big_() : new Big(n);
+      }
 
       // Duplicate.
       if (n instanceof Big) {
@@ -630,8 +632,8 @@
 
     return this.minus(x.times(y));
   };
-  
-  
+
+
   /*
    * Return a new Big whose value is the value of this Big negated.
    */
