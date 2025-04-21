@@ -36,6 +36,7 @@ ES module:
 ```html
 <script type='module'>
 import Big from './path/to/big.mjs';
+</script>
 ```
 
 Get a minified version from a CDN:
