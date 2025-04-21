@@ -4,6 +4,7 @@
 
 [![npm version](https://img.shields.io/npm/v/big.js.svg)](https://www.npmjs.com/package/big.js)
 [![npm downloads](https://img.shields.io/npm/dw/big.js)](https://www.npmjs.com/package/big.js)
+[![CI](https://github.com/MikeMcl/big.js/actions/workflows/ci.yml/badge.svg)](https://github.com/MikeMcl/big.js/actions/workflows/ci.yml)
 
 ## Features
 
@@ -40,7 +41,7 @@ import Big from './path/to/big.mjs';
 Get a minified version from a CDN:
 
 ```html
-<script src='https://cdn.jsdelivr.net/npm/big.js@6.2.2/big.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/big.js@7.0.0/big.min.js'></script>
 ```
 
 ### [Node.js](http://nodejs.org)
@@ -64,8 +65,8 @@ import Big from 'big.js';
 ### [Deno](https://deno.land/)
 
 ```javascript
-import Big from 'https://raw.githubusercontent.com/mikemcl/big.js/v6.2.2/big.mjs';
-import Big from 'https://unpkg.com/big.js@6.2.2/big.mjs';
+import Big from 'https://raw.githubusercontent.com/mikemcl/big.js/v7.0.0/big.mjs';
+import Big from 'https://unpkg.com/big.js@latest/big.mjs';
 ```
 
 ## Use
