@@ -41,7 +41,7 @@ import Big from './path/to/big.mjs';
 Get a minified version from a CDN:
 
 ```html
-<script src='https://cdn.jsdelivr.net/npm/big.js@7.0.0/big.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/big.js@7.0.1/big.min.js'></script>
 ```
 
 ### [Node.js](http://nodejs.org)
@@ -65,7 +65,7 @@ import Big from 'big.js';
 ### [Deno](https://deno.land/)
 
 ```javascript
-import Big from 'https://raw.githubusercontent.com/mikemcl/big.js/v7.0.0/big.mjs';
+import Big from 'https://raw.githubusercontent.com/mikemcl/big.js/v7.0.1/big.mjs';
 import Big from 'https://unpkg.com/big.js@latest/big.mjs';
 ```
 

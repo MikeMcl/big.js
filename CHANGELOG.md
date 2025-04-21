@@ -1,10 +1,14 @@
+#### 7.0.1
+
+* 21/04/25
+* Remove legacy docs and version selector.
+
 #### 7.0.0
 
 * 21/04/25
 * Add GitHub Actions CI.
 * #210 Check for `Symbol` support.
 * #220 Prevent new constructor creation if `undefined` is passed explicitly.
-* Remove legacy docs and version selector.
 
 #### 6.2.2
 
