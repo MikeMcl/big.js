@@ -340,15 +340,17 @@
 
   /*
    * Return a new Big whose value is the value of this Big divided by the value of Big y, rounded,
-   * if necessary, to a maximum of Big.DP decimal places using rounding mode Big.RM.
+   * if necessary, to a maximum of params?.dp, or Big.DP (if params?.dp is not specified) decimal
+   * places using rounding mode params?.rm, or Big.RM (if params?.rm is not specified)
    */
-  P.div = function (y) {
+  P.div = function (y, params) {
     var x = this,
       Big = x.constructor,
       a = x.c,                  // dividend
       b = (y = new Big(y)).c,   // divisor
       k = x.s == y.s ? 1 : -1,
-      dp = Big.DP;
+      dp = params?.dp ?? Big.DP,
+      rm = params?.rm ?? Big.RM;
 
     if (dp !== ~~dp || dp < 0 || dp > MAX_DP) {
       throw Error(INVALID_DP);
@@ -443,7 +445,7 @@
     }
 
     // Round?
-    if (qi > p) round(q, p, Big.RM, r[0] !== UNDEFINED);
+    if (qi > p) round(q, p, rm, r[0] !== UNDEFINED);
 
     return q;
   };
@@ -623,12 +625,7 @@
 
     if (ygtx) return new Big(x);
 
-    a = Big.DP;
-    b = Big.RM;
-    Big.DP = Big.RM = 0;
-    x = x.div(y);
-    Big.DP = a;
-    Big.RM = b;
+    x = x.div(y, { dp: 0, rm: 0 });
 
     return this.minus(x.times(y));
   };
@@ -726,12 +723,12 @@
 
   /*
    * Return a Big whose value is the value of this Big raised to the power n.
-   * If n is negative, round to a maximum of Big.DP decimal places using rounding
-   * mode Big.RM.
+   * If n is negative, round to a maximum of params?.dp, or Big.DP (if params?.dp is not specified)
+   * decimal places using rounding mode params?.rm, or Big.RM (if params?.rm is not specified).
    *
    * n {number} Integer, -MAX_POWER to MAX_POWER inclusive.
    */
-  P.pow = function (n) {
+  P.pow = function (n, params) {
     var x = this,
       one = new x.constructor('1'),
       y = one,
@@ -750,7 +747,7 @@
       x = x.times(x);
     }
 
-    return isneg ? one.div(y) : y;
+    return isneg ? one.div(y, params) : params?.dp !== UNDEFINED || params?.rm !== UNDEFINED ? y.round(params?.dp, params?.rm) : y;
   };
 
 
@@ -789,15 +786,18 @@
 
   /*
    * Return a new Big whose value is the square root of the value of this Big, rounded, if
-   * necessary, to a maximum of Big.DP decimal places using rounding mode Big.RM.
+   * necessary, to a maximum of params?.dp, or Big.DP (if params?.dp is not specified)
+   * decimal places using rounding mode params?.rm, or Big.RM (if params?.rm is not specified).
    */
-  P.sqrt = function () {
+  P.sqrt = function (params) {
     var r, c, t,
       x = this,
       Big = x.constructor,
       s = x.s,
       e = x.e,
-      half = new Big('0.5');
+      half = new Big('0.5'),
+      dp = params?.dp ?? Big.DP,
+      rm = params?.rm ?? Big.RM;
 
     // Zero?
     if (!x.c[0]) return new Big(x);
@@ -822,15 +822,15 @@
       r = new Big(s + '');
     }
 
-    e = r.e + (Big.DP += 4);
+    e = r.e + (dp += 4);
 
     // Newton-Raphson iteration.
     do {
       t = r;
-      r = half.times(t.plus(x.div(t)));
+      r = half.times(t.plus(x.div(t, { dp, rm })));
     } while (t.c.slice(0, e).join('') !== r.c.slice(0, e).join(''));
 
-    return round(r, (Big.DP -= 4) + r.e + 1, Big.RM);
+    return round(r, (dp -= 4) + r.e + 1, rm);
   };
 
 
