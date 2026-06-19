@@ -733,6 +733,47 @@ test('sqrt', function () {
   Big.DP = 2;
   t('0.04', 0.001);
 
+  // The square root of a number whose value is small enough that the result has a large
+  // negative exponent. Previously the internal division had too few decimal places to
+  // retain any significant digits, so the Newton-Raphson iteration could not converge and
+  // sqrt either looped indefinitely or returned an incorrect result.
+  Big.RM = 1;
+
+  Big.DP = 3;
+  t('0', '3.52e-19');
+
+  Big.DP = 10;
+  t('0', '9e-30');
+
+  Big.DP = 5;
+  t('0', '3.52e-40');
+
+  Big.DP = 25;
+  t('1.876166303929372e-10', '3.52e-20');
+
+  Big.DP = 20;
+  t('3e-15', '9e-30');
+
+  Big.DP = 45;
+  t('1.876166303929371821826252e-20', '3.52e-40');
+
+  Big.DP = 12;
+  t('4.47e-10', '2e-19');
+
+  Big.DP = 20;
+  t('8.366600265341e-8', '7e-15');
+
+  Big.DP = 30;
+  t('4.12310562561766055e-13', '1.7e-25');
+
+  Big.DP = 18;
+  t('1.1111e-14', '123.456e-30');
+
+  // The result has a small negative exponent: previously the last digit was rounded
+  // incorrectly (gave '0.71414284285429'). True value: 0.7141428428542849997999...
+  Big.DP = 14;
+  t('0.71414284285428', '0.51');
+
   Big.DP = 20;
   Big.RM = 0;
   t('9.9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999e+179', new Big('1e360').minus(1));

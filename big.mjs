@@ -790,7 +790,7 @@ P.round = function (dp, rm) {
  * necessary, to a maximum of Big.DP decimal places using rounding mode Big.RM.
  */
 P.sqrt = function () {
-  var r, c, t,
+  var r, c, t, dp,
     x = this,
     Big = x.constructor,
     s = x.s,
@@ -820,7 +820,12 @@ P.sqrt = function () {
     r = new Big(s + '');
   }
 
-  e = r.e + (Big.DP += 4);
+  // r.e is the exponent of the estimated root. When it is negative (the root of a small
+  // number is small) the division x.div(t) needs (-r.e) extra decimal places to retain
+  // significant digits, otherwise the iteration cannot converge and loops indefinitely.
+  dp = Big.DP += 4;
+  if (r.e < 0) Big.DP -= r.e;
+  e = r.e + Big.DP;
 
   // Newton-Raphson iteration.
   do {
@@ -828,7 +833,8 @@ P.sqrt = function () {
     r = half.times(t.plus(x.div(t)));
   } while (t.c.slice(0, e).join('') !== r.c.slice(0, e).join(''));
 
-  return round(r, (Big.DP -= 4) + r.e + 1, Big.RM);
+  Big.DP = dp - 4;
+  return round(r, Big.DP + r.e + 1, Big.RM);
 };
 
 
