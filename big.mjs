@@ -322,17 +322,17 @@ P.cmp = function (y) {
   isneg = i < 0;
 
   // Compare exponents.
-  if (k != l) return k > l ^ isneg ? 1 : -1;
+  if (k != l) return (k > l) ^ isneg ? 1 : -1;
 
   j = (k = xc.length) < (l = yc.length) ? k : l;
 
   // Compare digit by digit.
   for (i = -1; ++i < j;) {
-    if (xc[i] != yc[i]) return xc[i] > yc[i] ^ isneg ? 1 : -1;
+    if (xc[i] != yc[i]) return (xc[i] > yc[i]) ^ isneg ? 1 : -1;
   }
 
   // Compare lengths.
-  return k == l ? 0 : k > l ^ isneg ? 1 : -1;
+  return k == l ? 0 : (k > l) ^ isneg ? 1 : -1;
 };
 
 
