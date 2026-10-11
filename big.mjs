@@ -820,7 +820,7 @@ P.sqrt = function () {
     r = new Big(s + '');
   }
 
-  e = r.e + (Big.DP += 4);
+  e = Math.max(0, r.e + (Big.DP += 4));
 
   // Newton-Raphson iteration.
   do {
@@ -828,7 +828,34 @@ P.sqrt = function () {
     r = half.times(t.plus(x.div(t)));
   } while (t.c.slice(0, e).join('') !== r.c.slice(0, e).join(''));
 
-  return round(r, (Big.DP -= 4) + r.e + 1, Big.RM);
+  // Matching convergence digits bound the root error to less than 0.0031
+  // output units here. Only rounding-boundary cases need exact squares.
+  Big.DP -= 4;
+  c = Big.DP + r.e + 1;
+  if (t.e === r.e && c + 3 <= e) {
+    s = (r.c[c] || 0) * 10 + (r.c[c + 1] || 0);
+    if (Big.RM === 1 || Big.RM === 2 ? s < 49 || s > 50 : s > 0 && s < 99) {
+      return round(r, c, Big.RM);
+    }
+  }
+
+  // Verify ambiguous rounding against exact squares.
+  c = new Big('1e-' + Big.DP);
+  r = round(r, Big.DP + r.e + 1, Big.RM);
+  while ((s = r.times(r).cmp(x)) > 0) r = r.minus(c);
+  if (!s) return r;
+  t = r.plus(c);
+  while ((s = t.times(t).cmp(x)) <= 0) {
+    r = t;
+    if (!s) return r;
+    t = r.plus(c);
+  }
+
+  if (!Big.RM) return r;
+  if (Big.RM === 3) return t;
+  c = r.plus(c.times(half));
+  s = c.times(c).cmp(x);
+  return s > 0 ? r : s < 0 ? t : round(c, Big.DP + c.e + 1, Big.RM);
 };
 
 

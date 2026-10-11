@@ -30,6 +30,83 @@ test('sqrt', function () {
     t(Math.sqrt(j).toString(), j.toString());
   }
 
+  // Values on either side of a rounding boundary must not become exact ties.
+  Big.DP = 0;
+  Big.RM = 1;
+  t('1', '2.249999999999999999');
+  t('2', '2.25');
+  t('2', '2.250000000000000001');
+  Big.RM = 2;
+  t('1', '2.249999999999999999');
+  t('2', '2.25');
+  t('2', '6.249999999999999999');
+  t('2', '6.25');
+  t('3', '6.250000000000000001');
+  Big.DP = 1;
+  Big.RM = 1;
+  t('0.1', '0.02249999999999999999');
+  t('0.2', '0.0225');
+  t('0.2', '0.02250000000000000001');
+
+  // Directed rounding must preserve exact square roots beyond Number precision.
+  Big.DP = 0;
+  Big.RM = 3;
+  t('100000000000000007', '10000000000000001400000000000000049');
+  Big.RM = 0;
+  t('1.00000000000000000000000000000000000000000034e+44',
+    '1.0000000000000000000000000000000000000000006800000000000000000000000000000000000000001156e+88');
+
+  // Exact powers of ten must not require expanding their zero coefficients.
+  Big.DP = 20;
+  Big.RM = 1;
+  t('1e+500000', '1e1000000');
+
+  // Tiny results need no significant digits at the requested decimal places.
+  Big.DP = 2;
+  Big.RM = 0;
+  t('0', '2224423740881231361e-32');
+  Big.RM = 3;
+  t('0.01', '2224423740881231361e-32');
+  Big.DP = 20;
+  Big.RM = 1;
+  t('3e-15', '9e-30');
+
+  // Exercise both sides of the guard-digit fast-path boundaries.
+  var boundaries = [
+    ['1.018081', ['1', '1', '1', '2']],  // 1.009 squared
+    ['1.0201', ['1', '1', '1', '2']],    // 1.01 squared
+    ['2.1904', ['1', '1', '1', '2']],    // 1.48 squared
+    ['2.2201', ['1', '1', '1', '2']],    // 1.49 squared
+    ['2.2801', ['1', '2', '2', '2']],    // 1.51 squared
+    ['2.3104', ['1', '2', '2', '2']],    // 1.52 squared
+    ['3.956121', ['1', '2', '2', '2']],  // 1.989 squared
+    ['3.9601', ['1', '2', '2', '2']]     // 1.99 squared
+  ];
+  Big.DP = 0;
+  for (var k = 0; k < boundaries.length; k++) {
+    for (Big.RM = 0; Big.RM < 4; Big.RM++) {
+      t(boundaries[k][1][Big.RM], boundaries[k][0]);
+    }
+  }
+
+  // Zero and negative rounding indices include implicit leading zero digits.
+  var tiny = [
+    ['0.00002304', ['0', '0', '0', '0.01']],
+    ['0.000025', ['0', '0.01', '0', '0.01']],
+    ['0.00002704', ['0', '0.01', '0.01', '0.01']],
+    ['0.00000081', ['0', '0', '0', '0.01']],
+    ['0.0000000081', ['0', '0', '0', '0.01']],
+    ['1e-12', ['0', '0', '0', '0.01']],
+    ['4e-20', ['0', '0', '0', '0.01']],
+    ['0.00009999999999999999999999999999999999', ['0', '0.01', '0.01', '0.01']]
+  ];
+  Big.DP = 2;
+  for (k = 0; k < tiny.length; k++) {
+    for (Big.RM = 0; Big.RM < 4; Big.RM++) {
+      t(tiny[k][1][Big.RM], tiny[k][0]);
+    }
+  }
+
   // Initial rounding tests.
   Big.DP = 0;
 
